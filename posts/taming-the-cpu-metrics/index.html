@@ -8,27 +8,34 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="In a past blog post I talked about The misunderstood load average in linux hosts, while load average is a good metric to watch in linux systems to catch generic performance problems, it does not reveal what the issue might be. This time I will dig more into cpu metrics collected from a linux system and explain them, for this purpose I will use multipass vms, and will be showing metrics from grafana screenshots which take the data from prometheus and prometheus node exporter (this is actually out of the scope of this post).
+<meta name="description" content="In a past blog post I talked about The misunderstood load average in linux hosts, while load average is a good metric to watch in linux systems to catch generic performance problems, it does not reveal what the issue might be. This time I will dig more into cpu metrics collected from a linux system and explain them, for this purpose I will use multipass vms, and will be showing metrics from grafana screenshots which take the data from prometheus and prometheus node exporter (this is actually out of the scope of this post). To gather some metrics I will run a few vms in my home linux server and do some stress tests to catch some operations that will show in the cpu metrics and explain what each one of them is.
     ">
 
 
-<meta property="og:title" content="Taming the Cpu Metrics" />
-<meta property="og:description" content="In a past blog post I talked about The misunderstood load average in linux hosts, while load average is a good metric to watch in linux systems to catch generic performance problems, it does not reveal what the issue might be. This time I will dig more into cpu metrics collected from a linux system and explain them, for this purpose I will use multipass vms, and will be showing metrics from grafana screenshots which take the data from prometheus and prometheus node exporter (this is actually out of the scope of this post)." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://pancho.dev/posts/taming-the-cpu-metrics/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-07-11T15:08:51-03:00" />
-<meta property="article:modified_time" content="2020-07-11T15:08:51-03:00" />
+<meta property="og:url" content="http://pancho.dev/posts/taming-the-cpu-metrics/">
+  <meta property="og:site_name" content="pancho.dev">
+  <meta property="og:title" content="Taming the Cpu Metrics">
+  <meta property="og:description" content="In a past blog post I talked about The misunderstood load average in linux hosts, while load average is a good metric to watch in linux systems to catch generic performance problems, it does not reveal what the issue might be. This time I will dig more into cpu metrics collected from a linux system and explain them, for this purpose I will use multipass vms, and will be showing metrics from grafana screenshots which take the data from prometheus and prometheus node exporter (this is actually out of the scope of this post). To gather some metrics I will run a few vms in my home linux server and do some stress tests to catch some operations that will show in the cpu metrics and explain what each one of them is.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-07-11T15:08:51-03:00">
+    <meta property="article:modified_time" content="2020-07-11T15:08:51-03:00">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Performance">
 
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Taming the Cpu Metrics"/>
-<meta name="twitter:description" content="In a past blog post I talked about The misunderstood load average in linux hosts, while load average is a good metric to watch in linux systems to catch generic performance problems, it does not reveal what the issue might be. This time I will dig more into cpu metrics collected from a linux system and explain them, for this purpose I will use multipass vms, and will be showing metrics from grafana screenshots which take the data from prometheus and prometheus node exporter (this is actually out of the scope of this post)."/>
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Taming the Cpu Metrics">
+  <meta name="twitter:description" content="In a past blog post I talked about The misunderstood load average in linux hosts, while load average is a good metric to watch in linux systems to catch generic performance problems, it does not reveal what the issue might be. This time I will dig more into cpu metrics collected from a linux system and explain them, for this purpose I will use multipass vms, and will be showing metrics from grafana screenshots which take the data from prometheus and prometheus node exporter (this is actually out of the scope of this post). To gather some metrics I will run a few vms in my home linux server and do some stress tests to catch some operations that will show in the cpu metrics and explain what each one of them is.">
 
-<meta itemprop="name" content="Taming the Cpu Metrics">
-<meta itemprop="description" content="In a past blog post I talked about The misunderstood load average in linux hosts, while load average is a good metric to watch in linux systems to catch generic performance problems, it does not reveal what the issue might be. This time I will dig more into cpu metrics collected from a linux system and explain them, for this purpose I will use multipass vms, and will be showing metrics from grafana screenshots which take the data from prometheus and prometheus node exporter (this is actually out of the scope of this post)."><meta itemprop="datePublished" content="2020-07-11T15:08:51-03:00" />
-<meta itemprop="dateModified" content="2020-07-11T15:08:51-03:00" />
-<meta itemprop="wordCount" content="3204">
-<meta itemprop="keywords" content="linux,performance," />
+
+  <meta itemprop="name" content="Taming the Cpu Metrics">
+  <meta itemprop="description" content="In a past blog post I talked about The misunderstood load average in linux hosts, while load average is a good metric to watch in linux systems to catch generic performance problems, it does not reveal what the issue might be. This time I will dig more into cpu metrics collected from a linux system and explain them, for this purpose I will use multipass vms, and will be showing metrics from grafana screenshots which take the data from prometheus and prometheus node exporter (this is actually out of the scope of this post). To gather some metrics I will run a few vms in my home linux server and do some stress tests to catch some operations that will show in the cpu metrics and explain what each one of them is.">
+  <meta itemprop="datePublished" content="2020-07-11T15:08:51-03:00">
+  <meta itemprop="dateModified" content="2020-07-11T15:08:51-03:00">
+  <meta itemprop="wordCount" content="3170">
+  <meta itemprop="keywords" content="Linux,Performance">
 <link rel="canonical" href="http://pancho.dev/posts/taming-the-cpu-metrics/" />
 
 <link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
@@ -38,21 +45,13 @@
 
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-WBLGT7MX26', { 'anonymize_ip': false });
-}
-</script>
-
 
 
 <script src=/js/ramium.js></script>
 <link rel="stylesheet" href=/css/ramium.css>
+
+
+
 
 
 
@@ -347,7 +346,7 @@ if (!doNotTrack) {
 <p>Next I will do some tests to try to spike each one of the values and show some situations that we might find in cpu metrics which will help us understand more the usage in the server we are watching. I will also show some situations that I recorded in my home lab doing other tests.<br>
 Most tests were performed in the vms that we created at the start of the post and they were added to a prometheus/grafana setup using the node exporter we installed there, which is out of the scope of this blog post.</p>
 <h2 id="idle-server">Idle server</h2>
-<p>On of the easiest situations to catch is to know that our server is idle, or doing nothing. This is particularly useful when I want to find servers that have been over provisioned and are being underused. Catching servers with high <code>idle</code> metrics will help us either get smaller vms if we are running in the cloud, saving us some money or to know this server can be used for more applications and optimizing the usage of servers.</p>
+<p>One of the easiest situations to catch is to know that our server is idle, or doing nothing. This is particularly useful when we want to know if our server is actually being used or if we can shut it down to save costs.</p>
 <p><img src="../images/taming-the-cpu-metrics/idle1.png" alt=""></p>
 <p>We can see the cpu usage of one of the newly created vms named testvm1. In this graph we can see most of the area is painted in blue, showing that most of the percentage time of the cpu as spend in <code>idle</code> which means that this vm is doing nothing at the time of shown in the graph.</p>
 <h2 id="userspace-usage">Userspace usage</h2>
@@ -475,7 +474,7 @@ Remember to really understand the metrics before jumping into conclusions. Many 
 	    </a>
 
 		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fpancho.dev%2fposts%2ftaming-the-cpu-metrics%2f
-			&title=Taming%20the%20Cpu%20Metrics&summary=In%20a%20past%20blog%20post%20I%20talked%20about%20The%20misunderstood%20load%20average%20in%20linux%20hosts%2c%20while%20load%20average%20is%20a%20good%20metric%20to%20watch%20in%20linux%20systems%20to%20catch%20generic%20performance%20problems%2c%20it%20does%20not%20reveal%20what%20the%20issue%20might%20be.%20This%20time%20I%20will%20dig%20more%20into%20cpu%20metrics%20collected%20from%20a%20linux%20system%20and%20explain%20them%2c%20for%20this%20purpose%20I%20will%20use%20multipass%20vms%2c%20and%20will%20be%20showing%20metrics%20from%20grafana%20screenshots%20which%20take%20the%20data%20from%20prometheus%20and%20prometheus%20node%20exporter%20%28this%20is%20actually%20out%20of%20the%20scope%20of%20this%20post%29.&source=rafed123.github.io"
+			&title=Taming%20the%20Cpu%20Metrics&summary=%3cp%3eIn%20a%20past%20blog%20post%20I%20talked%20about%20%3ca%20href%3d%22%2fposts%2flinux-load-average%2f%22%3eThe%20misunderstood%20load%20average%20in%20linux%20hosts%3c%2fa%3e%2c%20while%20load%20average%20is%20a%20good%20metric%20to%20watch%20in%20linux%20systems%20to%20catch%20generic%20performance%20problems%2c%20it%20does%20not%20reveal%20what%20the%20issue%20might%20be.%20This%20time%20I%20will%20dig%20more%20into%20cpu%20metrics%20collected%20from%20a%20linux%20system%20and%20explain%20them%2c%20for%20this%20purpose%20I%20will%20use%20multipass%20vms%2c%20and%20will%20be%20showing%20metrics%20from%20%3ca%20href%3d%22https%3a%2f%2fgrafana.com%2f%22%3egrafana%3c%2fa%3e%20screenshots%20which%20take%20the%20data%20from%20%3ca%20href%3d%22https%3a%2f%2fprometheus.io%2f%22%3eprometheus%3c%2fa%3e%20and%20%3ca%20href%3d%22https%3a%2f%2fgithub.com%2fprometheus%2fnode_exporter%22%3eprometheus%20node%20exporter%3c%2fa%3e%20%28this%20is%20actually%20out%20of%20the%20scope%20of%20this%20post%29.%20To%20gather%20some%20metrics%20I%20will%20run%20a%20few%20vms%20in%20my%20home%20linux%20server%20and%20do%20some%20stress%20tests%20to%20catch%20some%20operations%20that%20will%20show%20in%20the%20cpu%20metrics%20and%20explain%20what%20each%20one%20of%20them%20is.%3c%2fp%3e&source=rafed123.github.io"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on LinkedIn. Opens in a new window." >
 	        <img src=/img/icons/45px/linkedin.png>
@@ -493,18 +492,20 @@ Remember to really understand the metrics before jumping into conclusions. Many 
 <div id="disqus_thread"></div>
 <script type="text/javascript">
     (function () {
-        
-        
         if (window.location.hostname == "localhost")
             return;
 
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         var disqus_shortname = '';
+        if (!disqus_shortname)
+            return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
 
 
         </div>

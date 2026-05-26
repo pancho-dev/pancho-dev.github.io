@@ -8,27 +8,34 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="A couple of posts ago I talked about multi-node kubernetes clusters and the benefits of them running them for developing automation, testing software and configurations. I still think is that most developers probably don&rsquo;t need this setup or can live with a simpler setup. My motivation is because I work on cloud infrastructure and automation of deployments, databases, and lots of complex scenarios that running single node k8s cluster doesn&rsquo;t fit my needs.
+<meta name="description" content="A couple of posts ago I talked about multi-node kubernetes clusters and the benefits of them running them for developing automation, testing software and configurations. I still think is that most developers probably don&rsquo;t need this setup or can live with a simpler setup. My motivation is because I work on cloud infrastructure and automation of deployments, databases, and lots of complex scenarios that running single node k8s cluster doesn&rsquo;t fit my needs. This time I will try another option to create multi-node clusters. I have used kind, ignite micro vms and k3s in blog posts. This time is the turn of some tools from Canonical which seems o work together pretty well. I will create a multi-node cluster running vms created with multipass and microk8s.
     ">
 
 
-<meta property="og:title" content="Multipass Microk8s Cluster on multiple nodes" />
-<meta property="og:description" content="A couple of posts ago I talked about multi-node kubernetes clusters and the benefits of them running them for developing automation, testing software and configurations. I still think is that most developers probably don&rsquo;t need this setup or can live with a simpler setup. My motivation is because I work on cloud infrastructure and automation of deployments, databases, and lots of complex scenarios that running single node k8s cluster doesn&rsquo;t fit my needs." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://pancho.dev/posts/multipass-microk8s-cluster/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-06-13T11:37:56-03:00" />
-<meta property="article:modified_time" content="2020-06-13T11:37:56-03:00" />
+<meta property="og:url" content="http://pancho.dev/posts/multipass-microk8s-cluster/">
+  <meta property="og:site_name" content="pancho.dev">
+  <meta property="og:title" content="Multipass Microk8s Cluster on multiple nodes">
+  <meta property="og:description" content="A couple of posts ago I talked about multi-node kubernetes clusters and the benefits of them running them for developing automation, testing software and configurations. I still think is that most developers probably don’t need this setup or can live with a simpler setup. My motivation is because I work on cloud infrastructure and automation of deployments, databases, and lots of complex scenarios that running single node k8s cluster doesn’t fit my needs. This time I will try another option to create multi-node clusters. I have used kind, ignite micro vms and k3s in blog posts. This time is the turn of some tools from Canonical which seems o work together pretty well. I will create a multi-node cluster running vms created with multipass and microk8s.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-06-13T11:37:56-03:00">
+    <meta property="article:modified_time" content="2020-06-13T11:37:56-03:00">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Kubernetes">
 
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Multipass Microk8s Cluster on multiple nodes"/>
-<meta name="twitter:description" content="A couple of posts ago I talked about multi-node kubernetes clusters and the benefits of them running them for developing automation, testing software and configurations. I still think is that most developers probably don&rsquo;t need this setup or can live with a simpler setup. My motivation is because I work on cloud infrastructure and automation of deployments, databases, and lots of complex scenarios that running single node k8s cluster doesn&rsquo;t fit my needs."/>
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Multipass Microk8s Cluster on multiple nodes">
+  <meta name="twitter:description" content="A couple of posts ago I talked about multi-node kubernetes clusters and the benefits of them running them for developing automation, testing software and configurations. I still think is that most developers probably don’t need this setup or can live with a simpler setup. My motivation is because I work on cloud infrastructure and automation of deployments, databases, and lots of complex scenarios that running single node k8s cluster doesn’t fit my needs. This time I will try another option to create multi-node clusters. I have used kind, ignite micro vms and k3s in blog posts. This time is the turn of some tools from Canonical which seems o work together pretty well. I will create a multi-node cluster running vms created with multipass and microk8s.">
 
-<meta itemprop="name" content="Multipass Microk8s Cluster on multiple nodes">
-<meta itemprop="description" content="A couple of posts ago I talked about multi-node kubernetes clusters and the benefits of them running them for developing automation, testing software and configurations. I still think is that most developers probably don&rsquo;t need this setup or can live with a simpler setup. My motivation is because I work on cloud infrastructure and automation of deployments, databases, and lots of complex scenarios that running single node k8s cluster doesn&rsquo;t fit my needs."><meta itemprop="datePublished" content="2020-06-13T11:37:56-03:00" />
-<meta itemprop="dateModified" content="2020-06-13T11:37:56-03:00" />
-<meta itemprop="wordCount" content="2094">
-<meta itemprop="keywords" content="linux,kubernetes," />
+
+  <meta itemprop="name" content="Multipass Microk8s Cluster on multiple nodes">
+  <meta itemprop="description" content="A couple of posts ago I talked about multi-node kubernetes clusters and the benefits of them running them for developing automation, testing software and configurations. I still think is that most developers probably don’t need this setup or can live with a simpler setup. My motivation is because I work on cloud infrastructure and automation of deployments, databases, and lots of complex scenarios that running single node k8s cluster doesn’t fit my needs. This time I will try another option to create multi-node clusters. I have used kind, ignite micro vms and k3s in blog posts. This time is the turn of some tools from Canonical which seems o work together pretty well. I will create a multi-node cluster running vms created with multipass and microk8s.">
+  <meta itemprop="datePublished" content="2020-06-13T11:37:56-03:00">
+  <meta itemprop="dateModified" content="2020-06-13T11:37:56-03:00">
+  <meta itemprop="wordCount" content="2094">
+  <meta itemprop="keywords" content="Linux,Kubernetes">
 <link rel="canonical" href="http://pancho.dev/posts/multipass-microk8s-cluster/" />
 
 <link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
@@ -38,21 +45,13 @@
 
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-WBLGT7MX26', { 'anonymize_ip': false });
-}
-</script>
-
 
 
 <script src=/js/ramium.js></script>
 <link rel="stylesheet" href=/css/ramium.css>
+
+
+
 
 
 
@@ -483,7 +482,7 @@ In general terms it&rsquo;s one of the setup that fit most of my needs while kee
 	    </a>
 
 		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fpancho.dev%2fposts%2fmultipass-microk8s-cluster%2f
-			&title=Multipass%20Microk8s%20Cluster%20on%20multiple%20nodes&summary=A%20couple%20of%20posts%20ago%20I%20talked%20about%20multi-node%20kubernetes%20clusters%20and%20the%20benefits%20of%20them%20running%20them%20for%20developing%20automation%2c%20testing%20software%20and%20configurations.%20I%20still%20think%20is%20that%20most%20developers%20probably%20don%26rsquo%3bt%20need%20this%20setup%20or%20can%20live%20with%20a%20simpler%20setup.%20My%20motivation%20is%20because%20I%20work%20on%20cloud%20infrastructure%20and%20automation%20of%20deployments%2c%20databases%2c%20and%20lots%20of%20complex%20scenarios%20that%20running%20single%20node%20k8s%20cluster%20doesn%26rsquo%3bt%20fit%20my%20needs.&source=rafed123.github.io"
+			&title=Multipass%20Microk8s%20Cluster%20on%20multiple%20nodes&summary=%3cp%3eA%20couple%20of%20posts%20ago%20I%20talked%20about%20multi-node%20kubernetes%20clusters%20and%20the%20benefits%20of%20them%20running%20them%20for%20developing%20automation%2c%20testing%20software%20and%20configurations.%20I%20still%20think%20is%20that%20most%20developers%20probably%20don%26rsquo%3bt%20need%20this%20setup%20or%20can%20live%20with%20a%20simpler%20setup.%20My%20motivation%20is%20because%20I%20work%20on%20cloud%20infrastructure%20and%20automation%20of%20deployments%2c%20databases%2c%20and%20lots%20of%20complex%20scenarios%20that%20running%20single%20node%20k8s%20cluster%20doesn%26rsquo%3bt%20fit%20my%20needs.%20This%20time%20I%20will%20try%20another%20option%20to%20create%20multi-node%20clusters.%20I%20have%20used%20%3ca%20href%3d%22https%3a%2f%2fkind.sigs.k8s.io%2fdocs%2fuser%2fquick-start%2f%22%3ekind%3c%2fa%3e%2c%20%3ca%20href%3d%22https%3a%2f%2fgithub.com%2fweaveworks%2fignite%22%3eignite%3c%2fa%3e%20micro%20vms%20and%20%3ca%20href%3d%22https%3a%2f%2francher.com%2fdocs%2fk3s%2flatest%2fen%2fquick-start%2f%22%3ek3s%3c%2fa%3e%20in%20blog%20posts.%20This%20time%20is%20the%20turn%20of%20some%20tools%20from%20Canonical%20which%20seems%20o%20work%20together%20pretty%20well.%20I%20will%20create%20a%20multi-node%20cluster%20running%20vms%20created%20with%20%3ca%20href%3d%22https%3a%2f%2fmultipass.run%2f%22%3emultipass%3c%2fa%3e%20and%20%3ca%20href%3d%22https%3a%2f%2fmicrok8s.io%2f%22%3emicrok8s%3c%2fa%3e.%3c%2fp%3e&source=rafed123.github.io"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on LinkedIn. Opens in a new window." >
 	        <img src=/img/icons/45px/linkedin.png>
@@ -501,18 +500,20 @@ In general terms it&rsquo;s one of the setup that fit most of my needs while kee
 <div id="disqus_thread"></div>
 <script type="text/javascript">
     (function () {
-        
-        
         if (window.location.hostname == "localhost")
             return;
 
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         var disqus_shortname = '';
+        if (!disqus_shortname)
+            return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
 
 
         </div>

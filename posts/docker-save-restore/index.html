@@ -9,30 +9,42 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Whenever someone is working with docker and need to move images between hosts without the need for rebuilding them or hosting a private registry. This lightning post will show us 2 commands that will help us to easy move container images between hosts.
-How to save a docker image for reuse in other host? There is a handy command that helps save a docker image that is already in the system or already built, there are situations where builds take a long time and building the images in multiple hosts is time consuming, so we can save the image and copy it to other host and import it for reuse.
+How to save a docker image for reuse in other host?
+There is a handy command that helps save a docker image that is already in the system or already built, there are situations where builds take a long time and building the images in multiple hosts is time consuming, so we can save the image and copy it to other host and import it for reuse.
+To save a docker image:
     ">
 
 
-<meta property="og:title" content="Lightning Post: Don&#39;t have a Docker registry? save and load to the rescue" />
-<meta property="og:description" content="Whenever someone is working with docker and need to move images between hosts without the need for rebuilding them or hosting a private registry. This lightning post will show us 2 commands that will help us to easy move container images between hosts.
-How to save a docker image for reuse in other host? There is a handy command that helps save a docker image that is already in the system or already built, there are situations where builds take a long time and building the images in multiple hosts is time consuming, so we can save the image and copy it to other host and import it for reuse." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://pancho.dev/posts/docker-save-restore/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-08-06T20:30:48-03:00" />
-<meta property="article:modified_time" content="2020-08-06T20:30:48-03:00" />
+<meta property="og:url" content="http://pancho.dev/posts/docker-save-restore/">
+  <meta property="og:site_name" content="pancho.dev">
+  <meta property="og:title" content="Lightning Post: Don&#39;t have a Docker registry? save and load to the rescue">
+  <meta property="og:description" content="Whenever someone is working with docker and need to move images between hosts without the need for rebuilding them or hosting a private registry. This lightning post will show us 2 commands that will help us to easy move container images between hosts.
+How to save a docker image for reuse in other host? There is a handy command that helps save a docker image that is already in the system or already built, there are situations where builds take a long time and building the images in multiple hosts is time consuming, so we can save the image and copy it to other host and import it for reuse.
+To save a docker image:">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-08-06T20:30:48-03:00">
+    <meta property="article:modified_time" content="2020-08-06T20:30:48-03:00">
+    <meta property="article:tag" content="Docker">
+    <meta property="article:tag" content="Containers">
 
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Lightning Post: Don&#39;t have a Docker registry? save and load to the rescue"/>
-<meta name="twitter:description" content="Whenever someone is working with docker and need to move images between hosts without the need for rebuilding them or hosting a private registry. This lightning post will show us 2 commands that will help us to easy move container images between hosts.
-How to save a docker image for reuse in other host? There is a handy command that helps save a docker image that is already in the system or already built, there are situations where builds take a long time and building the images in multiple hosts is time consuming, so we can save the image and copy it to other host and import it for reuse."/>
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Lightning Post: Don&#39;t have a Docker registry? save and load to the rescue">
+  <meta name="twitter:description" content="Whenever someone is working with docker and need to move images between hosts without the need for rebuilding them or hosting a private registry. This lightning post will show us 2 commands that will help us to easy move container images between hosts.
+How to save a docker image for reuse in other host? There is a handy command that helps save a docker image that is already in the system or already built, there are situations where builds take a long time and building the images in multiple hosts is time consuming, so we can save the image and copy it to other host and import it for reuse.
+To save a docker image:">
 
-<meta itemprop="name" content="Lightning Post: Don&#39;t have a Docker registry? save and load to the rescue">
-<meta itemprop="description" content="Whenever someone is working with docker and need to move images between hosts without the need for rebuilding them or hosting a private registry. This lightning post will show us 2 commands that will help us to easy move container images between hosts.
-How to save a docker image for reuse in other host? There is a handy command that helps save a docker image that is already in the system or already built, there are situations where builds take a long time and building the images in multiple hosts is time consuming, so we can save the image and copy it to other host and import it for reuse."><meta itemprop="datePublished" content="2020-08-06T20:30:48-03:00" />
-<meta itemprop="dateModified" content="2020-08-06T20:30:48-03:00" />
-<meta itemprop="wordCount" content="693">
-<meta itemprop="keywords" content="docker,containers," />
+
+  <meta itemprop="name" content="Lightning Post: Don&#39;t have a Docker registry? save and load to the rescue">
+  <meta itemprop="description" content="Whenever someone is working with docker and need to move images between hosts without the need for rebuilding them or hosting a private registry. This lightning post will show us 2 commands that will help us to easy move container images between hosts.
+How to save a docker image for reuse in other host? There is a handy command that helps save a docker image that is already in the system or already built, there are situations where builds take a long time and building the images in multiple hosts is time consuming, so we can save the image and copy it to other host and import it for reuse.
+To save a docker image:">
+  <meta itemprop="datePublished" content="2020-08-06T20:30:48-03:00">
+  <meta itemprop="dateModified" content="2020-08-06T20:30:48-03:00">
+  <meta itemprop="wordCount" content="691">
+  <meta itemprop="keywords" content="Docker,Containers">
 <link rel="canonical" href="http://pancho.dev/posts/docker-save-restore/" />
 
 <link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
@@ -42,21 +54,13 @@ How to save a docker image for reuse in other host? There is a handy command tha
 
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-WBLGT7MX26', { 'anonymize_ip': false });
-}
-</script>
-
 
 
 <script src=/js/ramium.js></script>
 <link rel="stylesheet" href=/css/ramium.css>
+
+
+
 
 
 
@@ -174,7 +178,7 @@ To save a docker image:</p>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e"># Restore a copy of a container as an image</span>
 </span></span><span style="display:flex;"><span>$ sudo gzcat testcontainer.tar.gz | sudo docker import - testimage:new
-</span></span></code></pre></div><p>This last example restores the backup of a container as an image not the container itself. So in this case the import will create a new image named <code>testimage:new</code> that will that will have all changes that testcontainer had, however the new container needs to be started with the new image in order for full restore.</p>
+</span></span></code></pre></div><p>This last example restores the backup of a container as an image not the container itself. So in this case the import will create a new image named <code>testimage:new</code> that will have all changes that testcontainer had, however the new container needs to be started with the new image in order to run it.</p>
 <h1 id="conclusion">Conclusion</h1>
 <p>I found this docker commands very handy when developing container and copying images from server to server without the need of a registry. It is something I use a lot at home for images I build and keep them locally, but I recommend using a private or public registry to keep your images, it simplifies the managing of container images, but we can&rsquo;t always have the infrastructure we need so this commands come very handy.<br>
 I really care about being able to save and copy images as they are software artifacts and they need to be properly managed to be reused, I added a bonus track to show how to backup or copy and move a container just to differentiate the 2 operations, however if there is a need to use export it could be an indication that we are not following some recommended practices. This is not a hard &ldquo;no&rdquo; to use export, but in my case I always like to keep images and containers as immutable as possible and leave configurations outside of the container, this helps with reusability and reproducibility of a container, and if there is a need to modify some config inside the container either find a way to configure it with ENV vars or volume mount the config files so the container is easy to reproduce even if we destroy the container completely, this applies to stateful things like databases, always volume mount the data and take backups of that data. Reproducibility and reusability is something I take very serious as the same setup can be reproduced much faster and restore times get lowered, or it can be reused in multiple projects.</p>
@@ -216,7 +220,7 @@ I really care about being able to save and copy images as they are software arti
 	    </a>
 
 		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fpancho.dev%2fposts%2fdocker-save-restore%2f
-			&title=Lightning%20Post%3a%20Don%27t%20have%20a%20Docker%20registry%3f%20save%20and%20load%20to%20the%20rescue&summary=Whenever%20someone%20is%20working%20with%20docker%20and%20need%20to%20move%20images%20between%20hosts%20without%20the%20need%20for%20rebuilding%20them%20or%20hosting%20a%20private%20registry.%20This%20lightning%20post%20will%20show%20us%202%20commands%20that%20will%20help%20us%20to%20easy%20move%20container%20images%20between%20hosts.%0aHow%20to%20save%20a%20docker%20image%20for%20reuse%20in%20other%20host%3f%20There%20is%20a%20handy%20command%20that%20helps%20save%20a%20docker%20image%20that%20is%20already%20in%20the%20system%20or%20already%20built%2c%20there%20are%20situations%20where%20builds%20take%20a%20long%20time%20and%20building%20the%20images%20in%20multiple%20hosts%20is%20time%20consuming%2c%20so%20we%20can%20save%20the%20image%20and%20copy%20it%20to%20other%20host%20and%20import%20it%20for%20reuse.&source=rafed123.github.io"
+			&title=Lightning%20Post%3a%20Don%27t%20have%20a%20Docker%20registry%3f%20save%20and%20load%20to%20the%20rescue&summary=%3cp%3eWhenever%20someone%20is%20working%20with%20docker%20and%20need%20to%20move%20images%20between%20hosts%20without%20the%20need%20for%20rebuilding%20them%20or%20hosting%20a%20private%20registry.%20This%20%3ca%20href%3d%22%2fposts%2flightning-post%2f%22%3elightning%20post%3c%2fa%3e%20will%20show%20us%202%20commands%20that%20will%20help%20us%20to%20easy%20move%20container%20images%20between%20hosts.%3c%2fp%3e%0a%3ch1%20id%3d%22how-to-save-a-docker-image-for-reuse-in-other-host%22%3eHow%20to%20save%20a%20docker%20image%20for%20reuse%20in%20other%20host%3f%3c%2fh1%3e%0a%3cp%3eThere%20is%20a%20handy%20command%20that%20helps%20save%20a%20docker%20image%20that%20is%20already%20in%20the%20system%20or%20already%20built%2c%20there%20are%20situations%20where%20builds%20take%20a%20long%20time%20and%20building%20the%20images%20in%20multiple%20hosts%20is%20time%20consuming%2c%20so%20we%20can%20save%20the%20image%20and%20copy%20it%20to%20other%20host%20and%20import%20it%20for%20reuse.%3cbr%3e%0aTo%20save%20a%20docker%20image%3a%3c%2fp%3e&source=rafed123.github.io"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on LinkedIn. Opens in a new window." >
 	        <img src=/img/icons/45px/linkedin.png>
@@ -234,18 +238,20 @@ I really care about being able to save and copy images as they are software arti
 <div id="disqus_thread"></div>
 <script type="text/javascript">
     (function () {
-        
-        
         if (window.location.hostname == "localhost")
             return;
 
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         var disqus_shortname = '';
+        if (!disqus_shortname)
+            return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
 
 
         </div>

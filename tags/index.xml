@@ -4,143 +4,156 @@
     <title>Tags on pancho.dev</title>
     <link>http://pancho.dev/tags/</link>
     <description>Recent content in Tags on pancho.dev</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 04 Sep 2021 19:52:08 -0300</lastBuildDate><atom:link href="http://pancho.dev/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 25 May 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://pancho.dev/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>docker</title>
+      <title>Alexa</title>
+      <link>http://pancho.dev/tags/alexa/</link>
+      <pubDate>Mon, 25 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://pancho.dev/tags/alexa/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Engineering</title>
+      <link>http://pancho.dev/tags/engineering/</link>
+      <pubDate>Mon, 25 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://pancho.dev/tags/engineering/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Home-Assistant</title>
+      <link>http://pancho.dev/tags/home-assistant/</link>
+      <pubDate>Mon, 25 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://pancho.dev/tags/home-assistant/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Home-Automation</title>
+      <link>http://pancho.dev/tags/home-automation/</link>
+      <pubDate>Mon, 25 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://pancho.dev/tags/home-automation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Mermaid</title>
+      <link>http://pancho.dev/tags/mermaid/</link>
+      <pubDate>Mon, 25 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://pancho.dev/tags/mermaid/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Zigbee</title>
+      <link>http://pancho.dev/tags/zigbee/</link>
+      <pubDate>Mon, 25 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://pancho.dev/tags/zigbee/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Docker</title>
       <link>http://pancho.dev/tags/docker/</link>
       <pubDate>Sat, 04 Sep 2021 19:52:08 -0300</pubDate>
-      
       <guid>http://pancho.dev/tags/docker/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>linux</title>
+      <title>Linux</title>
       <link>http://pancho.dev/tags/linux/</link>
       <pubDate>Sat, 04 Sep 2021 19:52:08 -0300</pubDate>
-      
       <guid>http://pancho.dev/tags/linux/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>network</title>
+      <title>Network</title>
       <link>http://pancho.dev/tags/network/</link>
       <pubDate>Sat, 04 Sep 2021 19:52:08 -0300</pubDate>
-      
       <guid>http://pancho.dev/tags/network/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>AWS</title>
       <link>http://pancho.dev/tags/aws/</link>
       <pubDate>Sat, 24 Oct 2020 11:30:35 -0300</pubDate>
-      
       <guid>http://pancho.dev/tags/aws/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Cloud</title>
       <link>http://pancho.dev/tags/cloud/</link>
       <pubDate>Sat, 24 Oct 2020 11:30:35 -0300</pubDate>
-      
       <guid>http://pancho.dev/tags/cloud/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Golang</title>
       <link>http://pancho.dev/tags/golang/</link>
       <pubDate>Sat, 24 Oct 2020 11:30:35 -0300</pubDate>
-      
       <guid>http://pancho.dev/tags/golang/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Python</title>
       <link>http://pancho.dev/tags/python/</link>
       <pubDate>Sat, 24 Oct 2020 11:30:35 -0300</pubDate>
-      
       <guid>http://pancho.dev/tags/python/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>S3</title>
       <link>http://pancho.dev/tags/s3/</link>
       <pubDate>Sat, 24 Oct 2020 11:30:35 -0300</pubDate>
-      
       <guid>http://pancho.dev/tags/s3/</guid>
       <description></description>
     </item>
-    
     <item>
       <title>Storage</title>
       <link>http://pancho.dev/tags/storage/</link>
       <pubDate>Sat, 24 Oct 2020 11:30:35 -0300</pubDate>
-      
       <guid>http://pancho.dev/tags/storage/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>containers</title>
+      <title>Containers</title>
       <link>http://pancho.dev/tags/containers/</link>
       <pubDate>Thu, 06 Aug 2020 20:30:48 -0300</pubDate>
-      
       <guid>http://pancho.dev/tags/containers/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>development</title>
+      <title>Development</title>
       <link>http://pancho.dev/tags/development/</link>
       <pubDate>Mon, 03 Aug 2020 14:05:25 -0300</pubDate>
-      
       <guid>http://pancho.dev/tags/development/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>proxy</title>
+      <title>Proxy</title>
       <link>http://pancho.dev/tags/proxy/</link>
       <pubDate>Mon, 03 Aug 2020 14:05:25 -0300</pubDate>
-      
       <guid>http://pancho.dev/tags/proxy/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>performance</title>
+      <title>Performance</title>
       <link>http://pancho.dev/tags/performance/</link>
       <pubDate>Thu, 16 Jul 2020 15:51:59 -0300</pubDate>
-      
       <guid>http://pancho.dev/tags/performance/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>virtualization</title>
+      <title>Virtualization</title>
       <link>http://pancho.dev/tags/virtualization/</link>
       <pubDate>Thu, 16 Jul 2020 15:51:59 -0300</pubDate>
-      
       <guid>http://pancho.dev/tags/virtualization/</guid>
       <description></description>
     </item>
-    
     <item>
-      <title>kubernetes</title>
+      <title>Kubernetes</title>
       <link>http://pancho.dev/tags/kubernetes/</link>
       <pubDate>Sat, 13 Jun 2020 11:37:56 -0300</pubDate>
-      
       <guid>http://pancho.dev/tags/kubernetes/</guid>
       <description></description>
     </item>
-    
   </channel>
 </rss>

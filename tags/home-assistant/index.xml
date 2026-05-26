@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Home-Assistant on pancho.dev</title>
+    <link>http://pancho.dev/tags/home-assistant/</link>
+    <description>Recent content in Home-Assistant on pancho.dev</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Mon, 25 May 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="http://pancho.dev/tags/home-assistant/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Teaching Alexa to Speak Infrared: The Engineering Behind a Dumb Range Hood</title>
+      <link>http://pancho.dev/posts/infrared-hood/</link>
+      <pubDate>Mon, 25 May 2026 00:00:00 +0000</pubDate>
+      <guid>http://pancho.dev/posts/infrared-hood/</guid>
+      <description>&lt;p&gt;It all started with a simple, everyday annoyance in the kitchen.&lt;/p&gt;&#xA;&lt;p&gt;My wife would be in the middle of cooking, hands covered in flour, oil, or whatever was being prepped for dinner, and the kitchen would start filling with smoke. Our range hood works perfectly fine, but it is completely &amp;ldquo;dumb&amp;rdquo;—controlled exclusively by a small, analog infrared remote. Having to stop, wash her hands, find the little plastic remote, and press the right buttons just to clear the air was a daily friction point.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

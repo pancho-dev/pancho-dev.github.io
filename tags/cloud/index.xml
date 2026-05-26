@@ -4,26 +4,23 @@
     <title>Cloud on pancho.dev</title>
     <link>http://pancho.dev/tags/cloud/</link>
     <description>Recent content in Cloud on pancho.dev</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 24 Oct 2020 11:30:35 -0300</lastBuildDate><atom:link href="http://pancho.dev/tags/cloud/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 24 Oct 2020 11:30:35 -0300</lastBuildDate>
+    <atom:link href="http://pancho.dev/tags/cloud/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Watch out with cloud storage API calls!!!</title>
       <link>http://pancho.dev/posts/watch_out_cloud_storage/</link>
       <pubDate>Sat, 24 Oct 2020 11:30:35 -0300</pubDate>
-      
       <guid>http://pancho.dev/posts/watch_out_cloud_storage/</guid>
-      <description>One of the most popular services from cloud providers is cloud storage, to be more specific AWS S3, Google Cloud Storage, Azure Storage or any similar service from other cloud providers. This service is very convenient for developers and SREs or System Admins, it solves the problem of managing disks, storage devices , storage servers, etc at a very low cost for storing files, depending on the cloud provider, some of them even offer a staggering 99.</description>
+      <description>&lt;p&gt;One of the most popular services from cloud providers is cloud storage, to be more specific AWS S3, Google Cloud Storage, Azure Storage or any similar service from other cloud providers. This service is very convenient for developers and SREs or System Admins, it solves the problem of managing disks, storage devices , storage servers, etc at a very low cost for storing files, depending on the cloud provider, some of them even offer a staggering 99.999999999% durability. Given the benefits and low cost of such services, I have seen more and more reliance on the cloud storage services.&lt;br&gt;&#xA;But there is a catch on the cheap pricing, in order to make a good decision when architecting an application we need to look a all pricing items for the cloud storage service to optimize around costs.  Cloud storage services usually charge for the storage used for files stored, api calls to put, retrieve and list files and network traffic. So we need to have in mind these parameters to avoid surprises on our cloud storage bills. I will not go into too much details on each cloud provider on this post but I will show something I found out recently that made an application lower the costs about 10 times just by optimizing the way the data was being accessed. These optimizations might be a key to make a feature or an app profitable.&lt;br&gt;&#xA;In particular I will talk about AWS S3 api calls and the behavior of some of the official AWS SDKs that needed some tweaking. Of course all findings shown in this post were done with documentation found at the time of this writing. So I suggest double check the SDKs behavior as it might change in the future.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Who Stole My Cpu?</title>
       <link>http://pancho.dev/posts/who-stole-my-cpu/</link>
       <pubDate>Thu, 16 Jul 2020 15:51:59 -0300</pubDate>
-      
       <guid>http://pancho.dev/posts/who-stole-my-cpu/</guid>
-      <description>In a previous post I talked about Taming the cpu metrics, while that post was an overview of cpu metrics I thought it was a good topic to emphasize on the cpu steal metric in linux hosts. This is something I recently found and didn&amp;rsquo;t know it even existed, but it can be very useful when running in virtualized environments and helping us tune either the vm, or the physical host that runs the vms.</description>
+      <description>&lt;p&gt;In a previous post I talked about &lt;a href=&#34;http://pancho.dev/posts/taming-the-cpu-metrics/&#34;&gt;Taming the cpu metrics&lt;/a&gt;, while that post was an overview of cpu metrics I thought it was a good topic to emphasize on the cpu &lt;code&gt;steal&lt;/code&gt; metric in linux hosts. This is something I recently found and didn&amp;rsquo;t know it even existed, but it can be very useful when running in virtualized environments and helping us tune either the vm, or the physical host that runs the vms. It is something engineers probably overlook and probably don&amp;rsquo;t even know, if I have known this a couple of months ago would have saved me some troubleshooting time.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

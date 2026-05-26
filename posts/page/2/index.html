@@ -12,18 +12,23 @@
 
 
 
-<meta property="og:title" content="Posts" />
-<meta property="og:description" content="A description for the meta tag of the site" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://pancho.dev/posts/" />
+<meta property="og:url" content="http://pancho.dev/posts/">
+  <meta property="og:site_name" content="pancho.dev">
+  <meta property="og:title" content="Posts">
+  <meta property="og:description" content="A description for the meta tag of the site">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="website">
 
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Posts"/>
-<meta name="twitter:description" content="A description for the meta tag of the site"/>
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Posts">
+  <meta name="twitter:description" content="A description for the meta tag of the site">
 
-<meta itemprop="name" content="Posts">
-<meta itemprop="description" content="A description for the meta tag of the site">
+
+  <meta itemprop="name" content="Posts">
+  <meta itemprop="description" content="A description for the meta tag of the site">
+  <meta itemprop="datePublished" content="2026-05-25T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2026-05-25T00:00:00+00:00">
 <link rel="canonical" href="http://pancho.dev/posts/" />
 
 <link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
@@ -33,21 +38,13 @@
 
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-WBLGT7MX26', { 'anonymize_ip': false });
-}
-</script>
-
 
 
 <script src=/js/ramium.js></script>
 <link rel="stylesheet" href=/css/ramium.css>
+
+
+
 
 
 
@@ -106,6 +103,68 @@ if (!doNotTrack) {
 
 
 <div class="blog-brief">
+    <a href="/posts/docker-save-restore/">
+        <h3 class="title is-4">
+            Lightning Post: Don&#39;t Have a Docker Registry? Save and Load to the Rescue
+        </h3>
+    </a>
+
+    <div class="level is-mobile details">
+        <div class="level-left">
+
+            
+            <div class="level-item">
+                <a href="/posts/docker-save-restore/">
+                    <p class="subtitle info date">Aug 6, 2020
+                    </p>
+                </a>
+            </div>
+            
+
+
+            <div class="level-item">
+                <a href="/posts/docker-save-restore/">
+                    <p class="subtitle info">
+                        4 mins read
+                    </p>
+                </a>
+            </div>
+        </div>
+        <div class="level-right is-hidden-touch">
+            
+            <a class="tag is-rounded" href="/tags/docker">Docker</a>
+            
+            <a class="tag is-rounded" href="/tags/containers">Containers</a>
+            
+        </div>
+    </div>
+
+    <div>
+        
+
+        <div>
+            <a href="/posts/docker-save-restore/">
+                <p class="summary">
+                    Whenever someone is working with docker and need to move images between hosts without the need for rebuilding them or hosting a private registry. This lightning post will show us 2 commands that will help us to easy move container images between hosts.
+How to save a docker image for reuse in other host? There is a handy command that helps save a docker image that is already in the system or already built, there are situations where builds take a long time and building the images in multiple hosts is time consuming, so we can save the image and copy it to other host and import it for reuse.
+To save a docker image:
+
+                    
+                </p>
+            </a>
+        </div>
+    </div>
+
+    <div class="level is-mobile continue-reading">
+        <div class="level-left">
+        </div>
+        <div class="level-right">
+            <a href="/posts/docker-save-restore/">Continue reading <i class="fa fa-angle-double-right"
+                    aria-hidden="true"></i></a>
+        </div>
+    </div>
+    <hr>
+</div><div class="blog-brief">
     <a href="/posts/testing-a-proxy/">
         <h3 class="title is-4">
             Testing a Reverse Http Proxy
@@ -149,6 +208,7 @@ if (!doNotTrack) {
             <a href="/posts/testing-a-proxy/">
                 <p class="summary">
                     Did you ever had trouble with a proxy config? Found that is not simple to test a proxy locally?. Why this? simple, I found many times deploying a proxy configuration to production, even a small change like adding a new path, a redirection or just updating ssl certs, can lead to a disruption or an outage because sometimes it’s hard to properly test it before pushing the configuration. So I found a couple of tricks that can help test locally in our laptops or machine before even pushing the code or config giving a safer path to deploy a proxy config.
+
                     
                 </p>
             </a>
@@ -203,7 +263,8 @@ if (!doNotTrack) {
         <div>
             <a href="/posts/lightning-post/">
                 <p class="summary">
-                    After about 2 months of launching this blog I realized that creating blog content is a time consuming task. While the whole purpose of my blog is to share some of my experiences and it’s my own way to contribute to the open source community (most of what I talk about here is open source tech), I figured that I wanted to keep adding content every week, but some weeks it’s much harder than other weeks to create a full blown blog post, I write this in my free time so between work and personal life it’s hard to keep full blown projects every week.
+                    After about 2 months of launching this blog I realized that creating blog content is a time consuming task. While the whole purpose of my blog is to share some of my experiences and it’s my own way to contribute to the open source community (most of what I talk about here is open source tech), I figured that I wanted to keep adding content every week, but some weeks it’s much harder than other weeks to create a full blown blog post, I write this in my free time so between work and personal life it’s hard to keep full blown projects every week. I really enjoy writing these posts and I want to keep contributing my experience even with smaller contributions, as a full blown blog post that might be about 20 min read takes me in average 6 to 8 hours to produce them and test the entire project, then I want to keep contributing but sometimes with less time consuming posts. That is what I will be publishing “lightning posts” alongside my regular full blown projects.
+
                     
                 </p>
             </a>
@@ -266,7 +327,8 @@ if (!doNotTrack) {
         <div>
             <a href="/posts/who-stole-my-cpu/">
                 <p class="summary">
-                    In a previous post I talked about Taming the cpu metrics, while that post was an overview of cpu metrics I thought it was a good topic to emphasize on the cpu steal metric in linux hosts. This is something I recently found and didn’t know it even existed, but it can be very useful when running in virtualized environments and helping us tune either the vm, or the physical host that runs the vms.
+                    In a previous post I talked about Taming the cpu metrics, while that post was an overview of cpu metrics I thought it was a good topic to emphasize on the cpu steal metric in linux hosts. This is something I recently found and didn’t know it even existed, but it can be very useful when running in virtualized environments and helping us tune either the vm, or the physical host that runs the vms. It is something engineers probably overlook and probably don’t even know, if I have known this a couple of months ago would have saved me some troubleshooting time.
+
                     
                 </p>
             </a>
@@ -325,7 +387,8 @@ if (!doNotTrack) {
         <div>
             <a href="/posts/taming-the-cpu-metrics/">
                 <p class="summary">
-                    In a past blog post I talked about The misunderstood load average in linux hosts, while load average is a good metric to watch in linux systems to catch generic performance problems, it does not reveal what the issue might be. This time I will dig more into cpu metrics collected from a linux system and explain them, for this purpose I will use multipass vms, and will be showing metrics from grafana screenshots which take the data from prometheus and prometheus node exporter (this is actually out of the scope of this post).
+                    In a past blog post I talked about The misunderstood load average in linux hosts, while load average is a good metric to watch in linux systems to catch generic performance problems, it does not reveal what the issue might be. This time I will dig more into cpu metrics collected from a linux system and explain them, for this purpose I will use multipass vms, and will be showing metrics from grafana screenshots which take the data from prometheus and prometheus node exporter (this is actually out of the scope of this post). To gather some metrics I will run a few vms in my home linux server and do some stress tests to catch some operations that will show in the cpu metrics and explain what each one of them is.
+
                     
                 </p>
             </a>
@@ -337,66 +400,6 @@ if (!doNotTrack) {
         </div>
         <div class="level-right">
             <a href="/posts/taming-the-cpu-metrics/">Continue reading <i class="fa fa-angle-double-right"
-                    aria-hidden="true"></i></a>
-        </div>
-    </div>
-    <hr>
-</div><div class="blog-brief">
-    <a href="/posts/whats-ulid/">
-        <h3 class="title is-4">
-            What&#39;s a ULID
-        </h3>
-    </a>
-
-    <div class="level is-mobile details">
-        <div class="level-left">
-
-            
-            <div class="level-item">
-                <a href="/posts/whats-ulid/">
-                    <p class="subtitle info date">Jun 27, 2020
-                    </p>
-                </a>
-            </div>
-            
-
-
-            <div class="level-item">
-                <a href="/posts/whats-ulid/">
-                    <p class="subtitle info">
-                        12 mins read
-                    </p>
-                </a>
-            </div>
-        </div>
-        <div class="level-right is-hidden-touch">
-            
-            <a class="tag is-rounded" href="/tags/development">Development</a>
-            
-            <a class="tag is-rounded" href="/tags/python">Python</a>
-            
-        </div>
-    </div>
-
-    <div>
-        
-
-        <div>
-            <a href="/posts/whats-ulid/">
-                <p class="summary">
-                    This time I will talk about something I found out very recently, and I found interesting to share this information as it might be handy for developers to use when the use case fits.
-So this time I will introduce the ulid. Spoiler alert, it’s an ID or at least a data structure that can be used to represent an ID. So why do we have another way of expressing an ID, I won’t get into too much details into that but yes there are many ways of defining ids, it can be numerical, using UUIDs, etc.
-                    
-                </p>
-            </a>
-        </div>
-    </div>
-
-    <div class="level is-mobile continue-reading">
-        <div class="level-left">
-        </div>
-        <div class="level-right">
-            <a href="/posts/whats-ulid/">Continue reading <i class="fa fa-angle-double-right"
                     aria-hidden="true"></i></a>
         </div>
     </div>

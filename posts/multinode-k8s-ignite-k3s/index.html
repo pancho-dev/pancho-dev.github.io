@@ -9,30 +9,45 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Sometimes if you are working with kubernetes, or developing applications that require a multi-node setup to test some functionality running a multi-node cluster is a must, in some cases you could use kind which you can spin up multi-node/multi-master clusters on docker, however there might be scenarios were you still need to test or develop functions that need the real feel of a cluster with multiple nodes.
-In the past I have run this in my local environment running vms with vagrant and virtualbox, that worked very well, and I still use it for some special scenarios.
+In the past I have run this in my local environment running vms with vagrant and virtualbox, that worked very well, and I still use it for some special scenarios. But I needed something I could run more workers/masters on my local laptop. One clear example is that I wanted to test the Postgres operator from crunchydata that allows to create a Postgres cluster with a standby cluster in a different k8s cluster. Or try kilo to setup encrypted communications between pods and test the multi cluster setup. Another use case was that I wanted to play with CNI plugins or some use some other advanced features, and the setup I will explain in this post allows more flexibility to do so.
+My need could be solved by vagrant and virtualbox, and in fact is a great approach and very easy to setup everything as code in an automated fashion. But I wanted to take my laptop to the next level with something more efficient and I found a great project that allows to run firecracker micro-vms in a way that is very similar to running docker containers. The project is called ignite and you will have in no time vms running using very little resources which allows to run much more worker nodes and multiple clusters at the same time.
+We will install ignite in our ubuntu laptop/desktop/server and run a 3 node kubernetes cluster. The following have been tested in my ubuntu 18.04 server I run at home.
     ">
 
 
-<meta property="og:title" content="Multi-node k8s cluster using ignite and k3s" />
-<meta property="og:description" content="Sometimes if you are working with kubernetes, or developing applications that require a multi-node setup to test some functionality running a multi-node cluster is a must, in some cases you could use kind which you can spin up multi-node/multi-master clusters on docker, however there might be scenarios were you still need to test or develop functions that need the real feel of a cluster with multiple nodes.
-In the past I have run this in my local environment running vms with vagrant and virtualbox, that worked very well, and I still use it for some special scenarios." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://pancho.dev/posts/multinode-k8s-ignite-k3s/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-05-17T18:22:05-03:00" />
-<meta property="article:modified_time" content="2020-05-17T18:22:05-03:00" />
+<meta property="og:url" content="http://pancho.dev/posts/multinode-k8s-ignite-k3s/">
+  <meta property="og:site_name" content="pancho.dev">
+  <meta property="og:title" content="Multi-node k8s cluster using ignite and k3s">
+  <meta property="og:description" content="Sometimes if you are working with kubernetes, or developing applications that require a multi-node setup to test some functionality running a multi-node cluster is a must, in some cases you could use kind which you can spin up multi-node/multi-master clusters on docker, however there might be scenarios were you still need to test or develop functions that need the real feel of a cluster with multiple nodes.
+In the past I have run this in my local environment running vms with vagrant and virtualbox, that worked very well, and I still use it for some special scenarios. But I needed something I could run more workers/masters on my local laptop. One clear example is that I wanted to test the Postgres operator from crunchydata that allows to create a Postgres cluster with a standby cluster in a different k8s cluster. Or try kilo to setup encrypted communications between pods and test the multi cluster setup. Another use case was that I wanted to play with CNI plugins or some use some other advanced features, and the setup I will explain in this post allows more flexibility to do so.
+My need could be solved by vagrant and virtualbox, and in fact is a great approach and very easy to setup everything as code in an automated fashion. But I wanted to take my laptop to the next level with something more efficient and I found a great project that allows to run firecracker micro-vms in a way that is very similar to running docker containers. The project is called ignite and you will have in no time vms running using very little resources which allows to run much more worker nodes and multiple clusters at the same time.
+We will install ignite in our ubuntu laptop/desktop/server and run a 3 node kubernetes cluster. The following have been tested in my ubuntu 18.04 server I run at home.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-05-17T18:22:05-03:00">
+    <meta property="article:modified_time" content="2020-05-17T18:22:05-03:00">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Kubernetes">
 
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Multi-node k8s cluster using ignite and k3s"/>
-<meta name="twitter:description" content="Sometimes if you are working with kubernetes, or developing applications that require a multi-node setup to test some functionality running a multi-node cluster is a must, in some cases you could use kind which you can spin up multi-node/multi-master clusters on docker, however there might be scenarios were you still need to test or develop functions that need the real feel of a cluster with multiple nodes.
-In the past I have run this in my local environment running vms with vagrant and virtualbox, that worked very well, and I still use it for some special scenarios."/>
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Multi-node k8s cluster using ignite and k3s">
+  <meta name="twitter:description" content="Sometimes if you are working with kubernetes, or developing applications that require a multi-node setup to test some functionality running a multi-node cluster is a must, in some cases you could use kind which you can spin up multi-node/multi-master clusters on docker, however there might be scenarios were you still need to test or develop functions that need the real feel of a cluster with multiple nodes.
+In the past I have run this in my local environment running vms with vagrant and virtualbox, that worked very well, and I still use it for some special scenarios. But I needed something I could run more workers/masters on my local laptop. One clear example is that I wanted to test the Postgres operator from crunchydata that allows to create a Postgres cluster with a standby cluster in a different k8s cluster. Or try kilo to setup encrypted communications between pods and test the multi cluster setup. Another use case was that I wanted to play with CNI plugins or some use some other advanced features, and the setup I will explain in this post allows more flexibility to do so.
+My need could be solved by vagrant and virtualbox, and in fact is a great approach and very easy to setup everything as code in an automated fashion. But I wanted to take my laptop to the next level with something more efficient and I found a great project that allows to run firecracker micro-vms in a way that is very similar to running docker containers. The project is called ignite and you will have in no time vms running using very little resources which allows to run much more worker nodes and multiple clusters at the same time.
+We will install ignite in our ubuntu laptop/desktop/server and run a 3 node kubernetes cluster. The following have been tested in my ubuntu 18.04 server I run at home.">
 
-<meta itemprop="name" content="Multi-node k8s cluster using ignite and k3s">
-<meta itemprop="description" content="Sometimes if you are working with kubernetes, or developing applications that require a multi-node setup to test some functionality running a multi-node cluster is a must, in some cases you could use kind which you can spin up multi-node/multi-master clusters on docker, however there might be scenarios were you still need to test or develop functions that need the real feel of a cluster with multiple nodes.
-In the past I have run this in my local environment running vms with vagrant and virtualbox, that worked very well, and I still use it for some special scenarios."><meta itemprop="datePublished" content="2020-05-17T18:22:05-03:00" />
-<meta itemprop="dateModified" content="2020-05-17T18:22:05-03:00" />
-<meta itemprop="wordCount" content="2406">
-<meta itemprop="keywords" content="linux,kubernetes," />
+
+  <meta itemprop="name" content="Multi-node k8s cluster using ignite and k3s">
+  <meta itemprop="description" content="Sometimes if you are working with kubernetes, or developing applications that require a multi-node setup to test some functionality running a multi-node cluster is a must, in some cases you could use kind which you can spin up multi-node/multi-master clusters on docker, however there might be scenarios were you still need to test or develop functions that need the real feel of a cluster with multiple nodes.
+In the past I have run this in my local environment running vms with vagrant and virtualbox, that worked very well, and I still use it for some special scenarios. But I needed something I could run more workers/masters on my local laptop. One clear example is that I wanted to test the Postgres operator from crunchydata that allows to create a Postgres cluster with a standby cluster in a different k8s cluster. Or try kilo to setup encrypted communications between pods and test the multi cluster setup. Another use case was that I wanted to play with CNI plugins or some use some other advanced features, and the setup I will explain in this post allows more flexibility to do so.
+My need could be solved by vagrant and virtualbox, and in fact is a great approach and very easy to setup everything as code in an automated fashion. But I wanted to take my laptop to the next level with something more efficient and I found a great project that allows to run firecracker micro-vms in a way that is very similar to running docker containers. The project is called ignite and you will have in no time vms running using very little resources which allows to run much more worker nodes and multiple clusters at the same time.
+We will install ignite in our ubuntu laptop/desktop/server and run a 3 node kubernetes cluster. The following have been tested in my ubuntu 18.04 server I run at home.">
+  <meta itemprop="datePublished" content="2020-05-17T18:22:05-03:00">
+  <meta itemprop="dateModified" content="2020-05-17T18:22:05-03:00">
+  <meta itemprop="wordCount" content="2406">
+  <meta itemprop="keywords" content="Linux,Kubernetes">
 <link rel="canonical" href="http://pancho.dev/posts/multinode-k8s-ignite-k3s/" />
 
 <link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
@@ -42,21 +57,13 @@ In the past I have run this in my local environment running vms with vagrant and
 
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-WBLGT7MX26', { 'anonymize_ip': false });
-}
-</script>
-
 
 
 <script src=/js/ramium.js></script>
 <link rel="stylesheet" href=/css/ramium.css>
+
+
+
 
 
 
@@ -556,7 +563,7 @@ Some follow up tasks would be to test this setup using <a href="https://multipas
 	    </a>
 
 		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fpancho.dev%2fposts%2fmultinode-k8s-ignite-k3s%2f
-			&title=Multi-node%20k8s%20cluster%20using%20ignite%20and%20k3s&summary=Sometimes%20if%20you%20are%20working%20with%20kubernetes%2c%20or%20developing%20applications%20that%20require%20a%20multi-node%20setup%20to%20test%20some%20functionality%20running%20a%20multi-node%20cluster%20is%20a%20must%2c%20in%20some%20cases%20you%20could%20use%20kind%20which%20you%20can%20spin%20up%20multi-node%2fmulti-master%20clusters%20on%20docker%2c%20however%20there%20might%20be%20scenarios%20were%20you%20still%20need%20to%20test%20or%20develop%20functions%20that%20need%20the%20real%20feel%20of%20a%20cluster%20with%20multiple%20nodes.%0aIn%20the%20past%20I%20have%20run%20this%20in%20my%20local%20environment%20running%20vms%20with%20vagrant%20and%20virtualbox%2c%20that%20worked%20very%20well%2c%20and%20I%20still%20use%20it%20for%20some%20special%20scenarios.&source=rafed123.github.io"
+			&title=Multi-node%20k8s%20cluster%20using%20ignite%20and%20k3s&summary=%3cp%3eSometimes%20if%20you%20are%20working%20with%20kubernetes%2c%20or%20developing%20applications%20that%20require%20a%20multi-node%20setup%20to%20test%20some%20functionality%20running%20a%20multi-node%20cluster%20is%20a%20must%2c%20in%20some%20cases%20you%20could%20use%20%3ca%20href%3d%22https%3a%2f%2fkind.sigs.k8s.io%2fdocs%2fuser%2fquick-start%2f%22%3ekind%3c%2fa%3e%20which%20you%20can%20spin%20up%20multi-node%2fmulti-master%20clusters%20on%20docker%2c%20however%20there%20might%20be%20scenarios%20were%20you%20still%20need%20to%20test%20or%20develop%20functions%20that%20need%20the%20real%20feel%20of%20a%20cluster%20with%20multiple%20nodes.%3cbr%3e%0aIn%20the%20past%20I%20have%20run%20this%20in%20my%20local%20environment%20running%20vms%20with%20vagrant%20and%20virtualbox%2c%20that%20worked%20very%20well%2c%20and%20I%20still%20use%20it%20for%20some%20special%20scenarios.%20But%20I%20needed%20something%20I%20could%20run%20more%20workers%2fmasters%20on%20my%20local%20laptop.%20One%20clear%20example%20is%20that%20I%20wanted%20to%20test%20the%20%3ca%20href%3d%22https%3a%2f%2faccess.crunchydata.com%2fdocumentation%2fpostgres-operator%22%3ePostgres%20operator%20from%20crunchydata%3c%2fa%3e%20that%20allows%20to%20create%20a%20Postgres%20cluster%20with%20a%20standby%20cluster%20in%20a%20different%20k8s%20cluster.%20Or%20try%20%3ca%20href%3d%22https%3a%2f%2fgithub.com%2fsquat%2fkilo%22%3ekilo%3c%2fa%3e%20to%20setup%20encrypted%20communications%20between%20pods%20and%20test%20the%20multi%20cluster%20setup.%20Another%20use%20case%20was%20that%20I%20wanted%20to%20play%20with%20CNI%20plugins%20or%20some%20use%20some%20other%20advanced%20features%2c%20and%20the%20setup%20I%20will%20explain%20in%20this%20post%20allows%20more%20flexibility%20to%20do%20so.%3cbr%3e%0aMy%20need%20could%20be%20solved%20by%20vagrant%20and%20virtualbox%2c%20and%20in%20fact%20is%20a%20great%20approach%20and%20very%20easy%20to%20setup%20everything%20as%20code%20in%20an%20automated%20fashion.%20But%20I%20wanted%20to%20take%20my%20laptop%20to%20the%20next%20level%20with%20something%20more%20efficient%20and%20I%20found%20a%20great%20project%20that%20allows%20to%20run%20%3ca%20href%3d%22https%3a%2f%2ffirecracker-microvm.github.io%2f%22%3efirecracker%3c%2fa%3e%20micro-vms%20in%20a%20way%20that%20is%20very%20similar%20to%20running%20docker%20containers.%20The%20project%20is%20called%20%3ca%20href%3d%22https%3a%2f%2fgithub.com%2fweaveworks%2fignite%22%3eignite%3c%2fa%3e%20and%20you%20will%20have%20in%20no%20time%20vms%20running%20using%20very%20little%20resources%20which%20allows%20to%20run%20much%20more%20worker%20nodes%20and%20multiple%20clusters%20at%20the%20same%20time.%3cbr%3e%0aWe%20will%20install%20ignite%20in%20our%20ubuntu%20laptop%2fdesktop%2fserver%20and%20run%20a%203%20node%20kubernetes%20cluster.%20The%20following%20have%20been%20tested%20in%20my%20ubuntu%2018.04%20server%20I%20run%20at%20home.%3c%2fp%3e&source=rafed123.github.io"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on LinkedIn. Opens in a new window." >
 	        <img src=/img/icons/45px/linkedin.png>
@@ -574,18 +581,20 @@ Some follow up tasks would be to test this setup using <a href="https://multipas
 <div id="disqus_thread"></div>
 <script type="text/javascript">
     (function () {
-        
-        
         if (window.location.hostname == "localhost")
             return;
 
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         var disqus_shortname = '';
+        if (!disqus_shortname)
+            return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
 
 
         </div>

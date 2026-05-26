@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>containers on pancho.dev</title>
+    <title>Containers on pancho.dev</title>
     <link>http://pancho.dev/tags/containers/</link>
-    <description>Recent content in containers on pancho.dev</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Containers on pancho.dev</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 06 Aug 2020 20:30:48 -0300</lastBuildDate><atom:link href="http://pancho.dev/tags/containers/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 06 Aug 2020 20:30:48 -0300</lastBuildDate>
+    <atom:link href="http://pancho.dev/tags/containers/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Lightning Post: Don&#39;t have a Docker registry? save and load to the rescue</title>
       <link>http://pancho.dev/posts/docker-save-restore/</link>
       <pubDate>Thu, 06 Aug 2020 20:30:48 -0300</pubDate>
-      
       <guid>http://pancho.dev/posts/docker-save-restore/</guid>
-      <description>Whenever someone is working with docker and need to move images between hosts without the need for rebuilding them or hosting a private registry. This lightning post will show us 2 commands that will help us to easy move container images between hosts.
-How to save a docker image for reuse in other host? There is a handy command that helps save a docker image that is already in the system or already built, there are situations where builds take a long time and building the images in multiple hosts is time consuming, so we can save the image and copy it to other host and import it for reuse.</description>
+      <description>&lt;p&gt;Whenever someone is working with docker and need to move images between hosts without the need for rebuilding them or hosting a private registry. This &lt;a href=&#34;http://pancho.dev/posts/lightning-post/&#34;&gt;lightning post&lt;/a&gt; will show us 2 commands that will help us to easy move container images between hosts.&lt;/p&gt;&#xA;&lt;h1 id=&#34;how-to-save-a-docker-image-for-reuse-in-other-host&#34;&gt;How to save a docker image for reuse in other host?&lt;/h1&gt;&#xA;&lt;p&gt;There is a handy command that helps save a docker image that is already in the system or already built, there are situations where builds take a long time and building the images in multiple hosts is time consuming, so we can save the image and copy it to other host and import it for reuse.&lt;br&gt;&#xA;To save a docker image:&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

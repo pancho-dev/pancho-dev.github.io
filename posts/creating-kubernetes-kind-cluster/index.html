@@ -9,26 +9,37 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="In an earlier post I showed how to create Multi-node k8s cluster using ignite and k3s, while this was a good experience I needed to test some other tools, and this time I decided to go for kind (kubernetes in docker). Which looks like a good approach to work with clusters locally and it will still be lightweight as the kubernetes &ldquo;nodes&rdquo; will be actually running as docker containers. This at first glance looks like a easier approach and seems to work in a similar way in Mac, linux or Windows, which gives a great advantage.
+Also this time I choose to work with kind because it allows to do a lot of stuff like simulating multiple control plane nodes and multiple worker nodes. In my case I did wanted multiple nodes to try things like running Postgres clusters and use anti affinity to develop in my laptop some automation around Postgres clusters. It is very fast to start a cluster and play around with multiple clusters. Another cool feature is that is easy to start a cluster with multiple masters and the setup of the cluster seems a very &ldquo;vanilla&rdquo; k8s cluster which is and advantage to be running things similar to what you would run in production others like k3s or microk8s use a lot of lightweight components that might not actually look like &ldquo;production clusters&rdquo;, however this is still a very personal opinion and depends on the needs of the developer and all have pros and cons. We will see how it looks like after I actually finish the post and get some conclusions.
     ">
 
 
-<meta property="og:title" content="Creating Kubernetes Kind Cluster" />
-<meta property="og:description" content="In an earlier post I showed how to create Multi-node k8s cluster using ignite and k3s, while this was a good experience I needed to test some other tools, and this time I decided to go for kind (kubernetes in docker). Which looks like a good approach to work with clusters locally and it will still be lightweight as the kubernetes &ldquo;nodes&rdquo; will be actually running as docker containers. This at first glance looks like a easier approach and seems to work in a similar way in Mac, linux or Windows, which gives a great advantage." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://pancho.dev/posts/creating-kubernetes-kind-cluster/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-05-30T15:11:30-03:00" />
-<meta property="article:modified_time" content="2020-05-30T15:11:30-03:00" />
+<meta property="og:url" content="http://pancho.dev/posts/creating-kubernetes-kind-cluster/">
+  <meta property="og:site_name" content="pancho.dev">
+  <meta property="og:title" content="Creating Kubernetes Kind Cluster">
+  <meta property="og:description" content="In an earlier post I showed how to create Multi-node k8s cluster using ignite and k3s, while this was a good experience I needed to test some other tools, and this time I decided to go for kind (kubernetes in docker). Which looks like a good approach to work with clusters locally and it will still be lightweight as the kubernetes “nodes” will be actually running as docker containers. This at first glance looks like a easier approach and seems to work in a similar way in Mac, linux or Windows, which gives a great advantage.
+Also this time I choose to work with kind because it allows to do a lot of stuff like simulating multiple control plane nodes and multiple worker nodes. In my case I did wanted multiple nodes to try things like running Postgres clusters and use anti affinity to develop in my laptop some automation around Postgres clusters. It is very fast to start a cluster and play around with multiple clusters. Another cool feature is that is easy to start a cluster with multiple masters and the setup of the cluster seems a very “vanilla” k8s cluster which is and advantage to be running things similar to what you would run in production others like k3s or microk8s use a lot of lightweight components that might not actually look like “production clusters”, however this is still a very personal opinion and depends on the needs of the developer and all have pros and cons. We will see how it looks like after I actually finish the post and get some conclusions.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-05-30T15:11:30-03:00">
+    <meta property="article:modified_time" content="2020-05-30T15:11:30-03:00">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="Kubernetes">
 
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Creating Kubernetes Kind Cluster"/>
-<meta name="twitter:description" content="In an earlier post I showed how to create Multi-node k8s cluster using ignite and k3s, while this was a good experience I needed to test some other tools, and this time I decided to go for kind (kubernetes in docker). Which looks like a good approach to work with clusters locally and it will still be lightweight as the kubernetes &ldquo;nodes&rdquo; will be actually running as docker containers. This at first glance looks like a easier approach and seems to work in a similar way in Mac, linux or Windows, which gives a great advantage."/>
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Creating Kubernetes Kind Cluster">
+  <meta name="twitter:description" content="In an earlier post I showed how to create Multi-node k8s cluster using ignite and k3s, while this was a good experience I needed to test some other tools, and this time I decided to go for kind (kubernetes in docker). Which looks like a good approach to work with clusters locally and it will still be lightweight as the kubernetes “nodes” will be actually running as docker containers. This at first glance looks like a easier approach and seems to work in a similar way in Mac, linux or Windows, which gives a great advantage.
+Also this time I choose to work with kind because it allows to do a lot of stuff like simulating multiple control plane nodes and multiple worker nodes. In my case I did wanted multiple nodes to try things like running Postgres clusters and use anti affinity to develop in my laptop some automation around Postgres clusters. It is very fast to start a cluster and play around with multiple clusters. Another cool feature is that is easy to start a cluster with multiple masters and the setup of the cluster seems a very “vanilla” k8s cluster which is and advantage to be running things similar to what you would run in production others like k3s or microk8s use a lot of lightweight components that might not actually look like “production clusters”, however this is still a very personal opinion and depends on the needs of the developer and all have pros and cons. We will see how it looks like after I actually finish the post and get some conclusions.">
 
-<meta itemprop="name" content="Creating Kubernetes Kind Cluster">
-<meta itemprop="description" content="In an earlier post I showed how to create Multi-node k8s cluster using ignite and k3s, while this was a good experience I needed to test some other tools, and this time I decided to go for kind (kubernetes in docker). Which looks like a good approach to work with clusters locally and it will still be lightweight as the kubernetes &ldquo;nodes&rdquo; will be actually running as docker containers. This at first glance looks like a easier approach and seems to work in a similar way in Mac, linux or Windows, which gives a great advantage."><meta itemprop="datePublished" content="2020-05-30T15:11:30-03:00" />
-<meta itemprop="dateModified" content="2020-05-30T15:11:30-03:00" />
-<meta itemprop="wordCount" content="2284">
-<meta itemprop="keywords" content="linux,kubernetes," />
+
+  <meta itemprop="name" content="Creating Kubernetes Kind Cluster">
+  <meta itemprop="description" content="In an earlier post I showed how to create Multi-node k8s cluster using ignite and k3s, while this was a good experience I needed to test some other tools, and this time I decided to go for kind (kubernetes in docker). Which looks like a good approach to work with clusters locally and it will still be lightweight as the kubernetes “nodes” will be actually running as docker containers. This at first glance looks like a easier approach and seems to work in a similar way in Mac, linux or Windows, which gives a great advantage.
+Also this time I choose to work with kind because it allows to do a lot of stuff like simulating multiple control plane nodes and multiple worker nodes. In my case I did wanted multiple nodes to try things like running Postgres clusters and use anti affinity to develop in my laptop some automation around Postgres clusters. It is very fast to start a cluster and play around with multiple clusters. Another cool feature is that is easy to start a cluster with multiple masters and the setup of the cluster seems a very “vanilla” k8s cluster which is and advantage to be running things similar to what you would run in production others like k3s or microk8s use a lot of lightweight components that might not actually look like “production clusters”, however this is still a very personal opinion and depends on the needs of the developer and all have pros and cons. We will see how it looks like after I actually finish the post and get some conclusions.">
+  <meta itemprop="datePublished" content="2020-05-30T15:11:30-03:00">
+  <meta itemprop="dateModified" content="2020-05-30T15:11:30-03:00">
+  <meta itemprop="wordCount" content="2284">
+  <meta itemprop="keywords" content="Linux,Kubernetes">
 <link rel="canonical" href="http://pancho.dev/posts/creating-kubernetes-kind-cluster/" />
 
 <link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
@@ -38,21 +49,13 @@
 
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-WBLGT7MX26', { 'anonymize_ip': false });
-}
-</script>
-
 
 
 <script src=/js/ramium.js></script>
 <link rel="stylesheet" href=/css/ramium.css>
+
+
+
 
 
 
@@ -515,7 +518,7 @@ However, it is still a great tool to develop and work with and still have a good
 	    </a>
 
 		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fpancho.dev%2fposts%2fcreating-kubernetes-kind-cluster%2f
-			&title=Creating%20Kubernetes%20Kind%20Cluster&summary=In%20an%20earlier%20post%20I%20showed%20how%20to%20create%20Multi-node%20k8s%20cluster%20using%20ignite%20and%20k3s%2c%20while%20this%20was%20a%20good%20experience%20I%20needed%20to%20test%20some%20other%20tools%2c%20and%20this%20time%20I%20decided%20to%20go%20for%20kind%20%28kubernetes%20in%20docker%29.%20Which%20looks%20like%20a%20good%20approach%20to%20work%20with%20clusters%20locally%20and%20it%20will%20still%20be%20lightweight%20as%20the%20kubernetes%20%26ldquo%3bnodes%26rdquo%3b%20will%20be%20actually%20running%20as%20docker%20containers.%20This%20at%20first%20glance%20looks%20like%20a%20easier%20approach%20and%20seems%20to%20work%20in%20a%20similar%20way%20in%20Mac%2c%20linux%20or%20Windows%2c%20which%20gives%20a%20great%20advantage.&source=rafed123.github.io"
+			&title=Creating%20Kubernetes%20Kind%20Cluster&summary=%3cp%3eIn%20an%20earlier%20post%20I%20showed%20how%20to%20create%20%3ca%20href%3d%22%2fposts%2fmultinode-k8s-ignite-k3s%2f%22%3eMulti-node%20k8s%20cluster%20using%20ignite%20and%20k3s%3c%2fa%3e%2c%20while%20this%20was%20a%20good%20experience%20I%20needed%20to%20test%20some%20other%20tools%2c%20and%20this%20time%20I%20decided%20to%20go%20for%20kind%20%28kubernetes%20in%20docker%29.%20Which%20looks%20like%20a%20good%20approach%20to%20work%20with%20clusters%20locally%20and%20it%20will%20still%20be%20lightweight%20as%20the%20kubernetes%20%26ldquo%3bnodes%26rdquo%3b%20will%20be%20actually%20running%20as%20docker%20containers.%20This%20at%20first%20glance%20looks%20like%20a%20easier%20approach%20and%20seems%20to%20work%20in%20a%20similar%20way%20in%20Mac%2c%20linux%20or%20Windows%2c%20which%20gives%20a%20great%20advantage.%3cbr%3e%0aAlso%20this%20time%20I%20choose%20to%20work%20with%20kind%20because%20it%20allows%20to%20do%20a%20lot%20of%20stuff%20like%20simulating%20multiple%20control%20plane%20nodes%20and%20multiple%20worker%20nodes.%20In%20my%20case%20I%20did%20wanted%20multiple%20nodes%20to%20try%20things%20like%20running%20Postgres%20clusters%20and%20use%20anti%20affinity%20to%20develop%20in%20my%20laptop%20some%20automation%20around%20Postgres%20clusters.%20It%20is%20very%20fast%20to%20start%20a%20cluster%20and%20play%20around%20with%20multiple%20clusters.%20Another%20cool%20feature%20is%20that%20is%20easy%20to%20start%20a%20cluster%20with%20multiple%20masters%20and%20the%20setup%20of%20the%20cluster%20seems%20a%20very%20%26ldquo%3bvanilla%26rdquo%3b%20k8s%20cluster%20which%20is%20and%20advantage%20to%20be%20running%20things%20similar%20to%20what%20you%20would%20run%20in%20production%20others%20like%20k3s%20or%20microk8s%20use%20a%20lot%20of%20lightweight%20components%20that%20might%20not%20actually%20look%20like%20%26ldquo%3bproduction%20clusters%26rdquo%3b%2c%20however%20this%20is%20still%20a%20very%20personal%20opinion%20and%20depends%20on%20the%20needs%20of%20the%20developer%20and%20all%20have%20pros%20and%20cons.%20We%20will%20see%20how%20it%20looks%20like%20after%20I%20actually%20finish%20the%20post%20and%20get%20some%20conclusions.%3c%2fp%3e&source=rafed123.github.io"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on LinkedIn. Opens in a new window." >
 	        <img src=/img/icons/45px/linkedin.png>
@@ -533,18 +536,20 @@ However, it is still a great tool to develop and work with and still have a good
 <div id="disqus_thread"></div>
 <script type="text/javascript">
     (function () {
-        
-        
         if (window.location.hostname == "localhost")
             return;
 
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         var disqus_shortname = '';
+        if (!disqus_shortname)
+            return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
 
 
         </div>

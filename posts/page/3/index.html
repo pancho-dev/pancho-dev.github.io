@@ -12,18 +12,23 @@
 
 
 
-<meta property="og:title" content="Posts" />
-<meta property="og:description" content="A description for the meta tag of the site" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://pancho.dev/posts/" />
+<meta property="og:url" content="http://pancho.dev/posts/">
+  <meta property="og:site_name" content="pancho.dev">
+  <meta property="og:title" content="Posts">
+  <meta property="og:description" content="A description for the meta tag of the site">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="website">
 
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Posts"/>
-<meta name="twitter:description" content="A description for the meta tag of the site"/>
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Posts">
+  <meta name="twitter:description" content="A description for the meta tag of the site">
 
-<meta itemprop="name" content="Posts">
-<meta itemprop="description" content="A description for the meta tag of the site">
+
+  <meta itemprop="name" content="Posts">
+  <meta itemprop="description" content="A description for the meta tag of the site">
+  <meta itemprop="datePublished" content="2026-05-25T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2026-05-25T00:00:00+00:00">
 <link rel="canonical" href="http://pancho.dev/posts/" />
 
 <link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
@@ -33,21 +38,13 @@
 
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-WBLGT7MX26', { 'anonymize_ip': false });
-}
-</script>
-
 
 
 <script src=/js/ramium.js></script>
 <link rel="stylesheet" href=/css/ramium.css>
+
+
+
 
 
 
@@ -106,6 +103,67 @@ if (!doNotTrack) {
 
 
 <div class="blog-brief">
+    <a href="/posts/whats-ulid/">
+        <h3 class="title is-4">
+            What&#39;s a ULID
+        </h3>
+    </a>
+
+    <div class="level is-mobile details">
+        <div class="level-left">
+
+            
+            <div class="level-item">
+                <a href="/posts/whats-ulid/">
+                    <p class="subtitle info date">Jun 27, 2020
+                    </p>
+                </a>
+            </div>
+            
+
+
+            <div class="level-item">
+                <a href="/posts/whats-ulid/">
+                    <p class="subtitle info">
+                        12 mins read
+                    </p>
+                </a>
+            </div>
+        </div>
+        <div class="level-right is-hidden-touch">
+            
+            <a class="tag is-rounded" href="/tags/development">Development</a>
+            
+            <a class="tag is-rounded" href="/tags/python">Python</a>
+            
+        </div>
+    </div>
+
+    <div>
+        
+
+        <div>
+            <a href="/posts/whats-ulid/">
+                <p class="summary">
+                    This time I will talk about something I found out very recently, and I found interesting to share this information as it might be handy for developers to use when the use case fits.
+So this time I will introduce the ulid. Spoiler alert, it’s an ID or at least a data structure that can be used to represent an ID. So why do we have another way of expressing an ID, I won’t get into too much details into that but yes there are many ways of defining ids, it can be numerical, using UUIDs, etc. So my motivation is that I found useful the properties of ulid for some specific use cases.
+
+                    
+                </p>
+            </a>
+        </div>
+    </div>
+
+    <div class="level is-mobile continue-reading">
+        <div class="level-left">
+        </div>
+        <div class="level-right">
+            <a href="/posts/whats-ulid/">Continue reading <i class="fa fa-angle-double-right"
+                    aria-hidden="true"></i></a>
+        </div>
+    </div>
+    <hr>
+</div><div class="blog-brief">
     <a href="/posts/multipass-microk8s-cluster/">
         <h3 class="title is-4">
             Multipass Microk8s Cluster on Multiple Nodes
@@ -148,7 +206,8 @@ if (!doNotTrack) {
         <div>
             <a href="/posts/multipass-microk8s-cluster/">
                 <p class="summary">
-                    A couple of posts ago I talked about multi-node kubernetes clusters and the benefits of them running them for developing automation, testing software and configurations. I still think is that most developers probably don’t need this setup or can live with a simpler setup. My motivation is because I work on cloud infrastructure and automation of deployments, databases, and lots of complex scenarios that running single node k8s cluster doesn’t fit my needs.
+                    A couple of posts ago I talked about multi-node kubernetes clusters and the benefits of them running them for developing automation, testing software and configurations. I still think is that most developers probably don’t need this setup or can live with a simpler setup. My motivation is because I work on cloud infrastructure and automation of deployments, databases, and lots of complex scenarios that running single node k8s cluster doesn’t fit my needs. This time I will try another option to create multi-node clusters. I have used kind, ignite micro vms and k3s in blog posts. This time is the turn of some tools from Canonical which seems o work together pretty well. I will create a multi-node cluster running vms created with multipass and microk8s.
+
                     
                 </p>
             </a>
@@ -207,7 +266,8 @@ if (!doNotTrack) {
         <div>
             <a href="/posts/linux-load-average/">
                 <p class="summary">
-                    Ever wondered when someone runs the command uptime in a linux host what the values in the load average: section mean? well I have wondered about it many times in my career. And this should be a simple question to ask a seasoned linux administrator or developer, right? well it’s not entirely true, as the load average value in a linux hosts probably is the most misunderstood term and often associated with the wrong concepts.
+                    Ever wondered when someone runs the command uptime in a linux host what the values in the load average: section mean? well I have wondered about it many times in my career. And this should be a simple question to ask a seasoned linux administrator or developer, right? well it’s not entirely true, as the load average value in a linux hosts probably is the most misunderstood term and often associated with the wrong concepts. In this post I will explain and tell a bit more about my experience about load average value in linux and how it helps me everyday to spot issues in infrastructure.
+
                     
                 </p>
             </a>
@@ -267,6 +327,8 @@ if (!doNotTrack) {
             <a href="/posts/creating-kubernetes-kind-cluster/">
                 <p class="summary">
                     In an earlier post I showed how to create Multi-node k8s cluster using ignite and k3s, while this was a good experience I needed to test some other tools, and this time I decided to go for kind (kubernetes in docker). Which looks like a good approach to work with clusters locally and it will still be lightweight as the kubernetes “nodes” will be actually running as docker containers. This at first glance looks like a easier approach and seems to work in a similar way in Mac, linux or Windows, which gives a great advantage.
+Also this time I choose to work with kind because it allows to do a lot of stuff like simulating multiple control plane nodes and multiple worker nodes. In my case I did wanted multiple nodes to try things like running Postgres clusters and use anti affinity to develop in my laptop some automation around Postgres clusters. It is very fast to start a cluster and play around with multiple clusters. Another cool feature is that is easy to start a cluster with multiple masters and the setup of the cluster seems a very “vanilla” k8s cluster which is and advantage to be running things similar to what you would run in production others like k3s or microk8s use a lot of lightweight components that might not actually look like “production clusters”, however this is still a very personal opinion and depends on the needs of the developer and all have pros and cons. We will see how it looks like after I actually finish the post and get some conclusions.
+
                     
                 </p>
             </a>
@@ -326,7 +388,10 @@ if (!doNotTrack) {
             <a href="/posts/multinode-k8s-ignite-k3s/">
                 <p class="summary">
                     Sometimes if you are working with kubernetes, or developing applications that require a multi-node setup to test some functionality running a multi-node cluster is a must, in some cases you could use kind which you can spin up multi-node/multi-master clusters on docker, however there might be scenarios were you still need to test or develop functions that need the real feel of a cluster with multiple nodes.
-In the past I have run this in my local environment running vms with vagrant and virtualbox, that worked very well, and I still use it for some special scenarios.
+In the past I have run this in my local environment running vms with vagrant and virtualbox, that worked very well, and I still use it for some special scenarios. But I needed something I could run more workers/masters on my local laptop. One clear example is that I wanted to test the Postgres operator from crunchydata that allows to create a Postgres cluster with a standby cluster in a different k8s cluster. Or try kilo to setup encrypted communications between pods and test the multi cluster setup. Another use case was that I wanted to play with CNI plugins or some use some other advanced features, and the setup I will explain in this post allows more flexibility to do so.
+My need could be solved by vagrant and virtualbox, and in fact is a great approach and very easy to setup everything as code in an automated fashion. But I wanted to take my laptop to the next level with something more efficient and I found a great project that allows to run firecracker micro-vms in a way that is very similar to running docker containers. The project is called ignite and you will have in no time vms running using very little resources which allows to run much more worker nodes and multiple clusters at the same time.
+We will install ignite in our ubuntu laptop/desktop/server and run a 3 node kubernetes cluster. The following have been tested in my ubuntu 18.04 server I run at home.
+
                     
                 </p>
             </a>

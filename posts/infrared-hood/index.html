@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head><title>
+    Teaching Alexa to Speak Infrared: The Engineering Behind a Dumb Range Hood | 
+    
+    pancho.dev</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="It all started with a simple, everyday annoyance in the kitchen.
+My wife would be in the middle of cooking, hands covered in flour, oil, or whatever was being prepped for dinner, and the kitchen would start filling with smoke. Our range hood works perfectly fine, but it is completely &ldquo;dumb&rdquo;—controlled exclusively by a small, analog infrared remote. Having to stop, wash her hands, find the little plastic remote, and press the right buttons just to clear the air was a daily friction point.
+    ">
+
+
+<meta property="og:url" content="http://pancho.dev/posts/infrared-hood/">
+  <meta property="og:site_name" content="pancho.dev">
+  <meta property="og:title" content="Teaching Alexa to Speak Infrared: The Engineering Behind a Dumb Range Hood">
+  <meta property="og:description" content="It all started with a simple, everyday annoyance in the kitchen.
+My wife would be in the middle of cooking, hands covered in flour, oil, or whatever was being prepped for dinner, and the kitchen would start filling with smoke. Our range hood works perfectly fine, but it is completely “dumb”—controlled exclusively by a small, analog infrared remote. Having to stop, wash her hands, find the little plastic remote, and press the right buttons just to clear the air was a daily friction point.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-05-25T00:00:00+00:00">
+    <meta property="article:modified_time" content="2026-05-25T00:00:00+00:00">
+    <meta property="article:tag" content="Home-Assistant">
+    <meta property="article:tag" content="Zigbee">
+    <meta property="article:tag" content="Alexa">
+    <meta property="article:tag" content="Home-Automation">
+    <meta property="article:tag" content="Engineering">
+    <meta property="article:tag" content="Mermaid">
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Teaching Alexa to Speak Infrared: The Engineering Behind a Dumb Range Hood">
+  <meta name="twitter:description" content="It all started with a simple, everyday annoyance in the kitchen.
+My wife would be in the middle of cooking, hands covered in flour, oil, or whatever was being prepped for dinner, and the kitchen would start filling with smoke. Our range hood works perfectly fine, but it is completely “dumb”—controlled exclusively by a small, analog infrared remote. Having to stop, wash her hands, find the little plastic remote, and press the right buttons just to clear the air was a daily friction point.">
+
+
+  <meta itemprop="name" content="Teaching Alexa to Speak Infrared: The Engineering Behind a Dumb Range Hood">
+  <meta itemprop="description" content="It all started with a simple, everyday annoyance in the kitchen.
+My wife would be in the middle of cooking, hands covered in flour, oil, or whatever was being prepped for dinner, and the kitchen would start filling with smoke. Our range hood works perfectly fine, but it is completely “dumb”—controlled exclusively by a small, analog infrared remote. Having to stop, wash her hands, find the little plastic remote, and press the right buttons just to clear the air was a daily friction point.">
+  <meta itemprop="datePublished" content="2026-05-25T00:00:00+00:00">
+  <meta itemprop="dateModified" content="2026-05-25T00:00:00+00:00">
+  <meta itemprop="wordCount" content="813">
+  <meta itemprop="keywords" content="Home-Assistant,Zigbee,Alexa,Home-Automation,Engineering,Mermaid">
+<link rel="canonical" href="http://pancho.dev/posts/infrared-hood/" />
+
+<link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
+
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/bulma.min.css">
+
+
+
+
+
+<script src=/js/ramium.js></script>
+<link rel="stylesheet" href=/css/ramium.css>
+
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+.blog-text .mermaid {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+}
+.blog-text .mermaid svg {
+    max-width: 100%;
+    height: auto;
+}
+.blog-text .mermaid .cluster rect {
+    fill: transparent !important;
+    stroke: none !important;
+}
+.blog-text .mermaid .cluster .cluster-label {
+    display: none;
+}
+@media (max-width: 768px) {
+    .blog-text .mermaid {
+        justify-content: flex-start;
+    }
+}
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', async function () {
+    mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        flowchart: { useMaxWidth: true, htmlLabels: true }
+    });
+
+    document.querySelectorAll('pre > code.language-mermaid').forEach(function (code) {
+        const pre = code.parentElement;
+        const div = document.createElement('div');
+        div.className = 'mermaid';
+        div.textContent = code.textContent;
+        pre.replaceWith(div);
+    });
+
+    await mermaid.run();
+});
+</script>
+
+
+
+
+</head>
+
+<body><nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href=/>
+      
+      <strong>pancho.dev </strong>
+      
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+      data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      
+      
+      <a class="navbar-item" href="/">Home</a>
+      
+      
+      
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Blog</a>
+        <div class="navbar-dropdown">
+          
+          <a class="navbar-item" href="/posts/">All Posts</a>
+          
+        </div>
+      </div>
+      
+      
+    </div>
+
+    <div class="navbar-end">
+      
+
+      
+    </div>
+  </div>
+</nav><div class="columns is-centered">
+        <div id="page-body" class="column is-7">
+
+<div class="content blog">
+    <h1>Teaching Alexa to Speak Infrared: The Engineering Behind a Dumb Range Hood</h1>
+
+    <div id="infobar" class="level is-mobile">
+        <div class="level-left">
+            
+            <div class="level-item">
+                <p class="subtitle info date">May 25, 2026
+                </p>
+            </div>
+            
+
+            <div class="level-item">
+                <p class="subtitle info">
+                    5 mins read
+                </p>
+            </div>
+        </div>
+        <div class="level-right is-hidden-touch">
+            <div class="tags">
+                
+                <a class="tag is-dark is-rounded" href="/tags/home-assistant">Home-Assistant</a>
+                
+                <a class="tag is-dark is-rounded" href="/tags/zigbee">Zigbee</a>
+                
+                <a class="tag is-dark is-rounded" href="/tags/alexa">Alexa</a>
+                
+                <a class="tag is-dark is-rounded" href="/tags/home-automation">Home-Automation</a>
+                
+                <a class="tag is-dark is-rounded" href="/tags/engineering">Engineering</a>
+                
+                <a class="tag is-dark is-rounded" href="/tags/mermaid">Mermaid</a>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="tags is-hidden-desktop">
+        
+        <a class="tag is-dark is-rounded" href="/tags/home-assistant">Home assistant</a>
+        
+        <a class="tag is-dark is-rounded" href="/tags/zigbee">Zigbee</a>
+        
+        <a class="tag is-dark is-rounded" href="/tags/alexa">Alexa</a>
+        
+        <a class="tag is-dark is-rounded" href="/tags/home-automation">Home automation</a>
+        
+        <a class="tag is-dark is-rounded" href="/tags/engineering">Engineering</a>
+        
+        <a class="tag is-dark is-rounded" href="/tags/mermaid">Mermaid</a>
+        
+    </div>
+
+    <div class="blog-text">
+        
+
+        <p>It all started with a simple, everyday annoyance in the kitchen.</p>
+<p>My wife would be in the middle of cooking, hands covered in flour, oil, or whatever was being prepped for dinner, and the kitchen would start filling with smoke. Our range hood works perfectly fine, but it is completely &ldquo;dumb&rdquo;—controlled exclusively by a small, analog infrared remote. Having to stop, wash her hands, find the little plastic remote, and press the right buttons just to clear the air was a daily friction point.</p>
+<p>I wanted to build a seamless experience. The goal was simple: allow her to just say, <em>&ldquo;Alexa, turn on the range hood,&rdquo;</em> and have the system automatically ramp up the extractor fan and turn on the overhead lamp.</p>
+<p>To bridge the gap between a modern voice assistant and a 1980s-era infrared receiver, I picked up an inexpensive, battery-powered Zigbee IR blaster. After finding a good line-of-sight spot for it, I tied it into my local server using Zigbee2MQTT and Home Assistant, grouping the specific IR codes for the fan speed and light into a single virtual &ldquo;switch&rdquo; that Alexa could recognize.</p>
+<p>From a user perspective, it’s a simple voice command. But from an engineering perspective, the chain of events required to make this happen is staggering.</p>
+<h2 id="the-journey-of-a-voice-command">The Journey of a Voice Command</h2>
+<p>When someone stands in the kitchen and asks Alexa to turn on the hood, an incredibly complex, multi-protocol relay race triggers across oceans, local networks, and silicon chips—all within a fraction of a second.</p>
+<p>Here is exactly what happens under the hood:</p>
+<h3 id="1-the-acoustic-trigger-sound-waves-to-the-cloud">1. The Acoustic Trigger (Sound Waves to the Cloud)</h3>
+<p>The voice command creates mechanical sound waves that hit the microphones on the Echo. The local hardware digitizes the audio, detects the wake word, and instantly establishes a secure, encrypted connection to Amazon’s servers. The cloud handles the heavy lifting of processing the natural language, figuring out that the user wants to trigger the entity named &ldquo;Range Hood.&rdquo;</p>
+<h3 id="2-the-cloud-to-home-handshake-apis-to-local-websockets">2. The Cloud-to-Home Handshake (APIs to Local WebSockets)</h3>
+<p>Amazon&rsquo;s cloud realizes this device doesn&rsquo;t belong to them; it&rsquo;s managed by my local Home Assistant server. It fires a command to a secure proxy endpoint, which sends the directive down a persistent WebSocket tunnel directly into my house. This safely punches through the home router&rsquo;s firewall instantly, without needing open ports.</p>
+<h3 id="3-the-brain-of-the-house-home-assistant-event-bus">3. The Brain of the House (Home Assistant Event Bus)</h3>
+<p>My local Home Assistant server intercepts the incoming cloud event. Its internal state engine flips the virtual &ldquo;Range Hood&rdquo; switch to &ldquo;ON&rdquo;. Because I programmed this switch to run a sequence, Home Assistant sequentially queues up the exact commands needed: press the <em>Speed Up</em> button, wait exactly one second so the hardware buffer doesn&rsquo;t jam, and then press the <em>Light</em> button.</p>
+<h3 id="4-the-local-network-relay-tcpip-to-mqtt">4. The Local Network Relay (TCP/IP to MQTT)</h3>
+<p>Home Assistant packages these commands into tiny JSON payloads and ships them over the local network via TCP/IP to an MQTT broker. The broker acts like a digital post office, reading the address on the packet and instantly routing it to the Zigbee2MQTT service listening in the background.</p>
+<h3 id="5-the-wireless-mesh-serial-to-zigbee">5. The Wireless Mesh (Serial to Zigbee)</h3>
+<p>Zigbee2MQTT translates that JSON payload into a standard radio command. It sends this command via USB to my physical Zigbee coordinator antenna. The antenna encodes the data into a 2.4 GHz radio frequency packet and broadcasts it across my home&rsquo;s Zigbee mesh network, hopping from smart plug to smart bulb until it reaches the battery-powered IR blaster on the kitchen cabinet.</p>
+<h3 id="6-the-final-hop-digital-logic-to-infrared-photons">6. The Final Hop (Digital Logic to Infrared Photons)</h3>
+<p>The microcontroller inside the IR blaster wakes up, receives the radio packet, and decodes it back into an array of microsecond timings. It feeds these timings into an LED, which flashes rapidly, modulating invisible 940nm light waves at a strict 38kHz frequency. These photons blast across the kitchen, bounce off the tiles, and hit the photodiode receiver on the range hood. The hood decodes the light back into a binary command and closes a physical relay, spinning up the fan motor.</p>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">flowchart TB
+    A[Voice Command] --&gt;|acoustic| B[Amazon Echo Dot]
+    B --&gt;|HTTPS| C[AWS Alexa Cloud]
+    C --&gt;|WebSocket| D[Cloud Proxy]
+    D --&gt;|event bus| E[Home Assistant]
+    E --&gt;|TCP/IP + MQTT| F[MQTT Broker]
+    F --&gt; G[Zigbee2MQTT]
+    G --&gt;|USB| H[Zigbee Coordinator]
+    H --&gt;|Zigbee mesh| I[Tuya IR Blaster]
+    I --&gt;|38kHz IR| J[Range Hood]
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style J fill:#bbf,stroke:#333,stroke-width:2px
+</code></pre><h2 id="an-engineering-miracle">An Engineering Miracle</h2>
+<p>When you map out the entire architecture, it feels like an absolute miracle that this works at all.</p>
+<p>To avoid touching a plastic button with messy hands, we are combining cutting-edge cloud neural networks, global fiber-optic routing, containerized home servers running publish/subscribe event loops, low-power wireless mesh topologies executing cryptographic framing, and primitive flashing light beams.</p>
+<p>Yet, all of this staggering complexity happens seamlessly, reliably, and completely invisibly in less than a second. It’s a profound showcase of interconnected network engineering hiding quietly behind a simple, everyday convenience.</p>
+
+    </div>
+</div><div id="social-media-share" class="has-text-centered">
+	<p><i>Sharing is caring!</i></p>
+	<br>
+	
+	<div class="share-buttons">
+	    <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fpancho.dev%2fposts%2finfrared-hood%2f"
+	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
+	        title="Share on Facebook. Opens in a new window.">
+	        <img src=/img/icons/45px/facebook.png>
+	    </a>
+
+	    <a  href="https://twitter.com/intent/tweet?text=Teaching%20Alexa%20to%20Speak%20Infrared%3a%20The%20Engineering%20Behind%20a%20Dumb%20Range%20Hood&url=http%3a%2f%2fpancho.dev%2fposts%2finfrared-hood%2f"
+	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
+	        title="Share on Twitter. Opens in a new window." >
+	        <img src=/img/icons/45px/twitter.png>
+	    </a>
+
+		<a  href="http://www.reddit.com/submit?url=http%3a%2f%2fpancho.dev%2fposts%2finfrared-hood%2f"
+	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
+	        title="Share on Reddit. Opens in a new window." >
+	        <img src=/img/icons/45px/reddit.png>
+	    </a>
+
+	    <a  href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2fpancho.dev%2fposts%2finfrared-hood%2f"
+	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
+	        title="Share on Pinterest. Opens in a new window." >
+	        <img src=/img/icons/45px/pinterest.png>
+	    </a>
+
+	    <a  href="http://www.tumblr.com/share/link?url=http%3a%2f%2fpancho.dev%2fposts%2finfrared-hood%2f"
+	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
+	        title="Share on Tumblr. Opens in a new window." >
+	        <img src=/img/icons/45px/tumblr.png>
+	    </a>
+
+		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fpancho.dev%2fposts%2finfrared-hood%2f
+			&title=Teaching%20Alexa%20to%20Speak%20Infrared%3a%20The%20Engineering%20Behind%20a%20Dumb%20Range%20Hood&summary=%3cp%3eIt%20all%20started%20with%20a%20simple%2c%20everyday%20annoyance%20in%20the%20kitchen.%3c%2fp%3e%0a%3cp%3eMy%20wife%20would%20be%20in%20the%20middle%20of%20cooking%2c%20hands%20covered%20in%20flour%2c%20oil%2c%20or%20whatever%20was%20being%20prepped%20for%20dinner%2c%20and%20the%20kitchen%20would%20start%20filling%20with%20smoke.%20Our%20range%20hood%20works%20perfectly%20fine%2c%20but%20it%20is%20completely%20%26ldquo%3bdumb%26rdquo%3b%e2%80%94controlled%20exclusively%20by%20a%20small%2c%20analog%20infrared%20remote.%20Having%20to%20stop%2c%20wash%20her%20hands%2c%20find%20the%20little%20plastic%20remote%2c%20and%20press%20the%20right%20buttons%20just%20to%20clear%20the%20air%20was%20a%20daily%20friction%20point.%3c%2fp%3e&source=rafed123.github.io"
+	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
+	        title="Share on LinkedIn. Opens in a new window." >
+	        <img src=/img/icons/45px/linkedin.png>
+	    </a>
+
+	    <a  href="mailto:?subject=Teaching%20Alexa%20to%20Speak%20Infrared%3a%20The%20Engineering%20Behind%20a%20Dumb%20Range%20Hood&amp;body=Check out this site http%3a%2f%2fpancho.dev%2fposts%2finfrared-hood%2f"
+	        title="Share via Email. Opens in a new window." >
+	        <img src=/img/icons/45px/mail.png>
+	    </a>
+	</div>
+</div>
+
+
+<br>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    (function () {
+        if (window.location.hostname == "localhost")
+            return;
+
+        var disqus_shortname = '';
+        if (!disqus_shortname)
+            return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+        </div>
+    </div>
+
+<footer class="footer has-background-dark">
+    <div class="content has-text-centered has-text-white">
+        <p>
+            © 2020 Ramium. Powered by
+            <a class="has-text-light" href="https://github.com/gohugoio/hugo" target="_blank">
+            Hugo</a>. Theme
+            <a class="has-text-light" href="https://github.com/rafed123/ramium/" target="_blank">
+                Ramium.
+            </a>
+        </p>
+    </div>
+</footer>
+</body>
+
+</html>

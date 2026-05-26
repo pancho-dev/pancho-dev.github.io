@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>proxy on pancho.dev</title>
+    <title>Proxy on pancho.dev</title>
     <link>http://pancho.dev/tags/proxy/</link>
-    <description>Recent content in proxy on pancho.dev</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Proxy on pancho.dev</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 03 Aug 2020 14:05:25 -0300</lastBuildDate><atom:link href="http://pancho.dev/tags/proxy/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 03 Aug 2020 14:05:25 -0300</lastBuildDate>
+    <atom:link href="http://pancho.dev/tags/proxy/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Testing a reverse http proxy</title>
       <link>http://pancho.dev/posts/testing-a-proxy/</link>
       <pubDate>Mon, 03 Aug 2020 14:05:25 -0300</pubDate>
-      
       <guid>http://pancho.dev/posts/testing-a-proxy/</guid>
-      <description>Did you ever had trouble with a proxy config? Found that is not simple to test a proxy locally?. Why this? simple, I found many times deploying a proxy configuration to production, even a small change like adding a new path, a redirection or just updating ssl certs, can lead to a disruption or an outage because sometimes it&amp;rsquo;s hard to properly test it before pushing the configuration. So I found a couple of tricks that can help test locally in our laptops or machine before even pushing the code or config giving a safer path to deploy a proxy config.</description>
+      <description>&lt;p&gt;Did you ever had trouble with a proxy config? Found that is not simple to test a proxy locally?. Why this? simple, I found many times deploying a proxy configuration to production, even a small change like adding a new path, a redirection or just updating ssl certs, can lead to a disruption or an outage because sometimes it&amp;rsquo;s hard to properly test it before pushing the configuration. So I found a couple of tricks that can help test locally in our laptops or machine before even pushing the code or config giving a safer path to deploy a proxy config.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>

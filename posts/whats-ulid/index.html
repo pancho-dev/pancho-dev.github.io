@@ -9,30 +9,37 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="This time I will talk about something I found out very recently, and I found interesting to share this information as it might be handy for developers to use when the use case fits.
-So this time I will introduce the ulid. Spoiler alert, it&rsquo;s an ID or at least a data structure that can be used to represent an ID. So why do we have another way of expressing an ID, I won&rsquo;t get into too much details into that but yes there are many ways of defining ids, it can be numerical, using UUIDs, etc.
+So this time I will introduce the ulid. Spoiler alert, it&rsquo;s an ID or at least a data structure that can be used to represent an ID. So why do we have another way of expressing an ID, I won&rsquo;t get into too much details into that but yes there are many ways of defining ids, it can be numerical, using UUIDs, etc. So my motivation is that I found useful the properties of ulid for some specific use cases.
     ">
 
 
-<meta property="og:title" content="What&#39;s a ULID" />
-<meta property="og:description" content="This time I will talk about something I found out very recently, and I found interesting to share this information as it might be handy for developers to use when the use case fits.
-So this time I will introduce the ulid. Spoiler alert, it&rsquo;s an ID or at least a data structure that can be used to represent an ID. So why do we have another way of expressing an ID, I won&rsquo;t get into too much details into that but yes there are many ways of defining ids, it can be numerical, using UUIDs, etc." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://pancho.dev/posts/whats-ulid/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-06-27T14:35:31-03:00" />
-<meta property="article:modified_time" content="2020-06-27T14:35:31-03:00" />
+<meta property="og:url" content="http://pancho.dev/posts/whats-ulid/">
+  <meta property="og:site_name" content="pancho.dev">
+  <meta property="og:title" content="What&#39;s a ULID">
+  <meta property="og:description" content="This time I will talk about something I found out very recently, and I found interesting to share this information as it might be handy for developers to use when the use case fits.
+So this time I will introduce the ulid. Spoiler alert, it’s an ID or at least a data structure that can be used to represent an ID. So why do we have another way of expressing an ID, I won’t get into too much details into that but yes there are many ways of defining ids, it can be numerical, using UUIDs, etc. So my motivation is that I found useful the properties of ulid for some specific use cases.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-06-27T14:35:31-03:00">
+    <meta property="article:modified_time" content="2020-06-27T14:35:31-03:00">
+    <meta property="article:tag" content="Development">
+    <meta property="article:tag" content="Python">
 
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="What&#39;s a ULID"/>
-<meta name="twitter:description" content="This time I will talk about something I found out very recently, and I found interesting to share this information as it might be handy for developers to use when the use case fits.
-So this time I will introduce the ulid. Spoiler alert, it&rsquo;s an ID or at least a data structure that can be used to represent an ID. So why do we have another way of expressing an ID, I won&rsquo;t get into too much details into that but yes there are many ways of defining ids, it can be numerical, using UUIDs, etc."/>
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="What&#39;s a ULID">
+  <meta name="twitter:description" content="This time I will talk about something I found out very recently, and I found interesting to share this information as it might be handy for developers to use when the use case fits.
+So this time I will introduce the ulid. Spoiler alert, it’s an ID or at least a data structure that can be used to represent an ID. So why do we have another way of expressing an ID, I won’t get into too much details into that but yes there are many ways of defining ids, it can be numerical, using UUIDs, etc. So my motivation is that I found useful the properties of ulid for some specific use cases.">
 
-<meta itemprop="name" content="What&#39;s a ULID">
-<meta itemprop="description" content="This time I will talk about something I found out very recently, and I found interesting to share this information as it might be handy for developers to use when the use case fits.
-So this time I will introduce the ulid. Spoiler alert, it&rsquo;s an ID or at least a data structure that can be used to represent an ID. So why do we have another way of expressing an ID, I won&rsquo;t get into too much details into that but yes there are many ways of defining ids, it can be numerical, using UUIDs, etc."><meta itemprop="datePublished" content="2020-06-27T14:35:31-03:00" />
-<meta itemprop="dateModified" content="2020-06-27T14:35:31-03:00" />
-<meta itemprop="wordCount" content="2102">
-<meta itemprop="keywords" content="development,python," />
+
+  <meta itemprop="name" content="What&#39;s a ULID">
+  <meta itemprop="description" content="This time I will talk about something I found out very recently, and I found interesting to share this information as it might be handy for developers to use when the use case fits.
+So this time I will introduce the ulid. Spoiler alert, it’s an ID or at least a data structure that can be used to represent an ID. So why do we have another way of expressing an ID, I won’t get into too much details into that but yes there are many ways of defining ids, it can be numerical, using UUIDs, etc. So my motivation is that I found useful the properties of ulid for some specific use cases.">
+  <meta itemprop="datePublished" content="2020-06-27T14:35:31-03:00">
+  <meta itemprop="dateModified" content="2020-06-27T14:35:31-03:00">
+  <meta itemprop="wordCount" content="2102">
+  <meta itemprop="keywords" content="Development,Python">
 <link rel="canonical" href="http://pancho.dev/posts/whats-ulid/" />
 
 <link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
@@ -42,21 +49,13 @@ So this time I will introduce the ulid. Spoiler alert, it&rsquo;s an ID or at le
 
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-WBLGT7MX26', { 'anonymize_ip': false });
-}
-</script>
-
 
 
 <script src=/js/ramium.js></script>
 <link rel="stylesheet" href=/css/ramium.css>
+
+
+
 
 
 
@@ -189,7 +188,7 @@ So one day I was looking at <a href="https://prometheus.io/">Prometheus</a> data
 </span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> nobody nogroup 845K Jun <span style="color:#ae81ff">27</span> 17:00 index
 </span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> nobody nogroup  <span style="color:#ae81ff">279</span> Jun <span style="color:#ae81ff">27</span> 17:00 meta.json
 </span></span><span style="display:flex;"><span>-rw-r--r-- <span style="color:#ae81ff">1</span> nobody nogroup    <span style="color:#ae81ff">9</span> Jun <span style="color:#ae81ff">27</span> 17:00 tombstones
-</span></span></code></pre></div><p>Ever since I looked into that folder I wondered about the logic behind the design. Then some day I was looking thought the Prometheus code and I came across the term ulid. Off course I quickly googled the term and found out what it was, then the whole directory structure stated to make sense. I won&rsquo;t get into details of that as it is a subject matter that probably could get 2 or 3 blog posts itself. But I will get into details what ulid are and it might give developers some perspective to solve some problems in a clever way like Prometheus developers did.</p>
+</span></span></code></pre></div><p>Ever since I looked into that folder I wondered about the logic behind the design. Then some day I was looking thought the Prometheus code and I came across the term ulid. Of course I quickly googled the term and found out what it was, then the whole directory structure stated to make sense. I won&rsquo;t get into details of that as it is a subject matter that probably could get 2 or 3 blog posts itself. But I will get into details what ulid are and it might give developers some perspective to solve some problems in a clever way like Prometheus developers did.</p>
 <h1 id="what-is-it-then">What is it then?</h1>
 <p>The term is ulid and it&rsquo;s long name is <code>Universally Unique Lexicographically Sortable Identifier</code>. <a href="https://github.com/ulid/spec">ulid spec</a> is hosted in GitHub if you would like to know more in details.<br>
 But in plain words it is a 128 bit ID, represented in a string using <a href="https://en.wikipedia.org/wiki/Base32#Crockford's_Base32">Crockford&rsquo;s Base32 encoding</a>.<br>
@@ -221,7 +220,7 @@ If the use case requires hard guarantees with sub millisecond precision, ulid wo
 <h4 id="no-rfc">No RFC</h4>
 <p>There are no standards defining ulids, this is just a spec that is hosted in github, which means that someone created the concept and shared it to the world. While UUIDs are an industry standard and they have their own <a href="https://www.ietf.org/rfc/rfc4122.txt">rfc4122</a>, UUIDs can be used for interoperability between vendors. While ulid doesn&rsquo;t have an RFC which might be a problem when you need to interoperate with vendors. Although, a ulid can be converted and represented as a UUID when needed.</p>
 <h4 id="implementations-might-diverge">Implementations might diverge</h4>
-<p>This is related to the previous disadvantage, since this is a spec and not backed by an industry standard, implementation is subject to interpretation and some implementations might have slightly different behavior than other. Off course having an RFC is not guarantee that implementations will be the same, in general RFC are topics already discussed by a group of people/vendors/companies making it a standard and making it easy for interoperate.</p>
+<p>This is related to the previous disadvantage, since this is a spec and not backed by an industry standard, implementation is subject to interpretation and some implementations might have slightly different behavior than other. Of course having an RFC is not guarantee that implementations will be the same, in general RFC are topics already discussed by a group of people/vendors/companies making it a standard and making it easy for interoperate.</p>
 <h4 id="no-tools-to-manipulate-ulids">No tools to manipulate ulids</h4>
 <p>There are libraries for all major languages, but ulid is still missing tools to manipulate ulids in the operating systems, all major operating systems like Mac or linux already have some kind of tool for generating UUIDs like <code>uuidgen</code> or something similar. I haven&rsquo;t found tools to generate ulids out of the box without having to install a programing language and the library to generate the ulid.</p>
 <h3 id="use-cases">Use cases</h3>
@@ -235,7 +234,7 @@ Some examples:</p>
 <li>Events in a distributed system</li>
 <li>Time series blocks (Prometheus use case)</li>
 </ul>
-<p>I wanted to point out a use case that catches my attention and probably would have saved some problems with race conditions when sending messages in an async messaging platform and still have events that need to be ordered. In an distributed system sending messages/events to other systems and attaching a ulid to the message would help prevent or detect race conditions, it won&rsquo;t guarantee that my messages arrived in order but at least I would know that I got a message older than a message that I already received. Helping detect and remediate the situation that might have generated a race condition. Well this is not a bulletproof approach but would helped to detect some of this situations.</p>
+<p>I wanted to point out a use case that catches my attention and probably would have saved some problems with race conditions when sending messages in an async messaging platform and still have events that need to be ordered. In an distributed system sending messages/events to other systems and attaching a ulid to the message would help prevent or detect race conditions, it won&rsquo;t guarantee that my messages arrived in order but at least I would know that I got a message older than a message that I already received. Helping detect and remediate the situation that might have generated a race condition. Well this is not a bulletproof approach but would helped to detect some of these situations.</p>
 <h4 id="example">Example</h4>
 <p>As an example I would show how to generate a ulid in python but other languages should be pretty similar. The example I used <code>python-ulid</code> and <code>iPython</code> interpreter.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span>Python <span style="color:#ae81ff">3.7.5</span> (default, Nov  <span style="color:#ae81ff">1</span> <span style="color:#ae81ff">2019</span>, <span style="color:#ae81ff">02</span>:<span style="color:#ae81ff">16</span>:<span style="color:#ae81ff">32</span>)
@@ -336,7 +335,7 @@ And as I already mentioned I would definitely use it for use cases where we need
 	    </a>
 
 		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fpancho.dev%2fposts%2fwhats-ulid%2f
-			&title=What%27s%20a%20ULID&summary=This%20time%20I%20will%20talk%20about%20something%20I%20found%20out%20very%20recently%2c%20and%20I%20found%20interesting%20to%20share%20this%20information%20as%20it%20might%20be%20handy%20for%20developers%20to%20use%20when%20the%20use%20case%20fits.%0aSo%20this%20time%20I%20will%20introduce%20the%20ulid.%20Spoiler%20alert%2c%20it%26rsquo%3bs%20an%20ID%20or%20at%20least%20a%20data%20structure%20that%20can%20be%20used%20to%20represent%20an%20ID.%20So%20why%20do%20we%20have%20another%20way%20of%20expressing%20an%20ID%2c%20I%20won%26rsquo%3bt%20get%20into%20too%20much%20details%20into%20that%20but%20yes%20there%20are%20many%20ways%20of%20defining%20ids%2c%20it%20can%20be%20numerical%2c%20using%20UUIDs%2c%20etc.&source=rafed123.github.io"
+			&title=What%27s%20a%20ULID&summary=%3cp%3eThis%20time%20I%20will%20talk%20about%20something%20I%20found%20out%20very%20recently%2c%20and%20I%20found%20interesting%20to%20share%20this%20information%20as%20it%20might%20be%20handy%20for%20developers%20to%20use%20when%20the%20use%20case%20fits.%3cbr%3e%0aSo%20this%20time%20I%20will%20introduce%20the%20%3ccode%3eulid%3c%2fcode%3e.%20Spoiler%20alert%2c%20it%26rsquo%3bs%20an%20ID%20or%20at%20least%20a%20data%20structure%20that%20can%20be%20used%20to%20represent%20an%20ID.%20So%20why%20do%20we%20have%20another%20way%20of%20expressing%20an%20ID%2c%20I%20won%26rsquo%3bt%20get%20into%20too%20much%20details%20into%20that%20but%20yes%20there%20are%20many%20ways%20of%20defining%20ids%2c%20it%20can%20be%20numerical%2c%20using%20UUIDs%2c%20etc.%20So%20my%20motivation%20is%20that%20I%20found%20useful%20the%20properties%20of%20ulid%20for%20some%20specific%20use%20cases.%3c%2fp%3e&source=rafed123.github.io"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on LinkedIn. Opens in a new window." >
 	        <img src=/img/icons/45px/linkedin.png>
@@ -354,18 +353,20 @@ And as I already mentioned I would definitely use it for use cases where we need
 <div id="disqus_thread"></div>
 <script type="text/javascript">
     (function () {
-        
-        
         if (window.location.hostname == "localhost")
             return;
 
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         var disqus_shortname = '';
+        if (!disqus_shortname)
+            return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
 
 
         </div>

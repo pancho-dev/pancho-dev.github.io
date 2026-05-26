@@ -12,18 +12,23 @@
     ">
 
 
-<meta property="og:title" content="linux" />
-<meta property="og:description" content="A description for the meta tag of the site" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://pancho.dev/tags/linux/" />
+<meta property="og:url" content="http://pancho.dev/tags/linux/">
+  <meta property="og:site_name" content="pancho.dev">
+  <meta property="og:title" content="Linux">
+  <meta property="og:description" content="A description for the meta tag of the site">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="website">
 
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="linux"/>
-<meta name="twitter:description" content="A description for the meta tag of the site"/>
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Linux">
+  <meta name="twitter:description" content="A description for the meta tag of the site">
 
-<meta itemprop="name" content="linux">
-<meta itemprop="description" content="A description for the meta tag of the site">
+
+  <meta itemprop="name" content="Linux">
+  <meta itemprop="description" content="A description for the meta tag of the site">
+  <meta itemprop="datePublished" content="2021-09-04T19:52:08-03:00">
+  <meta itemprop="dateModified" content="2021-09-04T19:52:08-03:00">
 <link rel="canonical" href="http://pancho.dev/tags/linux/" />
 
 <link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
@@ -33,21 +38,13 @@
 
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-WBLGT7MX26', { 'anonymize_ip': false });
-}
-</script>
-
 
 
 <script src=/js/ramium.js></script>
 <link rel="stylesheet" href=/css/ramium.css>
+
+
+
 
 
 
@@ -150,7 +147,10 @@ if (!doNotTrack) {
             <a href="/posts/linux-router-with-containers/">
                 <p class="summary">
                     One of my passions in technology is networking, another passion is open source and linux. So sometimes I come across networking software or just to play around with linux standard networking tools like iptables, tc or iproute2, or even play with open source implementations of routing protocols using Quagga/Bird/FRR/go-bgp.
-I always found hard when testing this tools to get a proper setup on my laptop. Off course there are some tools that already help us in this regard like GNS3.
+I always found hard when testing these tools to get a proper setup on my laptop. Of course there are some tools that already help us in this regard like GNS3. However, using GNS3 I need to provide virtual machine images and configure all of them to save specific topologies. I wanted something that I can use quick and simple without the overhead of managing virtual machines and their configurations.
+First thing I though of was set up vagrant linux vms with extra network interfaces and use ansible to configure the virtualized linux routers.
+Then I thought, why not do it in docker?
+
                     
                 </p>
             </a>
@@ -213,7 +213,8 @@ I always found hard when testing this tools to get a proper setup on my laptop. 
         <div>
             <a href="/posts/who-stole-my-cpu/">
                 <p class="summary">
-                    In a previous post I talked about Taming the cpu metrics, while that post was an overview of cpu metrics I thought it was a good topic to emphasize on the cpu steal metric in linux hosts. This is something I recently found and didn’t know it even existed, but it can be very useful when running in virtualized environments and helping us tune either the vm, or the physical host that runs the vms.
+                    In a previous post I talked about Taming the cpu metrics, while that post was an overview of cpu metrics I thought it was a good topic to emphasize on the cpu steal metric in linux hosts. This is something I recently found and didn’t know it even existed, but it can be very useful when running in virtualized environments and helping us tune either the vm, or the physical host that runs the vms. It is something engineers probably overlook and probably don’t even know, if I have known this a couple of months ago would have saved me some troubleshooting time.
+
                     
                 </p>
             </a>
@@ -272,7 +273,8 @@ I always found hard when testing this tools to get a proper setup on my laptop. 
         <div>
             <a href="/posts/taming-the-cpu-metrics/">
                 <p class="summary">
-                    In a past blog post I talked about The misunderstood load average in linux hosts, while load average is a good metric to watch in linux systems to catch generic performance problems, it does not reveal what the issue might be. This time I will dig more into cpu metrics collected from a linux system and explain them, for this purpose I will use multipass vms, and will be showing metrics from grafana screenshots which take the data from prometheus and prometheus node exporter (this is actually out of the scope of this post).
+                    In a past blog post I talked about The misunderstood load average in linux hosts, while load average is a good metric to watch in linux systems to catch generic performance problems, it does not reveal what the issue might be. This time I will dig more into cpu metrics collected from a linux system and explain them, for this purpose I will use multipass vms, and will be showing metrics from grafana screenshots which take the data from prometheus and prometheus node exporter (this is actually out of the scope of this post). To gather some metrics I will run a few vms in my home linux server and do some stress tests to catch some operations that will show in the cpu metrics and explain what each one of them is.
+
                     
                 </p>
             </a>
@@ -331,7 +333,8 @@ I always found hard when testing this tools to get a proper setup on my laptop. 
         <div>
             <a href="/posts/multipass-microk8s-cluster/">
                 <p class="summary">
-                    A couple of posts ago I talked about multi-node kubernetes clusters and the benefits of them running them for developing automation, testing software and configurations. I still think is that most developers probably don’t need this setup or can live with a simpler setup. My motivation is because I work on cloud infrastructure and automation of deployments, databases, and lots of complex scenarios that running single node k8s cluster doesn’t fit my needs.
+                    A couple of posts ago I talked about multi-node kubernetes clusters and the benefits of them running them for developing automation, testing software and configurations. I still think is that most developers probably don’t need this setup or can live with a simpler setup. My motivation is because I work on cloud infrastructure and automation of deployments, databases, and lots of complex scenarios that running single node k8s cluster doesn’t fit my needs. This time I will try another option to create multi-node clusters. I have used kind, ignite micro vms and k3s in blog posts. This time is the turn of some tools from Canonical which seems o work together pretty well. I will create a multi-node cluster running vms created with multipass and microk8s.
+
                     
                 </p>
             </a>
@@ -390,7 +393,8 @@ I always found hard when testing this tools to get a proper setup on my laptop. 
         <div>
             <a href="/posts/linux-load-average/">
                 <p class="summary">
-                    Ever wondered when someone runs the command uptime in a linux host what the values in the load average: section mean? well I have wondered about it many times in my career. And this should be a simple question to ask a seasoned linux administrator or developer, right? well it’s not entirely true, as the load average value in a linux hosts probably is the most misunderstood term and often associated with the wrong concepts.
+                    Ever wondered when someone runs the command uptime in a linux host what the values in the load average: section mean? well I have wondered about it many times in my career. And this should be a simple question to ask a seasoned linux administrator or developer, right? well it’s not entirely true, as the load average value in a linux hosts probably is the most misunderstood term and often associated with the wrong concepts. In this post I will explain and tell a bit more about my experience about load average value in linux and how it helps me everyday to spot issues in infrastructure.
+
                     
                 </p>
             </a>
@@ -450,6 +454,8 @@ I always found hard when testing this tools to get a proper setup on my laptop. 
             <a href="/posts/creating-kubernetes-kind-cluster/">
                 <p class="summary">
                     In an earlier post I showed how to create Multi-node k8s cluster using ignite and k3s, while this was a good experience I needed to test some other tools, and this time I decided to go for kind (kubernetes in docker). Which looks like a good approach to work with clusters locally and it will still be lightweight as the kubernetes “nodes” will be actually running as docker containers. This at first glance looks like a easier approach and seems to work in a similar way in Mac, linux or Windows, which gives a great advantage.
+Also this time I choose to work with kind because it allows to do a lot of stuff like simulating multiple control plane nodes and multiple worker nodes. In my case I did wanted multiple nodes to try things like running Postgres clusters and use anti affinity to develop in my laptop some automation around Postgres clusters. It is very fast to start a cluster and play around with multiple clusters. Another cool feature is that is easy to start a cluster with multiple masters and the setup of the cluster seems a very “vanilla” k8s cluster which is and advantage to be running things similar to what you would run in production others like k3s or microk8s use a lot of lightweight components that might not actually look like “production clusters”, however this is still a very personal opinion and depends on the needs of the developer and all have pros and cons. We will see how it looks like after I actually finish the post and get some conclusions.
+
                     
                 </p>
             </a>
@@ -509,7 +515,10 @@ I always found hard when testing this tools to get a proper setup on my laptop. 
             <a href="/posts/multinode-k8s-ignite-k3s/">
                 <p class="summary">
                     Sometimes if you are working with kubernetes, or developing applications that require a multi-node setup to test some functionality running a multi-node cluster is a must, in some cases you could use kind which you can spin up multi-node/multi-master clusters on docker, however there might be scenarios were you still need to test or develop functions that need the real feel of a cluster with multiple nodes.
-In the past I have run this in my local environment running vms with vagrant and virtualbox, that worked very well, and I still use it for some special scenarios.
+In the past I have run this in my local environment running vms with vagrant and virtualbox, that worked very well, and I still use it for some special scenarios. But I needed something I could run more workers/masters on my local laptop. One clear example is that I wanted to test the Postgres operator from crunchydata that allows to create a Postgres cluster with a standby cluster in a different k8s cluster. Or try kilo to setup encrypted communications between pods and test the multi cluster setup. Another use case was that I wanted to play with CNI plugins or some use some other advanced features, and the setup I will explain in this post allows more flexibility to do so.
+My need could be solved by vagrant and virtualbox, and in fact is a great approach and very easy to setup everything as code in an automated fashion. But I wanted to take my laptop to the next level with something more efficient and I found a great project that allows to run firecracker micro-vms in a way that is very similar to running docker containers. The project is called ignite and you will have in no time vms running using very little resources which allows to run much more worker nodes and multiple clusters at the same time.
+We will install ignite in our ubuntu laptop/desktop/server and run a 3 node kubernetes cluster. The following have been tested in my ubuntu 18.04 server I run at home.
+
                     
                 </p>
             </a>

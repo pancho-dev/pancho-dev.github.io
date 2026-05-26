@@ -12,18 +12,23 @@
     ">
 
 
-<meta property="og:title" content="Golang" />
-<meta property="og:description" content="A description for the meta tag of the site" />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="http://pancho.dev/tags/golang/" />
+<meta property="og:url" content="http://pancho.dev/tags/golang/">
+  <meta property="og:site_name" content="pancho.dev">
+  <meta property="og:title" content="Golang">
+  <meta property="og:description" content="A description for the meta tag of the site">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="website">
 
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Golang"/>
-<meta name="twitter:description" content="A description for the meta tag of the site"/>
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Golang">
+  <meta name="twitter:description" content="A description for the meta tag of the site">
 
-<meta itemprop="name" content="Golang">
-<meta itemprop="description" content="A description for the meta tag of the site">
+
+  <meta itemprop="name" content="Golang">
+  <meta itemprop="description" content="A description for the meta tag of the site">
+  <meta itemprop="datePublished" content="2020-10-24T11:30:35-03:00">
+  <meta itemprop="dateModified" content="2020-10-24T11:30:35-03:00">
 <link rel="canonical" href="http://pancho.dev/tags/golang/" />
 
 <link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
@@ -33,21 +38,13 @@
 
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-WBLGT7MX26', { 'anonymize_ip': false });
-}
-</script>
-
 
 
 <script src=/js/ramium.js></script>
 <link rel="stylesheet" href=/css/ramium.css>
+
+
+
 
 
 
@@ -155,7 +152,10 @@ if (!doNotTrack) {
         <div>
             <a href="/posts/watch_out_cloud_storage/">
                 <p class="summary">
-                    One of the most popular services from cloud providers is cloud storage, to be more specific AWS S3, Google Cloud Storage, Azure Storage or any similar service from other cloud providers. This service is very convenient for developers and SREs or System Admins, it solves the problem of managing disks, storage devices , storage servers, etc at a very low cost for storing files, depending on the cloud provider, some of them even offer a staggering 99.
+                    One of the most popular services from cloud providers is cloud storage, to be more specific AWS S3, Google Cloud Storage, Azure Storage or any similar service from other cloud providers. This service is very convenient for developers and SREs or System Admins, it solves the problem of managing disks, storage devices , storage servers, etc at a very low cost for storing files, depending on the cloud provider, some of them even offer a staggering 99.999999999% durability. Given the benefits and low cost of such services, I have seen more and more reliance on the cloud storage services.
+But there is a catch on the cheap pricing, in order to make a good decision when architecting an application we need to look a all pricing items for the cloud storage service to optimize around costs. Cloud storage services usually charge for the storage used for files stored, api calls to put, retrieve and list files and network traffic. So we need to have in mind these parameters to avoid surprises on our cloud storage bills. I will not go into too much details on each cloud provider on this post but I will show something I found out recently that made an application lower the costs about 10 times just by optimizing the way the data was being accessed. These optimizations might be a key to make a feature or an app profitable.
+In particular I will talk about AWS S3 api calls and the behavior of some of the official AWS SDKs that needed some tweaking. Of course all findings shown in this post were done with documentation found at the time of this writing. So I suggest double check the SDKs behavior as it might change in the future.
+
                     
                 </p>
             </a>

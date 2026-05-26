@@ -9,30 +9,46 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="One of my passions in technology is networking, another passion is open source and linux. So sometimes I come across networking software or just to play around with linux standard networking tools like iptables, tc or iproute2, or even play with open source implementations of routing protocols using Quagga/Bird/FRR/go-bgp.
-I always found hard when testing this tools to get a proper setup on my laptop. Off course there are some tools that already help us in this regard like GNS3.
+I always found hard when testing these tools to get a proper setup on my laptop. Of course there are some tools that already help us in this regard like GNS3. However, using GNS3 I need to provide virtual machine images and configure all of them to save specific topologies. I wanted something that I can use quick and simple without the overhead of managing virtual machines and their configurations.
+First thing I though of was set up vagrant linux vms with extra network interfaces and use ansible to configure the virtualized linux routers.
+Then I thought, why not do it in docker?
     ">
 
 
-<meta property="og:title" content="Linux Router With Containers" />
-<meta property="og:description" content="One of my passions in technology is networking, another passion is open source and linux. So sometimes I come across networking software or just to play around with linux standard networking tools like iptables, tc or iproute2, or even play with open source implementations of routing protocols using Quagga/Bird/FRR/go-bgp.
-I always found hard when testing this tools to get a proper setup on my laptop. Off course there are some tools that already help us in this regard like GNS3." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://pancho.dev/posts/linux-router-with-containers/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2021-09-04T19:52:08-03:00" />
-<meta property="article:modified_time" content="2021-09-04T19:52:08-03:00" />
+<meta property="og:url" content="http://pancho.dev/posts/linux-router-with-containers/">
+  <meta property="og:site_name" content="pancho.dev">
+  <meta property="og:title" content="Linux Router With Containers">
+  <meta property="og:description" content="One of my passions in technology is networking, another passion is open source and linux. So sometimes I come across networking software or just to play around with linux standard networking tools like iptables, tc or iproute2, or even play with open source implementations of routing protocols using Quagga/Bird/FRR/go-bgp.
+I always found hard when testing these tools to get a proper setup on my laptop. Of course there are some tools that already help us in this regard like GNS3. However, using GNS3 I need to provide virtual machine images and configure all of them to save specific topologies. I wanted something that I can use quick and simple without the overhead of managing virtual machines and their configurations.
+First thing I though of was set up vagrant linux vms with extra network interfaces and use ansible to configure the virtualized linux routers.
+Then I thought, why not do it in docker?">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2021-09-04T19:52:08-03:00">
+    <meta property="article:modified_time" content="2021-09-04T19:52:08-03:00">
+    <meta property="article:tag" content="Docker">
+    <meta property="article:tag" content="Network">
+    <meta property="article:tag" content="Linux">
 
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Linux Router With Containers"/>
-<meta name="twitter:description" content="One of my passions in technology is networking, another passion is open source and linux. So sometimes I come across networking software or just to play around with linux standard networking tools like iptables, tc or iproute2, or even play with open source implementations of routing protocols using Quagga/Bird/FRR/go-bgp.
-I always found hard when testing this tools to get a proper setup on my laptop. Off course there are some tools that already help us in this regard like GNS3."/>
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Linux Router With Containers">
+  <meta name="twitter:description" content="One of my passions in technology is networking, another passion is open source and linux. So sometimes I come across networking software or just to play around with linux standard networking tools like iptables, tc or iproute2, or even play with open source implementations of routing protocols using Quagga/Bird/FRR/go-bgp.
+I always found hard when testing these tools to get a proper setup on my laptop. Of course there are some tools that already help us in this regard like GNS3. However, using GNS3 I need to provide virtual machine images and configure all of them to save specific topologies. I wanted something that I can use quick and simple without the overhead of managing virtual machines and their configurations.
+First thing I though of was set up vagrant linux vms with extra network interfaces and use ansible to configure the virtualized linux routers.
+Then I thought, why not do it in docker?">
 
-<meta itemprop="name" content="Linux Router With Containers">
-<meta itemprop="description" content="One of my passions in technology is networking, another passion is open source and linux. So sometimes I come across networking software or just to play around with linux standard networking tools like iptables, tc or iproute2, or even play with open source implementations of routing protocols using Quagga/Bird/FRR/go-bgp.
-I always found hard when testing this tools to get a proper setup on my laptop. Off course there are some tools that already help us in this regard like GNS3."><meta itemprop="datePublished" content="2021-09-04T19:52:08-03:00" />
-<meta itemprop="dateModified" content="2021-09-04T19:52:08-03:00" />
-<meta itemprop="wordCount" content="2233">
-<meta itemprop="keywords" content="docker,network,linux," />
+
+  <meta itemprop="name" content="Linux Router With Containers">
+  <meta itemprop="description" content="One of my passions in technology is networking, another passion is open source and linux. So sometimes I come across networking software or just to play around with linux standard networking tools like iptables, tc or iproute2, or even play with open source implementations of routing protocols using Quagga/Bird/FRR/go-bgp.
+I always found hard when testing these tools to get a proper setup on my laptop. Of course there are some tools that already help us in this regard like GNS3. However, using GNS3 I need to provide virtual machine images and configure all of them to save specific topologies. I wanted something that I can use quick and simple without the overhead of managing virtual machines and their configurations.
+First thing I though of was set up vagrant linux vms with extra network interfaces and use ansible to configure the virtualized linux routers.
+Then I thought, why not do it in docker?">
+  <meta itemprop="datePublished" content="2021-09-04T19:52:08-03:00">
+  <meta itemprop="dateModified" content="2021-09-04T19:52:08-03:00">
+  <meta itemprop="wordCount" content="2206">
+  <meta itemprop="keywords" content="Docker,Network,Linux">
 <link rel="canonical" href="http://pancho.dev/posts/linux-router-with-containers/" />
 
 <link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
@@ -42,21 +58,13 @@ I always found hard when testing this tools to get a proper setup on my laptop. 
 
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-WBLGT7MX26', { 'anonymize_ip': false });
-}
-</script>
-
 
 
 <script src=/js/ramium.js></script>
 <link rel="stylesheet" href=/css/ramium.css>
+
+
+
 
 
 
@@ -154,7 +162,7 @@ if (!doNotTrack) {
         
 
         <p>One of my passions in technology is networking, another passion is open source and linux. So sometimes I come across networking software or just to play around with linux standard networking tools like iptables, tc or iproute2, or even play with open source implementations of routing protocols using Quagga/Bird/FRR/go-bgp.<br>
-I always found hard when testing this tools to get a proper setup on my laptop. Off course there are some tools that already help us in this regard like GNS3. However, using GNS3 I need to provide virtual machine images and configure all of them to save specific topologies. I wanted something that I can use quick and simple without the need of installing and keeping vms images on my laptop. Another requirement I had was to keep it as light as possible and wasy to reproduce, keep as much as possible of it as code.<br>
+I always found hard when testing these tools to get a proper setup on my laptop. Of course there are some tools that already help us in this regard like GNS3. However, using GNS3 I need to provide virtual machine images and configure all of them to save specific topologies. I wanted something that I can use quick and simple without the overhead of managing virtual machines and their configurations.<br>
 First thing I though of was set up vagrant linux vms with extra network interfaces and use ansible to configure the virtualized linux routers.<br>
 Then I thought, why not do it in docker?</p>
 <h1 id="docker-and-a-linux-router-interesting">Docker and a linux router? Interesting!</h1>
@@ -192,7 +200,7 @@ I will explain how to do it with a simple example with just ubuntu image contain
 <li>Running on Raspberry Pi 4 with 8G RAM (however with a 1G RAM would be more than enough)</li>
 <li>Docker CE 20.10.8</li>
 </ul>
-<p>I tested this on a raspberry pi to just show it can be run in very resource constrained setup. Off course if running more complex software like FRR or BIRD might have more memory needs.</p>
+<p>I tested this on a raspberry pi to just show it can be run in very resource constrained setup. Of course if running more complex software like FRR or BIRD might have more memory needs.</p>
 <h1 id="starting-the-containers">Starting the containers</h1>
 <p>In this setup we will end with 3 containers running 2 clients and 1 router. Also we will use a custom build container image based on ubuntu 20.04 I build which have multiple tools needed for network troubleshooting and this kind of tests. Here is the <a href="https://github.com/fcastello/ubuntu-nework">github repo link</a> and the image <a href="https://hub.docker.com/r/fcastello/ubuntu-network">dockerhub link</a></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run --privileged -d -t --net none --name c1 fcastello/ubuntu-network bash
@@ -419,7 +427,7 @@ Best of all this is pretty lightweight and easy to clean up leaving my laptop (o
 	    </a>
 
 		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fpancho.dev%2fposts%2flinux-router-with-containers%2f
-			&title=Linux%20Router%20With%20Containers&summary=One%20of%20my%20passions%20in%20technology%20is%20networking%2c%20another%20passion%20is%20open%20source%20and%20linux.%20So%20sometimes%20I%20come%20across%20networking%20software%20or%20just%20to%20play%20around%20with%20linux%20standard%20networking%20tools%20like%20iptables%2c%20tc%20or%20iproute2%2c%20or%20even%20play%20with%20open%20source%20implementations%20of%20routing%20protocols%20using%20Quagga%2fBird%2fFRR%2fgo-bgp.%0aI%20always%20found%20hard%20when%20testing%20this%20tools%20to%20get%20a%20proper%20setup%20on%20my%20laptop.%20Off%20course%20there%20are%20some%20tools%20that%20already%20help%20us%20in%20this%20regard%20like%20GNS3.&source=rafed123.github.io"
+			&title=Linux%20Router%20With%20Containers&summary=%3cp%3eOne%20of%20my%20passions%20in%20technology%20is%20networking%2c%20another%20passion%20is%20open%20source%20and%20linux.%20So%20sometimes%20I%20come%20across%20networking%20software%20or%20just%20to%20play%20around%20with%20linux%20standard%20networking%20tools%20like%20iptables%2c%20tc%20or%20iproute2%2c%20or%20even%20play%20with%20open%20source%20implementations%20of%20routing%20protocols%20using%20Quagga%2fBird%2fFRR%2fgo-bgp.%3cbr%3e%0aI%20always%20found%20hard%20when%20testing%20these%20tools%20to%20get%20a%20proper%20setup%20on%20my%20laptop.%20Of%20course%20there%20are%20some%20tools%20that%20already%20help%20us%20in%20this%20regard%20like%20GNS3.%20However%2c%20using%20GNS3%20I%20need%20to%20provide%20virtual%20machine%20images%20and%20configure%20all%20of%20them%20to%20save%20specific%20topologies.%20I%20wanted%20something%20that%20I%20can%20use%20quick%20and%20simple%20without%20the%20overhead%20of%20managing%20virtual%20machines%20and%20their%20configurations.%3cbr%3e%0aFirst%20thing%20I%20though%20of%20was%20set%20up%20vagrant%20linux%20vms%20with%20extra%20network%20interfaces%20and%20use%20ansible%20to%20configure%20the%20virtualized%20linux%20routers.%3cbr%3e%0aThen%20I%20thought%2c%20why%20not%20do%20it%20in%20docker%3f%3c%2fp%3e&source=rafed123.github.io"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on LinkedIn. Opens in a new window." >
 	        <img src=/img/icons/45px/linkedin.png>
@@ -437,18 +445,20 @@ Best of all this is pretty lightweight and easy to clean up leaving my laptop (o
 <div id="disqus_thread"></div>
 <script type="text/javascript">
     (function () {
-        
-        
         if (window.location.hostname == "localhost")
             return;
 
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         var disqus_shortname = '';
+        if (!disqus_shortname)
+            return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
 
 
         </div>

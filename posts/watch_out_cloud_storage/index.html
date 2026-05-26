@@ -8,27 +8,46 @@
 
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="One of the most popular services from cloud providers is cloud storage, to be more specific AWS S3, Google Cloud Storage, Azure Storage or any similar service from other cloud providers. This service is very convenient for developers and SREs or System Admins, it solves the problem of managing disks, storage devices , storage servers, etc at a very low cost for storing files, depending on the cloud provider, some of them even offer a staggering 99.
+<meta name="description" content="One of the most popular services from cloud providers is cloud storage, to be more specific AWS S3, Google Cloud Storage, Azure Storage or any similar service from other cloud providers. This service is very convenient for developers and SREs or System Admins, it solves the problem of managing disks, storage devices , storage servers, etc at a very low cost for storing files, depending on the cloud provider, some of them even offer a staggering 99.999999999% durability. Given the benefits and low cost of such services, I have seen more and more reliance on the cloud storage services.
+But there is a catch on the cheap pricing, in order to make a good decision when architecting an application we need to look a all pricing items for the cloud storage service to optimize around costs.  Cloud storage services usually charge for the storage used for files stored, api calls to put, retrieve and list files and network traffic. So we need to have in mind these parameters to avoid surprises on our cloud storage bills. I will not go into too much details on each cloud provider on this post but I will show something I found out recently that made an application lower the costs about 10 times just by optimizing the way the data was being accessed. These optimizations might be a key to make a feature or an app profitable.
+In particular I will talk about AWS S3 api calls and the behavior of some of the official AWS SDKs that needed some tweaking. Of course all findings shown in this post were done with documentation found at the time of this writing. So I suggest double check the SDKs behavior as it might change in the future.
     ">
 
 
-<meta property="og:title" content="Watch out with cloud storage API calls!!!" />
-<meta property="og:description" content="One of the most popular services from cloud providers is cloud storage, to be more specific AWS S3, Google Cloud Storage, Azure Storage or any similar service from other cloud providers. This service is very convenient for developers and SREs or System Admins, it solves the problem of managing disks, storage devices , storage servers, etc at a very low cost for storing files, depending on the cloud provider, some of them even offer a staggering 99." />
-<meta property="og:type" content="article" />
-<meta property="og:url" content="http://pancho.dev/posts/watch_out_cloud_storage/" /><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2020-10-24T11:30:35-03:00" />
-<meta property="article:modified_time" content="2020-10-24T11:30:35-03:00" />
+<meta property="og:url" content="http://pancho.dev/posts/watch_out_cloud_storage/">
+  <meta property="og:site_name" content="pancho.dev">
+  <meta property="og:title" content="Watch out with cloud storage API calls!!!">
+  <meta property="og:description" content="One of the most popular services from cloud providers is cloud storage, to be more specific AWS S3, Google Cloud Storage, Azure Storage or any similar service from other cloud providers. This service is very convenient for developers and SREs or System Admins, it solves the problem of managing disks, storage devices , storage servers, etc at a very low cost for storing files, depending on the cloud provider, some of them even offer a staggering 99.999999999% durability. Given the benefits and low cost of such services, I have seen more and more reliance on the cloud storage services.
+But there is a catch on the cheap pricing, in order to make a good decision when architecting an application we need to look a all pricing items for the cloud storage service to optimize around costs. Cloud storage services usually charge for the storage used for files stored, api calls to put, retrieve and list files and network traffic. So we need to have in mind these parameters to avoid surprises on our cloud storage bills. I will not go into too much details on each cloud provider on this post but I will show something I found out recently that made an application lower the costs about 10 times just by optimizing the way the data was being accessed. These optimizations might be a key to make a feature or an app profitable.
+In particular I will talk about AWS S3 api calls and the behavior of some of the official AWS SDKs that needed some tweaking. Of course all findings shown in this post were done with documentation found at the time of this writing. So I suggest double check the SDKs behavior as it might change in the future.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2020-10-24T11:30:35-03:00">
+    <meta property="article:modified_time" content="2020-10-24T11:30:35-03:00">
+    <meta property="article:tag" content="AWS">
+    <meta property="article:tag" content="Cloud">
+    <meta property="article:tag" content="Storage">
+    <meta property="article:tag" content="S3">
+    <meta property="article:tag" content="Golang">
+    <meta property="article:tag" content="Python">
 
 
-<meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Watch out with cloud storage API calls!!!"/>
-<meta name="twitter:description" content="One of the most popular services from cloud providers is cloud storage, to be more specific AWS S3, Google Cloud Storage, Azure Storage or any similar service from other cloud providers. This service is very convenient for developers and SREs or System Admins, it solves the problem of managing disks, storage devices , storage servers, etc at a very low cost for storing files, depending on the cloud provider, some of them even offer a staggering 99."/>
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Watch out with cloud storage API calls!!!">
+  <meta name="twitter:description" content="One of the most popular services from cloud providers is cloud storage, to be more specific AWS S3, Google Cloud Storage, Azure Storage or any similar service from other cloud providers. This service is very convenient for developers and SREs or System Admins, it solves the problem of managing disks, storage devices , storage servers, etc at a very low cost for storing files, depending on the cloud provider, some of them even offer a staggering 99.999999999% durability. Given the benefits and low cost of such services, I have seen more and more reliance on the cloud storage services.
+But there is a catch on the cheap pricing, in order to make a good decision when architecting an application we need to look a all pricing items for the cloud storage service to optimize around costs. Cloud storage services usually charge for the storage used for files stored, api calls to put, retrieve and list files and network traffic. So we need to have in mind these parameters to avoid surprises on our cloud storage bills. I will not go into too much details on each cloud provider on this post but I will show something I found out recently that made an application lower the costs about 10 times just by optimizing the way the data was being accessed. These optimizations might be a key to make a feature or an app profitable.
+In particular I will talk about AWS S3 api calls and the behavior of some of the official AWS SDKs that needed some tweaking. Of course all findings shown in this post were done with documentation found at the time of this writing. So I suggest double check the SDKs behavior as it might change in the future.">
 
-<meta itemprop="name" content="Watch out with cloud storage API calls!!!">
-<meta itemprop="description" content="One of the most popular services from cloud providers is cloud storage, to be more specific AWS S3, Google Cloud Storage, Azure Storage or any similar service from other cloud providers. This service is very convenient for developers and SREs or System Admins, it solves the problem of managing disks, storage devices , storage servers, etc at a very low cost for storing files, depending on the cloud provider, some of them even offer a staggering 99."><meta itemprop="datePublished" content="2020-10-24T11:30:35-03:00" />
-<meta itemprop="dateModified" content="2020-10-24T11:30:35-03:00" />
-<meta itemprop="wordCount" content="1921">
-<meta itemprop="keywords" content="AWS,Cloud,Storage,S3,Golang,Python," />
+
+  <meta itemprop="name" content="Watch out with cloud storage API calls!!!">
+  <meta itemprop="description" content="One of the most popular services from cloud providers is cloud storage, to be more specific AWS S3, Google Cloud Storage, Azure Storage or any similar service from other cloud providers. This service is very convenient for developers and SREs or System Admins, it solves the problem of managing disks, storage devices , storage servers, etc at a very low cost for storing files, depending on the cloud provider, some of them even offer a staggering 99.999999999% durability. Given the benefits and low cost of such services, I have seen more and more reliance on the cloud storage services.
+But there is a catch on the cheap pricing, in order to make a good decision when architecting an application we need to look a all pricing items for the cloud storage service to optimize around costs. Cloud storage services usually charge for the storage used for files stored, api calls to put, retrieve and list files and network traffic. So we need to have in mind these parameters to avoid surprises on our cloud storage bills. I will not go into too much details on each cloud provider on this post but I will show something I found out recently that made an application lower the costs about 10 times just by optimizing the way the data was being accessed. These optimizations might be a key to make a feature or an app profitable.
+In particular I will talk about AWS S3 api calls and the behavior of some of the official AWS SDKs that needed some tweaking. Of course all findings shown in this post were done with documentation found at the time of this writing. So I suggest double check the SDKs behavior as it might change in the future.">
+  <meta itemprop="datePublished" content="2020-10-24T11:30:35-03:00">
+  <meta itemprop="dateModified" content="2020-10-24T11:30:35-03:00">
+  <meta itemprop="wordCount" content="1921">
+  <meta itemprop="keywords" content="AWS,Cloud,Storage,S3,Golang,Python">
 <link rel="canonical" href="http://pancho.dev/posts/watch_out_cloud_storage/" />
 
 <link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
@@ -38,21 +57,13 @@
 
 
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
-<script>
-var doNotTrack = false;
-if (!doNotTrack) {
-	window.dataLayer = window.dataLayer || [];
-	function gtag(){dataLayer.push(arguments);}
-	gtag('js', new Date());
-	gtag('config', 'G-WBLGT7MX26', { 'anonymize_ip': false });
-}
-</script>
-
 
 
 <script src=/js/ramium.js></script>
 <link rel="stylesheet" href=/css/ramium.css>
+
+
+
 
 
 
@@ -162,14 +173,14 @@ if (!doNotTrack) {
         
 
         <p>One of the most popular services from cloud providers is cloud storage, to be more specific AWS S3, Google Cloud Storage, Azure Storage or any similar service from other cloud providers. This service is very convenient for developers and SREs or System Admins, it solves the problem of managing disks, storage devices , storage servers, etc at a very low cost for storing files, depending on the cloud provider, some of them even offer a staggering 99.999999999% durability. Given the benefits and low cost of such services, I have seen more and more reliance on the cloud storage services.<br>
-But there is a catch on the cheap pricing, in order to make a good decision when architecting an application we need to look a all pricing items for the cloud storage service to optimize around costs.  Cloud storage services usually charge for the storage used for files stored, api calls to put, retrieve and list files and network traffic. So we need to have in mind this parameters to avoid surprises on our cloud storage bills. I will not go into too much details on each cloud provider on this post but I will show something I found out recently that made an application lower the costs about 10 times just by optimizing the way the data was being accessed. This optimizations might be a key to make a feature or an app profitable.<br>
-In particular I will talk about AWS S3 api calls and the behavior of some of the official AWS SDKs that needed some tweaking. Off course all findings shown in this post were done with documentation found at the time of this writing. So I suggest double check the SDKs behavior as it might change in the future.</p>
+But there is a catch on the cheap pricing, in order to make a good decision when architecting an application we need to look a all pricing items for the cloud storage service to optimize around costs.  Cloud storage services usually charge for the storage used for files stored, api calls to put, retrieve and list files and network traffic. So we need to have in mind these parameters to avoid surprises on our cloud storage bills. I will not go into too much details on each cloud provider on this post but I will show something I found out recently that made an application lower the costs about 10 times just by optimizing the way the data was being accessed. These optimizations might be a key to make a feature or an app profitable.<br>
+In particular I will talk about AWS S3 api calls and the behavior of some of the official AWS SDKs that needed some tweaking. Of course all findings shown in this post were done with documentation found at the time of this writing. So I suggest double check the SDKs behavior as it might change in the future.</p>
 <h1 id="aws-s3-multipart-uploads">AWS S3 Multipart Uploads</h1>
 <p>A restriction on the AWS Rest APIs is that there is a limit to PUT requests of 5GB, which means when we are working with S3 API and want to upload files bigger than 5GB.<br>
 For managing that restriction and be able to upload files bigger than 5GB S3 API implements the Multipart uploads, which allows you to upload a file into chunks.<br>
 This approach brings a lot of benefits because it allows to upload chunks in parallel or handle failures gracefully and only re upload failed chunks making recovery much faster when uploading big files, etc; there could be many benefits using multipart uploads.<br>
 But there is a hidden cost, when you upload a file using multipart upload there are inherently more API calls associated with uploading 1 file. At least one initiateMultiPartUpload plus an uploadPart per chunk, and depending the size and the amount of chunks api calls can increase significantly for example if we have a chunk size of 10MB and we upload a file of 1GB this will turn into ~100 api calls, while the cost per 100 api calls is low, when you are uploading thousands of files this makes a huge difference.<br>
-Off course probably very few people uses the AWS API directly and use AWS official SDKs which abstract many of this details for us, I suggest to check the defaults for S3 uploads for the chosen SDK in order to avoid surprises.</p>
+Of course probably very few people uses the AWS API directly and use AWS official SDKs which abstract many of these details for us, I suggest to check the defaults for S3 uploads for the chosen SDK in order to avoid surprises.</p>
 <h1 id="aws-go-sdk">AWS go SDK</h1>
 <p>To my surprise I had a Go application that was uploading files to S3 and one day I noticed the S3 bill was increasing every month, so first I didn&rsquo;t know what was it so ended up setting up tags on S3 buckets to be able to filter by each bucket in the AWS cost explorer. Then found out that I was paying very little for storage per day in this application and I was paying 10 to 12 times more on API calls.</p>
 <p>A code example to upload to S3</p>
@@ -183,12 +194,12 @@ Off course probably very few people uses the AWS API directly and use AWS offici
 </span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;os&#34;</span>
 </span></span><span style="display:flex;"><span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// Creates a S3 Bucket in the region configured in the shared config
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// or AWS_REGION environment variable.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Usage:
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">//    go run s3_upload_object.go BUCKET_NAME FILENAME
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Creates a S3 Bucket in the region configured in the shared config</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// or AWS_REGION environment variable.</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Usage:</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">//    go run s3_upload_object.go BUCKET_NAME FILENAME</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Args</span>) <span style="color:#f92672">!=</span> <span style="color:#ae81ff">3</span> {
 </span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">exitErrorf</span>(<span style="color:#e6db74">&#34;bucket and file name required\nUsage: %s bucket_name filename&#34;</span>,
 </span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Args</span>[<span style="color:#ae81ff">0</span>])
@@ -204,37 +215,37 @@ Off course probably very few people uses the AWS API directly and use AWS offici
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">file</span>.<span style="color:#a6e22e">Close</span>()
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Initialize a session in us-west-2 that the SDK will use to load
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// credentials from the shared credentials file ~/.aws/credentials.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">sess</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">session</span>.<span style="color:#a6e22e">NewSession</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">aws</span>.<span style="color:#a6e22e">Config</span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Initialize a session in us-west-2 that the SDK will use to load</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// credentials from the shared credentials file ~/.aws/credentials.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sess</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">session</span>.<span style="color:#a6e22e">NewSession</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">aws</span>.<span style="color:#a6e22e">Config</span>{
 </span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">Region</span>: <span style="color:#a6e22e">aws</span>.<span style="color:#a6e22e">String</span>(<span style="color:#e6db74">&#34;us-west-2&#34;</span>)},
 </span></span><span style="display:flex;"><span>    )
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Setup the S3 Upload Manager. Also see the SDK doc for the Upload Manager
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// for more information on configuring part size, and concurrency.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">//
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// http://docs.aws.amazon.com/sdk-for-go/api/service/s3/s3manager/#NewUploader
-</span></span></span><span style="display:flex; background-color:#3c3d38"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">uploader</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s3manager</span>.<span style="color:#a6e22e">NewUploader</span>(<span style="color:#a6e22e">sess</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Setup the S3 Upload Manager. Also see the SDK doc for the Upload Manager</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// for more information on configuring part size, and concurrency.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// http://docs.aws.amazon.com/sdk-for-go/api/service/s3/s3manager/#NewUploader</span>
+</span></span><span style="display:flex; background-color:#3c3d38"><span>    <span style="color:#a6e22e">uploader</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s3manager</span>.<span style="color:#a6e22e">NewUploader</span>(<span style="color:#a6e22e">sess</span>)
 </span></span><span style="display:flex; background-color:#3c3d38"><span>
-</span></span><span style="display:flex; background-color:#3c3d38"><span>    <span style="color:#75715e">// Upload the file&#39;s body to S3 bucket as an object with the key being the
-</span></span></span><span style="display:flex; background-color:#3c3d38"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// same as the filename.
-</span></span></span><span style="display:flex; background-color:#3c3d38"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">uploader</span>.<span style="color:#a6e22e">Upload</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s3manager</span>.<span style="color:#a6e22e">UploadInput</span>{
+</span></span><span style="display:flex; background-color:#3c3d38"><span>    <span style="color:#75715e">// Upload the file&#39;s body to S3 bucket as an object with the key being the</span>
+</span></span><span style="display:flex; background-color:#3c3d38"><span>    <span style="color:#75715e">// same as the filename.</span>
+</span></span><span style="display:flex; background-color:#3c3d38"><span>    <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">err</span> = <span style="color:#a6e22e">uploader</span>.<span style="color:#a6e22e">Upload</span>(<span style="color:#f92672">&amp;</span><span style="color:#a6e22e">s3manager</span>.<span style="color:#a6e22e">UploadInput</span>{
 </span></span><span style="display:flex; background-color:#3c3d38"><span>        <span style="color:#a6e22e">Bucket</span>: <span style="color:#a6e22e">aws</span>.<span style="color:#a6e22e">String</span>(<span style="color:#a6e22e">bucket</span>),
 </span></span><span style="display:flex; background-color:#3c3d38"><span>
-</span></span><span style="display:flex; background-color:#3c3d38"><span>        <span style="color:#75715e">// Can also use the `filepath` standard library package to modify the
-</span></span></span><span style="display:flex; background-color:#3c3d38"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// filename as need for an S3 object key. Such as turning absolute path
-</span></span></span><span style="display:flex; background-color:#3c3d38"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// to a relative path.
-</span></span></span><span style="display:flex; background-color:#3c3d38"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">Key</span>: <span style="color:#a6e22e">aws</span>.<span style="color:#a6e22e">String</span>(<span style="color:#a6e22e">filename</span>),
+</span></span><span style="display:flex; background-color:#3c3d38"><span>        <span style="color:#75715e">// Can also use the `filepath` standard library package to modify the</span>
+</span></span><span style="display:flex; background-color:#3c3d38"><span>        <span style="color:#75715e">// filename as need for an S3 object key. Such as turning absolute path</span>
+</span></span><span style="display:flex; background-color:#3c3d38"><span>        <span style="color:#75715e">// to a relative path.</span>
+</span></span><span style="display:flex; background-color:#3c3d38"><span>        <span style="color:#a6e22e">Key</span>: <span style="color:#a6e22e">aws</span>.<span style="color:#a6e22e">String</span>(<span style="color:#a6e22e">filename</span>),
 </span></span><span style="display:flex; background-color:#3c3d38"><span>
-</span></span><span style="display:flex; background-color:#3c3d38"><span>        <span style="color:#75715e">// The file to be uploaded. io.ReadSeeker is preferred as the Uploader
-</span></span></span><span style="display:flex; background-color:#3c3d38"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// will be able to optimize memory when uploading large content. io.Reader
-</span></span></span><span style="display:flex; background-color:#3c3d38"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// is supported, but will require buffering of the reader&#39;s bytes for
-</span></span></span><span style="display:flex; background-color:#3c3d38"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// each part.
-</span></span></span><span style="display:flex; background-color:#3c3d38"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">Body</span>: <span style="color:#a6e22e">file</span>,
+</span></span><span style="display:flex; background-color:#3c3d38"><span>        <span style="color:#75715e">// The file to be uploaded. io.ReadSeeker is preferred as the Uploader</span>
+</span></span><span style="display:flex; background-color:#3c3d38"><span>        <span style="color:#75715e">// will be able to optimize memory when uploading large content. io.Reader</span>
+</span></span><span style="display:flex; background-color:#3c3d38"><span>        <span style="color:#75715e">// is supported, but will require buffering of the reader&#39;s bytes for</span>
+</span></span><span style="display:flex; background-color:#3c3d38"><span>        <span style="color:#75715e">// each part.</span>
+</span></span><span style="display:flex; background-color:#3c3d38"><span>        <span style="color:#a6e22e">Body</span>: <span style="color:#a6e22e">file</span>,
 </span></span><span style="display:flex; background-color:#3c3d38"><span>    })
 </span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Print the error and exit.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">exitErrorf</span>(<span style="color:#e6db74">&#34;Unable to upload %q to %q, %v&#34;</span>, <span style="color:#a6e22e">filename</span>, <span style="color:#a6e22e">bucket</span>, <span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Print the error and exit.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">exitErrorf</span>(<span style="color:#e6db74">&#34;Unable to upload %q to %q, %v&#34;</span>, <span style="color:#a6e22e">filename</span>, <span style="color:#a6e22e">bucket</span>, <span style="color:#a6e22e">err</span>)
 </span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Printf</span>(<span style="color:#e6db74">&#34;Successfully uploaded %q to %q\n&#34;</span>, <span style="color:#a6e22e">filename</span>, <span style="color:#a6e22e">bucket</span>)
@@ -245,29 +256,29 @@ Off course probably very few people uses the AWS API directly and use AWS offici
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">os</span>.<span style="color:#a6e22e">Exit</span>(<span style="color:#ae81ff">1</span>)
 </span></span><span style="display:flex;"><span>}</span></span></code></pre></div>
 <p>In the  highlighted part of the example above shows a similar way the app was using the AWS SDK, I started investigating the code and lead me to AWS SDK code and I quickly found out that the uploader object uses multipart uploads by default. And here is a snippet of the defaults of the SDK (default on the day of this writing):</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// MaxUploadParts is the maximum allowed number of parts in a multi-part upload
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// on Amazon S3.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MaxUploadParts</span> = <span style="color:#ae81ff">10000</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// MaxUploadParts is the maximum allowed number of parts in a multi-part upload</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// on Amazon S3.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MaxUploadParts</span> = <span style="color:#ae81ff">10000</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// MinUploadPartSize is the minimum allowed part size when uploading a part to
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// Amazon S3.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MinUploadPartSize</span> <span style="color:#66d9ef">int64</span> = <span style="color:#ae81ff">1024</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1024</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// MinUploadPartSize is the minimum allowed part size when uploading a part to</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// Amazon S3.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">MinUploadPartSize</span> <span style="color:#66d9ef">int64</span> = <span style="color:#ae81ff">1024</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">1024</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">5</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// DefaultUploadPartSize is the default part size to buffer chunks of a
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// payload into.
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">DefaultUploadPartSize</span> = <span style="color:#a6e22e">MinUploadPartSize</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// DefaultUploadPartSize is the default part size to buffer chunks of a</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// payload into.</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">DefaultUploadPartSize</span> = <span style="color:#a6e22e">MinUploadPartSize</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// DefaultUploadConcurrency is the default number of goroutines to spin up when
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// using Upload().
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">DefaultUploadConcurrency</span> = <span style="color:#ae81ff">5</span></span></span></code></pre></div>
-<p>The interesting part AWS Go SDK is that the default chunk size for upload parts is defined to the minimum part size which is 5MB. And if we take the code from the example none of this values are getting overridden. If we take a look at the example code, it means that when we upload a 100MB file using that snippet will generate 21 API calls when uploading it 1 for initiating and 20 for the upload parts.<br>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// DefaultUploadConcurrency is the default number of goroutines to spin up when</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// using Upload().</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">DefaultUploadConcurrency</span> = <span style="color:#ae81ff">5</span></span></span></code></pre></div>
+<p>The interesting part AWS Go SDK is that the default chunk size for upload parts is defined to the minimum part size which is 5MB. And if we take the code from the example none of these values are getting overridden. If we take a look at the example code, it means that when we upload a 100MB file using that snippet will generate 21 API calls when uploading it 1 for initiating and 20 for the upload parts.<br>
 Fortunately this was a problem easy to fix just by setting <code>Uploader.PartSize</code> attribute can be adjusted to the needs of the application. In my case the app was uploading files from a few KB up to 100MB, and by setting it to a higher value like 50MB lowered the API calls costs by 10 to 12 times.<br>
-Off course before tuning this value, we need to be aware of what we are doing. Setting the value will depend on the applications needs, in my case uploading concurrently was not a requirement as it was archiving files and uploading speed was not an issue, but in a case where speed is a requirement for the upload, then uploading parts concurrently will help in that case at the tradeoff of being more expensive to upload.<br>
-I found useful to set <code>Uploader.PartSize</code> to a value big enough that most files won&rsquo;t need to be uploaded in parts, especially if I am storing this files for archiving purposes, I would set this to a big number like 1GB. But Still there is no magic value for this, it will always depend on the use case.</p>
+Of course before tuning this value, we need to be aware of what we are doing. Setting the value will depend on the applications needs, in my case uploading concurrently was not a requirement as it was archiving files and uploading speed was not an issue, but in a case where speed is a requirement for the upload, then uploading parts concurrently will help in that case at the tradeoff of being more expensive to upload.<br>
+I found useful to set <code>Uploader.PartSize</code> to a value big enough that most files won&rsquo;t need to be uploaded in parts, especially if I am storing these files for archiving purposes, I would set this to a big number like 1GB. But Still there is no magic value for this, it will always depend on the use case.</p>
 <h1 id="other-languages">Other languages</h1>
 <p>I didn&rsquo;t have lots of time to dig into many other languages SDKs behavior however I did look into the python boto3 library at the time of this writing and found a similar behavior.<br>
 Here is a snippet of the constructor for the <code>TransferConfig</code> class used for S3 uploads</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> __init__(self,
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__init__</span>(self,
 </span></span><span style="display:flex;"><span>                 multipart_threshold<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span> <span style="color:#f92672">*</span> MB,
 </span></span><span style="display:flex;"><span>                 max_concurrency<span style="color:#f92672">=</span><span style="color:#ae81ff">10</span>,
 </span></span><span style="display:flex;"><span>                 multipart_chunksize<span style="color:#f92672">=</span><span style="color:#ae81ff">8</span> <span style="color:#f92672">*</span> MB,
@@ -305,7 +316,7 @@ Here is a snippet of the constructor for the <code>TransferConfig</code> class u
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">            performing transfers: all logic will be ran in the main thread.
 </span></span></span><span style="display:flex;"><span><span style="color:#e6db74">        &#34;&#34;&#34;</span></span></span></code></pre></div>
 <p>As we can see the boto3 python lib has similar behavior where it has a <code>multipart_threshold</code> when the file exceeds this size multipart upload will be enabled. And when multipart is enabled and <code>multipart_chunksize</code> size is 8MB.</p>
-<p>I do believe this values are too small for defaults, probably there is a perfect explanation behind the reasoning of this values, but I still think defaults should be bigger as this can incur in lot of costs that probably people are not aware of or don&rsquo;t know why it&rsquo;s happening.</p>
+<p>I do believe these values are too small for defaults, probably there is a perfect explanation behind the reasoning of these values, but I still think defaults should be bigger as this can incur in lot of costs that probably people are not aware of or don&rsquo;t know why it&rsquo;s happening.</p>
 <h1 id="conclusion">Conclusion</h1>
 <p>I learnt a lot when I was dealing with this issue, and lead me to be more careful and try to have as much data and metrics as possible for an application and a hosted service the application is using. When using cloud resources make sure you always label the resources like VM instances or buckets, or anything that the application is using in the cloud provider, this will help to track what application is generating costs. In this problem I was able to pinpoint which application was spending more money on s3 buckets by filtering by labels in the cost explorer.<br>
 This post was mentioning AWS S3 but I know other providers have similar features to look at costs. I didn&rsquo;t investigate yet other providers SDKs or if they even do multipart uploading, but I do know other providers charge in a similar way for API calls so maybe is something to be aware when architecting an app using Cloud Storage,I know I would read extensively the documentation and the fine print before jumping in and rushing into architecting something that will end up having some hidden costs.</p>
@@ -347,7 +358,7 @@ This post was mentioning AWS S3 but I know other providers have similar features
 	    </a>
 
 		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fpancho.dev%2fposts%2fwatch_out_cloud_storage%2f
-			&title=Watch%20out%20with%20cloud%20storage%20API%20calls%21%21%21&summary=One%20of%20the%20most%20popular%20services%20from%20cloud%20providers%20is%20cloud%20storage%2c%20to%20be%20more%20specific%20AWS%20S3%2c%20Google%20Cloud%20Storage%2c%20Azure%20Storage%20or%20any%20similar%20service%20from%20other%20cloud%20providers.%20This%20service%20is%20very%20convenient%20for%20developers%20and%20SREs%20or%20System%20Admins%2c%20it%20solves%20the%20problem%20of%20managing%20disks%2c%20storage%20devices%20%2c%20storage%20servers%2c%20etc%20at%20a%20very%20low%20cost%20for%20storing%20files%2c%20depending%20on%20the%20cloud%20provider%2c%20some%20of%20them%20even%20offer%20a%20staggering%2099.&source=rafed123.github.io"
+			&title=Watch%20out%20with%20cloud%20storage%20API%20calls%21%21%21&summary=%3cp%3eOne%20of%20the%20most%20popular%20services%20from%20cloud%20providers%20is%20cloud%20storage%2c%20to%20be%20more%20specific%20AWS%20S3%2c%20Google%20Cloud%20Storage%2c%20Azure%20Storage%20or%20any%20similar%20service%20from%20other%20cloud%20providers.%20This%20service%20is%20very%20convenient%20for%20developers%20and%20SREs%20or%20System%20Admins%2c%20it%20solves%20the%20problem%20of%20managing%20disks%2c%20storage%20devices%20%2c%20storage%20servers%2c%20etc%20at%20a%20very%20low%20cost%20for%20storing%20files%2c%20depending%20on%20the%20cloud%20provider%2c%20some%20of%20them%20even%20offer%20a%20staggering%2099.999999999%25%20durability.%20Given%20the%20benefits%20and%20low%20cost%20of%20such%20services%2c%20I%20have%20seen%20more%20and%20more%20reliance%20on%20the%20cloud%20storage%20services.%3cbr%3e%0aBut%20there%20is%20a%20catch%20on%20the%20cheap%20pricing%2c%20in%20order%20to%20make%20a%20good%20decision%20when%20architecting%20an%20application%20we%20need%20to%20look%20a%20all%20pricing%20items%20for%20the%20cloud%20storage%20service%20to%20optimize%20around%20costs.%20%20Cloud%20storage%20services%20usually%20charge%20for%20the%20storage%20used%20for%20files%20stored%2c%20api%20calls%20to%20put%2c%20retrieve%20and%20list%20files%20and%20network%20traffic.%20So%20we%20need%20to%20have%20in%20mind%20these%20parameters%20to%20avoid%20surprises%20on%20our%20cloud%20storage%20bills.%20I%20will%20not%20go%20into%20too%20much%20details%20on%20each%20cloud%20provider%20on%20this%20post%20but%20I%20will%20show%20something%20I%20found%20out%20recently%20that%20made%20an%20application%20lower%20the%20costs%20about%2010%20times%20just%20by%20optimizing%20the%20way%20the%20data%20was%20being%20accessed.%20These%20optimizations%20might%20be%20a%20key%20to%20make%20a%20feature%20or%20an%20app%20profitable.%3cbr%3e%0aIn%20particular%20I%20will%20talk%20about%20AWS%20S3%20api%20calls%20and%20the%20behavior%20of%20some%20of%20the%20official%20AWS%20SDKs%20that%20needed%20some%20tweaking.%20Of%20course%20all%20findings%20shown%20in%20this%20post%20were%20done%20with%20documentation%20found%20at%20the%20time%20of%20this%20writing.%20So%20I%20suggest%20double%20check%20the%20SDKs%20behavior%20as%20it%20might%20change%20in%20the%20future.%3c%2fp%3e&source=rafed123.github.io"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on LinkedIn. Opens in a new window." >
 	        <img src=/img/icons/45px/linkedin.png>
@@ -365,18 +376,20 @@ This post was mentioning AWS S3 but I know other providers have similar features
 <div id="disqus_thread"></div>
 <script type="text/javascript">
     (function () {
-        
-        
         if (window.location.hostname == "localhost")
             return;
 
-        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         var disqus_shortname = '';
+        if (!disqus_shortname)
+            return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
         dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
         (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
 
 
         </div>

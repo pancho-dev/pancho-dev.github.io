@@ -1,38 +1,33 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>performance on pancho.dev</title>
+    <title>Performance on pancho.dev</title>
     <link>http://pancho.dev/tags/performance/</link>
-    <description>Recent content in performance on pancho.dev</description>
-    <generator>Hugo -- gohugo.io</generator>
+    <description>Recent content in Performance on pancho.dev</description>
+    <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 16 Jul 2020 15:51:59 -0300</lastBuildDate><atom:link href="http://pancho.dev/tags/performance/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 16 Jul 2020 15:51:59 -0300</lastBuildDate>
+    <atom:link href="http://pancho.dev/tags/performance/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Who Stole My Cpu?</title>
       <link>http://pancho.dev/posts/who-stole-my-cpu/</link>
       <pubDate>Thu, 16 Jul 2020 15:51:59 -0300</pubDate>
-      
       <guid>http://pancho.dev/posts/who-stole-my-cpu/</guid>
-      <description>In a previous post I talked about Taming the cpu metrics, while that post was an overview of cpu metrics I thought it was a good topic to emphasize on the cpu steal metric in linux hosts. This is something I recently found and didn&amp;rsquo;t know it even existed, but it can be very useful when running in virtualized environments and helping us tune either the vm, or the physical host that runs the vms.</description>
+      <description>&lt;p&gt;In a previous post I talked about &lt;a href=&#34;http://pancho.dev/posts/taming-the-cpu-metrics/&#34;&gt;Taming the cpu metrics&lt;/a&gt;, while that post was an overview of cpu metrics I thought it was a good topic to emphasize on the cpu &lt;code&gt;steal&lt;/code&gt; metric in linux hosts. This is something I recently found and didn&amp;rsquo;t know it even existed, but it can be very useful when running in virtualized environments and helping us tune either the vm, or the physical host that runs the vms. It is something engineers probably overlook and probably don&amp;rsquo;t even know, if I have known this a couple of months ago would have saved me some troubleshooting time.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>Taming the Cpu Metrics</title>
       <link>http://pancho.dev/posts/taming-the-cpu-metrics/</link>
       <pubDate>Sat, 11 Jul 2020 15:08:51 -0300</pubDate>
-      
       <guid>http://pancho.dev/posts/taming-the-cpu-metrics/</guid>
-      <description>In a past blog post I talked about The misunderstood load average in linux hosts, while load average is a good metric to watch in linux systems to catch generic performance problems, it does not reveal what the issue might be. This time I will dig more into cpu metrics collected from a linux system and explain them, for this purpose I will use multipass vms, and will be showing metrics from grafana screenshots which take the data from prometheus and prometheus node exporter (this is actually out of the scope of this post).</description>
+      <description>&lt;p&gt;In a past blog post I talked about &lt;a href=&#34;http://pancho.dev/posts/linux-load-average/&#34;&gt;The misunderstood load average in linux hosts&lt;/a&gt;, while load average is a good metric to watch in linux systems to catch generic performance problems, it does not reveal what the issue might be. This time I will dig more into cpu metrics collected from a linux system and explain them, for this purpose I will use multipass vms, and will be showing metrics from &lt;a href=&#34;https://grafana.com/&#34;&gt;grafana&lt;/a&gt; screenshots which take the data from &lt;a href=&#34;https://prometheus.io/&#34;&gt;prometheus&lt;/a&gt; and &lt;a href=&#34;https://github.com/prometheus/node_exporter&#34;&gt;prometheus node exporter&lt;/a&gt; (this is actually out of the scope of this post). To gather some metrics I will run a few vms in my home linux server and do some stress tests to catch some operations that will show in the cpu metrics and explain what each one of them is.&lt;/p&gt;</description>
     </item>
-    
     <item>
       <title>The misunderstood load average in linux hosts</title>
       <link>http://pancho.dev/posts/linux-load-average/</link>
       <pubDate>Sun, 07 Jun 2020 20:02:27 -0300</pubDate>
-      
       <guid>http://pancho.dev/posts/linux-load-average/</guid>
-      <description>Ever wondered when someone runs the command uptime in a linux host what the values in the load average: section mean? well I have wondered about it many times in my career. And this should be a simple question to ask a seasoned linux administrator or developer, right? well it&amp;rsquo;s not entirely true, as the load average value in a linux hosts probably is the most misunderstood term and often associated with the wrong concepts.</description>
+      <description>&lt;p&gt;Ever wondered when someone runs the command &lt;code&gt;uptime&lt;/code&gt; in a linux host what the values in the &lt;code&gt;load average:&lt;/code&gt; section mean? well I have wondered about it many times in my career. And this should be a simple question to ask a seasoned linux administrator or developer, right? well it&amp;rsquo;s not entirely true, as the load average value in a linux hosts probably is the most misunderstood term and often associated with the wrong concepts. In this post I will explain and tell a bit more about my experience about load average value in linux and how it helps me everyday to spot issues in infrastructure.&lt;/p&gt;</description>
     </item>
-    
   </channel>
 </rss>
