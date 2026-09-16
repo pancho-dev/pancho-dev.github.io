@@ -27,8 +27,8 @@
 
   <meta itemprop="name" content="Posts">
   <meta itemprop="description" content="A description for the meta tag of the site">
-  <meta itemprop="datePublished" content="2026-09-16T10:42:00-03:00">
-  <meta itemprop="dateModified" content="2026-09-16T10:42:00-03:00">
+  <meta itemprop="datePublished" content="2026-09-16T11:00:00-03:00">
+  <meta itemprop="dateModified" content="2026-09-16T11:00:00-03:00">
 <link rel="canonical" href="http://pancho.dev/posts/" />
 
 <link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
@@ -117,6 +117,67 @@
 
 
 <div class="blog-brief">
+    <a href="/posts/creating-kubernetes-kind-cluster/">
+        <h3 class="title is-4">
+            Creating Kubernetes Kind Cluster
+        </h3>
+    </a>
+
+    <div class="level is-mobile details">
+        <div class="level-left">
+
+            
+            <div class="level-item">
+                <a href="/posts/creating-kubernetes-kind-cluster/">
+                    <p class="subtitle info date">May 30, 2020
+                    </p>
+                </a>
+            </div>
+            
+
+
+            <div class="level-item">
+                <a href="/posts/creating-kubernetes-kind-cluster/">
+                    <p class="subtitle info">
+                        13 mins read
+                    </p>
+                </a>
+            </div>
+        </div>
+        <div class="level-right is-hidden-touch">
+            
+            <a class="tag is-rounded" href="/tags/linux">Linux</a>
+            
+            <a class="tag is-rounded" href="/tags/kubernetes">Kubernetes</a>
+            
+        </div>
+    </div>
+
+    <div>
+        
+
+        <div>
+            <a href="/posts/creating-kubernetes-kind-cluster/">
+                <p class="summary">
+                    In an earlier post I showed how to create Multi-node k8s cluster using ignite and k3s, while this was a good experience I needed to test some other tools, and this time I decided to go for kind (kubernetes in docker). Which looks like a good approach to work with clusters locally and it will still be lightweight as the kubernetes “nodes” will be actually running as docker containers. This at first glance looks like a easier approach and seems to work in a similar way in Mac, linux or Windows, which gives a great advantage.
+Also this time I choose to work with kind because it allows to do a lot of stuff like simulating multiple control plane nodes and multiple worker nodes. In my case I did wanted multiple nodes to try things like running Postgres clusters and use anti affinity to develop in my laptop some automation around Postgres clusters. It is very fast to start a cluster and play around with multiple clusters. Another cool feature is that is easy to start a cluster with multiple masters and the setup of the cluster seems a very “vanilla” k8s cluster which is and advantage to be running things similar to what you would run in production others like k3s or microk8s use a lot of lightweight components that might not actually look like “production clusters”, however this is still a very personal opinion and depends on the needs of the developer and all have pros and cons. We will see how it looks like after I actually finish the post and get some conclusions.
+
+                    
+                </p>
+            </a>
+        </div>
+    </div>
+
+    <div class="level is-mobile continue-reading">
+        <div class="level-left">
+        </div>
+        <div class="level-right">
+            <a href="/posts/creating-kubernetes-kind-cluster/">Continue reading <i class="fa fa-angle-double-right"
+                    aria-hidden="true"></i></a>
+        </div>
+    </div>
+    <hr>
+</div><div class="blog-brief">
     <a href="/posts/multinode-k8s-ignite-k3s/">
         <h3 class="title is-4">
             Multi-Node K8s Cluster Using Ignite and K3s

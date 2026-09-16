@@ -3,7 +3,18 @@
       
       
 	  <url>
-	    <loc>http://pancho.dev/tags/cybersecurity/</loc>
+	    <loc>http://pancho.dev/tags/automation/</loc>
+	    <lastmod>2026-09-16</lastmod>
+        
+
+        
+	  </url>
+	  
+  
+      
+      
+	  <url>
+	    <loc>http://pancho.dev/posts/home-lab-secrets-with-sops/</loc>
 	    <lastmod>2026-09-16</lastmod>
         
 
@@ -25,6 +36,17 @@
       
       
 	  <url>
+	    <loc>http://pancho.dev/tags/secrets/</loc>
+	    <lastmod>2026-09-16</lastmod>
+        
+
+        
+	  </url>
+	  
+  
+      
+      
+	  <url>
 	    <loc>http://pancho.dev/tags/security/</loc>
 	    <lastmod>2026-09-16</lastmod>
         
@@ -36,7 +58,7 @@
       
       
 	  <url>
-	    <loc>http://pancho.dev/posts/single-point-of-failure-phone-security/</loc>
+	    <loc>http://pancho.dev/tags/sops/</loc>
 	    <lastmod>2026-09-16</lastmod>
         
 
@@ -48,6 +70,28 @@
       
 	  <url>
 	    <loc>http://pancho.dev/tags/</loc>
+	    <lastmod>2026-09-16</lastmod>
+        
+
+        
+	  </url>
+	  
+  
+      
+      
+	  <url>
+	    <loc>http://pancho.dev/tags/cybersecurity/</loc>
+	    <lastmod>2026-09-16</lastmod>
+        
+
+        
+	  </url>
+	  
+  
+      
+      
+	  <url>
+	    <loc>http://pancho.dev/posts/single-point-of-failure-phone-security/</loc>
 	    <lastmod>2026-09-16</lastmod>
         
 

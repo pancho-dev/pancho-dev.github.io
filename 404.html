@@ -186,6 +186,12 @@
 
 
 
+
+
+
+
+
+
 <div class="columns is-centered has-text-centered">
     <div class="column is-10">
         <div class="content">
@@ -197,6 +203,12 @@
                 <a href="/tags/alexa">
                     <span class="tag is-dark is-large is-rounded">
                         Alexa
+                    </span>
+                </a>
+                
+                <a href="/tags/automation">
+                    <span class="tag is-dark is-large is-rounded">
+                        Automation
                     </span>
                 </a>
                 
@@ -308,9 +320,21 @@
                     </span>
                 </a>
                 
+                <a href="/tags/secrets">
+                    <span class="tag is-dark is-large is-rounded">
+                        Secrets
+                    </span>
+                </a>
+                
                 <a href="/tags/security">
                     <span class="tag is-dark is-large is-rounded">
                         Security
+                    </span>
+                </a>
+                
+                <a href="/tags/sops">
+                    <span class="tag is-dark is-large is-rounded">
+                        Sops
                     </span>
                 </a>
                 
@@ -351,6 +375,71 @@
             </a>
         </div>
         <div class="blog-brief">
+    <a href="/posts/home-lab-secrets-with-sops/">
+        <h3 class="title is-4">
+            Home Lab Secrets With SOPS
+        </h3>
+    </a>
+
+    <div class="level is-mobile details">
+        <div class="level-left">
+
+            
+            <div class="level-item">
+                <a href="/posts/home-lab-secrets-with-sops/">
+                    <p class="subtitle info date">Sep 16, 2026
+                    </p>
+                </a>
+            </div>
+            
+
+
+            <div class="level-item">
+                <a href="/posts/home-lab-secrets-with-sops/">
+                    <p class="subtitle info">
+                        10 mins read
+                    </p>
+                </a>
+            </div>
+        </div>
+        <div class="level-right is-hidden-touch">
+            
+            <a class="tag is-rounded" href="/tags/security">Security</a>
+            
+            <a class="tag is-rounded" href="/tags/automation">Automation</a>
+            
+            <a class="tag is-rounded" href="/tags/secrets">Secrets</a>
+            
+            <a class="tag is-rounded" href="/tags/sops">Sops</a>
+            
+        </div>
+    </div>
+
+    <div>
+        
+
+        <div>
+            <a href="/posts/home-lab-secrets-with-sops/">
+                <p class="summary">
+                    In a past blog post I covered using Bitwarden for home lab automation secrets (Secrets Manager for Home Lab Automation). That approach works well if you already use a password manager and want a CLI to pull credentials into environment variables. This follow-up covers SOPS as an alternative when you want encrypted secrets in the repo without relying on a password manager or paying for a subscription.
+The goal is the same: get secrets into environment variables for Terraform, Ansible, and cloud CLIs at runtime. The difference is where those secrets live. With SOPS you keep them versioned next to your infrastructure code as ciphertext. That means you are putting secrets in git — encrypted, but still in the repo — which is a tradeoff worth accepting for many solo home lab setups because it removes login/session/sync choreography and avoids another hosted service.
+
+                    
+                </p>
+            </a>
+        </div>
+    </div>
+
+    <div class="level is-mobile continue-reading">
+        <div class="level-left">
+        </div>
+        <div class="level-right">
+            <a href="/posts/home-lab-secrets-with-sops/">Continue reading <i class="fa fa-angle-double-right"
+                    aria-hidden="true"></i></a>
+        </div>
+    </div>
+    <hr>
+</div><div class="blog-brief">
     <a href="/posts/single-point-of-failure-phone-security/">
         <h3 class="title is-4">
             Single Point of Failure: Why Your Phone Is the Weakest Link in Your Security (And How to Fix It)
@@ -591,71 +680,6 @@ This post is opinionated to Bitwarden, but the same concepts should work for oth
         </div>
         <div class="level-right">
             <a href="/posts/working-with-golang-projects/">Continue reading <i class="fa fa-angle-double-right"
-                    aria-hidden="true"></i></a>
-        </div>
-    </div>
-    <hr>
-</div><div class="blog-brief">
-    <a href="/posts/linux-router-with-containers/">
-        <h3 class="title is-4">
-            Linux Router With Containers
-        </h3>
-    </a>
-
-    <div class="level is-mobile details">
-        <div class="level-left">
-
-            
-            <div class="level-item">
-                <a href="/posts/linux-router-with-containers/">
-                    <p class="subtitle info date">Sep 4, 2021
-                    </p>
-                </a>
-            </div>
-            
-
-
-            <div class="level-item">
-                <a href="/posts/linux-router-with-containers/">
-                    <p class="subtitle info">
-                        12 mins read
-                    </p>
-                </a>
-            </div>
-        </div>
-        <div class="level-right is-hidden-touch">
-            
-            <a class="tag is-rounded" href="/tags/docker">Docker</a>
-            
-            <a class="tag is-rounded" href="/tags/network">Network</a>
-            
-            <a class="tag is-rounded" href="/tags/linux">Linux</a>
-            
-        </div>
-    </div>
-
-    <div>
-        
-
-        <div>
-            <a href="/posts/linux-router-with-containers/">
-                <p class="summary">
-                    One of my passions in technology is networking, another passion is open source and linux. So sometimes I come across networking software or just to play around with linux standard networking tools like iptables, tc or iproute2, or even play with open source implementations of routing protocols using Quagga/Bird/FRR/go-bgp.
-I always found hard when testing these tools to get a proper setup on my laptop. Of course there are some tools that already help us in this regard like GNS3. However, using GNS3 I need to provide virtual machine images and configure all of them to save specific topologies. I wanted something that I can use quick and simple without the overhead of managing virtual machines and their configurations.
-First thing I though of was set up vagrant linux vms with extra network interfaces and use ansible to configure the virtualized linux routers.
-Then I thought, why not do it in docker?
-
-                    
-                </p>
-            </a>
-        </div>
-    </div>
-
-    <div class="level is-mobile continue-reading">
-        <div class="level-left">
-        </div>
-        <div class="level-right">
-            <a href="/posts/linux-router-with-containers/">Continue reading <i class="fa fa-angle-double-right"
                     aria-hidden="true"></i></a>
         </div>
     </div>

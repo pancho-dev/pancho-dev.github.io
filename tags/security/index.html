@@ -27,8 +27,8 @@
 
   <meta itemprop="name" content="Security">
   <meta itemprop="description" content="A description for the meta tag of the site">
-  <meta itemprop="datePublished" content="2026-09-16T10:42:00-03:00">
-  <meta itemprop="dateModified" content="2026-09-16T10:42:00-03:00">
+  <meta itemprop="datePublished" content="2026-09-16T11:00:00-03:00">
+  <meta itemprop="dateModified" content="2026-09-16T11:00:00-03:00">
 <link rel="canonical" href="http://pancho.dev/tags/security/" />
 
 <link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
@@ -116,6 +116,71 @@
 </div>
 
 <div class="blog-brief">
+    <a href="/posts/home-lab-secrets-with-sops/">
+        <h3 class="title is-4">
+            Home Lab Secrets With SOPS
+        </h3>
+    </a>
+
+    <div class="level is-mobile details">
+        <div class="level-left">
+
+            
+            <div class="level-item">
+                <a href="/posts/home-lab-secrets-with-sops/">
+                    <p class="subtitle info date">Sep 16, 2026
+                    </p>
+                </a>
+            </div>
+            
+
+
+            <div class="level-item">
+                <a href="/posts/home-lab-secrets-with-sops/">
+                    <p class="subtitle info">
+                        10 mins read
+                    </p>
+                </a>
+            </div>
+        </div>
+        <div class="level-right is-hidden-touch">
+            
+            <a class="tag is-rounded" href="/tags/security">Security</a>
+            
+            <a class="tag is-rounded" href="/tags/automation">Automation</a>
+            
+            <a class="tag is-rounded" href="/tags/secrets">Secrets</a>
+            
+            <a class="tag is-rounded" href="/tags/sops">Sops</a>
+            
+        </div>
+    </div>
+
+    <div>
+        
+
+        <div>
+            <a href="/posts/home-lab-secrets-with-sops/">
+                <p class="summary">
+                    In a past blog post I covered using Bitwarden for home lab automation secrets (Secrets Manager for Home Lab Automation). That approach works well if you already use a password manager and want a CLI to pull credentials into environment variables. This follow-up covers SOPS as an alternative when you want encrypted secrets in the repo without relying on a password manager or paying for a subscription.
+The goal is the same: get secrets into environment variables for Terraform, Ansible, and cloud CLIs at runtime. The difference is where those secrets live. With SOPS you keep them versioned next to your infrastructure code as ciphertext. That means you are putting secrets in git — encrypted, but still in the repo — which is a tradeoff worth accepting for many solo home lab setups because it removes login/session/sync choreography and avoids another hosted service.
+
+                    
+                </p>
+            </a>
+        </div>
+    </div>
+
+    <div class="level is-mobile continue-reading">
+        <div class="level-left">
+        </div>
+        <div class="level-right">
+            <a href="/posts/home-lab-secrets-with-sops/">Continue reading <i class="fa fa-angle-double-right"
+                    aria-hidden="true"></i></a>
+        </div>
+    </div>
+    <hr>
+</div><div class="blog-brief">
     <a href="/posts/single-point-of-failure-phone-security/">
         <h3 class="title is-4">
             Single Point of Failure: Why Your Phone Is the Weakest Link in Your Security (And How to Fix It)

@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head><title>
+    Home Lab Secrets With SOPS | 
+    
+    pancho.dev</title>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="In a past blog post I covered using Bitwarden for home lab automation secrets (Secrets Manager for Home Lab Automation). That approach works well if you already use a password manager and want a CLI to pull credentials into environment variables. This follow-up covers SOPS as an alternative when you want encrypted secrets in the repo without relying on a password manager or paying for a subscription.
+The goal is the same: get secrets into environment variables for Terraform, Ansible, and cloud CLIs at runtime. The difference is where those secrets live. With SOPS you keep them versioned next to your infrastructure code as ciphertext. That means you are putting secrets in git — encrypted, but still in the repo — which is a tradeoff worth accepting for many solo home lab setups because it removes login/session/sync choreography and avoids another hosted service.
+    ">
+
+
+<meta property="og:url" content="http://pancho.dev/posts/home-lab-secrets-with-sops/">
+  <meta property="og:site_name" content="pancho.dev">
+  <meta property="og:title" content="Home Lab Secrets with SOPS">
+  <meta property="og:description" content="In a past blog post I covered using Bitwarden for home lab automation secrets (Secrets Manager for Home Lab Automation). That approach works well if you already use a password manager and want a CLI to pull credentials into environment variables. This follow-up covers SOPS as an alternative when you want encrypted secrets in the repo without relying on a password manager or paying for a subscription.
+The goal is the same: get secrets into environment variables for Terraform, Ansible, and cloud CLIs at runtime. The difference is where those secrets live. With SOPS you keep them versioned next to your infrastructure code as ciphertext. That means you are putting secrets in git — encrypted, but still in the repo — which is a tradeoff worth accepting for many solo home lab setups because it removes login/session/sync choreography and avoids another hosted service.">
+  <meta property="og:locale" content="en_us">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-09-16T11:00:00-03:00">
+    <meta property="article:modified_time" content="2026-09-16T11:00:00-03:00">
+    <meta property="article:tag" content="Security">
+    <meta property="article:tag" content="Automation">
+    <meta property="article:tag" content="Secrets">
+    <meta property="article:tag" content="Sops">
+
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Home Lab Secrets with SOPS">
+  <meta name="twitter:description" content="In a past blog post I covered using Bitwarden for home lab automation secrets (Secrets Manager for Home Lab Automation). That approach works well if you already use a password manager and want a CLI to pull credentials into environment variables. This follow-up covers SOPS as an alternative when you want encrypted secrets in the repo without relying on a password manager or paying for a subscription.
+The goal is the same: get secrets into environment variables for Terraform, Ansible, and cloud CLIs at runtime. The difference is where those secrets live. With SOPS you keep them versioned next to your infrastructure code as ciphertext. That means you are putting secrets in git — encrypted, but still in the repo — which is a tradeoff worth accepting for many solo home lab setups because it removes login/session/sync choreography and avoids another hosted service.">
+
+
+  <meta itemprop="name" content="Home Lab Secrets with SOPS">
+  <meta itemprop="description" content="In a past blog post I covered using Bitwarden for home lab automation secrets (Secrets Manager for Home Lab Automation). That approach works well if you already use a password manager and want a CLI to pull credentials into environment variables. This follow-up covers SOPS as an alternative when you want encrypted secrets in the repo without relying on a password manager or paying for a subscription.
+The goal is the same: get secrets into environment variables for Terraform, Ansible, and cloud CLIs at runtime. The difference is where those secrets live. With SOPS you keep them versioned next to your infrastructure code as ciphertext. That means you are putting secrets in git — encrypted, but still in the repo — which is a tradeoff worth accepting for many solo home lab setups because it removes login/session/sync choreography and avoids another hosted service.">
+  <meta itemprop="datePublished" content="2026-09-16T11:00:00-03:00">
+  <meta itemprop="dateModified" content="2026-09-16T11:00:00-03:00">
+  <meta itemprop="wordCount" content="1874">
+  <meta itemprop="keywords" content="Security,Automation,Secrets,Sops">
+<link rel="canonical" href="http://pancho.dev/posts/home-lab-secrets-with-sops/" />
+
+<link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
+
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/bulma.min.css">
+
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-WBLGT7MX26');
+        }
+      </script>
+
+
+<script src=/js/ramium.js></script>
+<link rel="stylesheet" href=/css/ramium.css>
+
+
+
+
+
+
+
+
+</head>
+
+<body><nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href=/>
+      
+      <strong>pancho.dev </strong>
+      
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+      data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      
+      
+      <a class="navbar-item" href="/">Home</a>
+      
+      
+      
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Blog</a>
+        <div class="navbar-dropdown">
+          
+          <a class="navbar-item" href="/posts/">All Posts</a>
+          
+        </div>
+      </div>
+      
+      
+    </div>
+
+    <div class="navbar-end">
+      
+
+      
+    </div>
+  </div>
+</nav><div class="columns is-centered">
+        <div id="page-body" class="column is-7">
+
+<div class="content blog">
+    <h1>Home Lab Secrets With SOPS</h1>
+
+    <div id="infobar" class="level is-mobile">
+        <div class="level-left">
+            
+            <div class="level-item">
+                <p class="subtitle info date">Sep 16, 2026
+                </p>
+            </div>
+            
+
+            <div class="level-item">
+                <p class="subtitle info">
+                    10 mins read
+                </p>
+            </div>
+        </div>
+        <div class="level-right is-hidden-touch">
+            <div class="tags">
+                
+                <a class="tag is-dark is-rounded" href="/tags/security">Security</a>
+                
+                <a class="tag is-dark is-rounded" href="/tags/automation">Automation</a>
+                
+                <a class="tag is-dark is-rounded" href="/tags/secrets">Secrets</a>
+                
+                <a class="tag is-dark is-rounded" href="/tags/sops">Sops</a>
+                
+            </div>
+        </div>
+    </div>
+
+    <div class="tags is-hidden-desktop">
+        
+        <a class="tag is-dark is-rounded" href="/tags/security">Security</a>
+        
+        <a class="tag is-dark is-rounded" href="/tags/automation">Automation</a>
+        
+        <a class="tag is-dark is-rounded" href="/tags/secrets">Secrets</a>
+        
+        <a class="tag is-dark is-rounded" href="/tags/sops">Sops</a>
+        
+    </div>
+
+    <div class="blog-text">
+        
+
+        <p>In a past blog post I covered using Bitwarden for home lab automation secrets (<a href="/posts/home-lab-automation-secrets/">Secrets Manager for Home Lab Automation</a>). That approach works well if you already use a password manager and want a CLI to pull credentials into environment variables. This follow-up covers <a href="https://github.com/getsops/sops">SOPS</a> as an alternative when you want encrypted secrets in the repo without relying on a password manager or paying for a subscription.</p>
+<p>The goal is the same: get secrets into environment variables for Terraform, Ansible, and cloud CLIs at runtime. The difference is where those secrets live. With SOPS you keep them versioned next to your infrastructure code as ciphertext. That means you are putting secrets in git — encrypted, but still in the repo — which is a tradeoff worth accepting for many solo home lab setups because it removes login/session/sync choreography and avoids another hosted service.</p>
+<p>This post is opinionated toward SOPS with <a href="https://github.com/FiloSottile/age">age</a> keys. Age is simpler than GPG for a personal lab: generate a keypair, keep the private key off the repo, and commit a small config that points at your public key.</p>
+<h1 id="why-sops-for-a-home-lab">Why SOPS for a home lab</h1>
+<p>Hashicorp Vault and cloud secret managers are great when you need fine-grained access control, audit logs, and team workflows. For a personal home lab they often feel like operational burden. A password manager CLI (like Bitwarden) is a good middle ground if you already pay for it or use the free tier and sync across phone and laptop.</p>
+<p>SOPS sits in a different spot:</p>
+<ul>
+<li>No subscription and no vault service to keep running</li>
+<li>Secrets travel with the repo, so cloning the project on a new machine is enough once your age private key is in place</li>
+<li>Encryption happens locally; only ciphertext is committed</li>
+<li>Editing secrets is a normal file workflow (<code>sops secrets.yaml</code>) instead of app UI + sync</li>
+</ul>
+<p>The cost of that simplicity is the threat model. Encrypted secrets live forever in git history. If someone steals your age private key, they can decrypt every revision that was encrypted to that key. Treat the private key like a master password: back it up carefully, never commit it, and do not leave it on shared or untrusted machines.</p>
+<h1 id="setup">Setup</h1>
+<p>You need two tools: <code>sops</code> and <code>age</code>. Install them with your package manager of choice (examples below; versions change, so check current docs if needed).</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># macOS with Homebrew</span>
+</span></span><span style="display:flex;"><span>$ brew install sops age
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Or on a Debian/Ubuntu-like system (package names may vary by distro)</span>
+</span></span><span style="display:flex;"><span>$ sudo apt install age
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Install sops from the GitHub release for your arch if the distro package is old</span>
+</span></span></code></pre></div><h3 id="generate-an-age-keypair">Generate an age keypair</h3>
+<p>The private key decrypts secrets. The public key encrypts them. Only the public key belongs in the repo.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Create the default directory SOPS looks for age keys</span>
+</span></span><span style="display:flex;"><span>$ mkdir -p ~/.config/sops/age
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Generate a keypair and write the private key file (do NOT commit this file)</span>
+</span></span><span style="display:flex;"><span>$ age-keygen -o ~/.config/sops/age/keys.txt
+</span></span><span style="display:flex;"><span>Public key: age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+</span></span></code></pre></div><p>SOPS will find the private key automatically when that path exists. You can also set <code>SOPS_AGE_KEY_FILE</code> if you store the key somewhere else.</p>
+<p>Keep a backup of <code>keys.txt</code> somewhere safe (encrypted USB, password manager note for the key file itself, etc.). Losing the private key means losing the ability to decrypt your secrets file.</p>
+<h3 id="configure-sops-for-the-repo">Configure SOPS for the repo</h3>
+<p>In the root of your automation repo, create a <code>.sops.yaml</code> that tells SOPS which age public key to use and which files to encrypt. Only the public key goes here.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># .sops.yaml — safe to commit</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">creation_rules</span>:
+</span></span><span style="display:flex;"><span>  - <span style="color:#f92672">path_regex</span>: <span style="color:#ae81ff">secrets\.yaml$</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">age</span>: <span style="color:#ae81ff">age1xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</span>
+</span></span></code></pre></div><p>You can widen the regex later (<code>.*secrets\.ya?ml$</code>, <code>secrets/.*</code>, etc.). For this post we keep a single <code>secrets.yaml</code>.</p>
+<h1 id="encrypt-and-decrypt-workflow">Encrypt and decrypt workflow</h1>
+<p>Create a plain YAML file with the same kind of credentials used in the Bitwarden post: cloud provider API keys and S3-compatible backend credentials for Terraform state.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ cat &gt; secrets.yaml <span style="color:#e6db74">&lt;&lt;&#39;EOF&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">vultr:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  api_key: &#34;vultr-api-key-example-1234567890&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">cloudflare:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  api_token: &#34;cloudflare-api-token-example-abcdef&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">aws:
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  access_key_id: &#34;AKIAEXAMPLEKEYID1234&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">  secret_access_key: &#34;wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#e6db74">EOF</span>
+</span></span></code></pre></div><p>Encrypt the file in place. After this, <code>secrets.yaml</code> contains ciphertext and is safe to commit.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sops -e -i secrets.yaml
+</span></span></code></pre></div><p>If you open the file you will see encrypted values and a <code>sops</code> metadata block. Keys stay readable; values are encrypted. That is intentional so diffs stay somewhat reviewable.</p>
+<p>To edit secrets later, open them through SOPS so they decrypt into your editor and re-encrypt on save:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sops secrets.yaml
+</span></span></code></pre></div><p>To decrypt to stdout (useful for scripting):</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ sops -d secrets.yaml
+</span></span><span style="display:flex;"><span>vultr:
+</span></span><span style="display:flex;"><span>  api_key: vultr-api-key-example-1234567890
+</span></span><span style="display:flex;"><span>cloudflare:
+</span></span><span style="display:flex;"><span>  api_token: cloudflare-api-token-example-abcdef
+</span></span><span style="display:flex;"><span>aws:
+</span></span><span style="display:flex;"><span>  access_key_id: AKIAEXAMPLEKEYID1234
+</span></span><span style="display:flex;"><span>  secret_access_key: wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+</span></span></code></pre></div><p>Commit <code>.sops.yaml</code> and the encrypted <code>secrets.yaml</code>. Do not commit plaintext copies, backup <code>*.dec.yaml</code> files, or your age private key.</p>
+<h1 id="fetching-secrets-into-environment-variables">Fetching secrets into environment variables</h1>
+<p>Same pattern as the Bitwarden post: load credentials into environment variables so Terraform providers, cloud CLIs, and Ansible lookups pick them up from the process environment. Variables live for the shell session and disappear when the shell exits.</p>
+<p>You can parse decrypted YAML with <code>yq</code>, or use SOPS helpers that avoid dumping secrets to intermediate files.</p>
+<h3 id="using-yq">Using yq</h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Decrypt and assign fields to the env vars providers expect</span>
+</span></span><span style="display:flex;"><span>$ export VULTR_API_KEY<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>sops -d secrets.yaml | yq -r <span style="color:#e6db74">&#39;.vultr.api_key&#39;</span><span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>$ export CLOUDFLARE_API_TOKEN<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>sops -d secrets.yaml | yq -r <span style="color:#e6db74">&#39;.cloudflare.api_token&#39;</span><span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>$ export AWS_ACCESS_KEY_ID<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>sops -d secrets.yaml | yq -r <span style="color:#e6db74">&#39;.aws.access_key_id&#39;</span><span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>$ export AWS_SECRET_ACCESS_KEY<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>sops -d secrets.yaml | yq -r <span style="color:#e6db74">&#39;.aws.secret_access_key&#39;</span><span style="color:#66d9ef">)</span>
+</span></span></code></pre></div><h3 id="using-sops-exec-env">Using sops exec-env</h3>
+<p>If you shape the file as a flat map of environment variable names to values, <code>sops exec-env</code> can inject them for a single command without exporting them in your interactive shell history the same way.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#75715e"># Alternative shape for exec-env (still encrypted with SOPS)</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">VULTR_API_KEY</span>: <span style="color:#e6db74">&#34;vultr-api-key-example-1234567890&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">CLOUDFLARE_API_TOKEN</span>: <span style="color:#e6db74">&#34;cloudflare-api-token-example-abcdef&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">AWS_ACCESS_KEY_ID</span>: <span style="color:#e6db74">&#34;AKIAEXAMPLEKEYID1234&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">AWS_SECRET_ACCESS_KEY</span>: <span style="color:#e6db74">&#34;wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY&#34;</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Run terraform with secrets injected only for that process tree</span>
+</span></span><span style="display:flex;"><span>$ sops exec-env secrets.yaml <span style="color:#e6db74">&#39;terraform apply&#39;</span>
+</span></span></code></pre></div><p>I prefer nested YAML for readability when many services share one file, and <code>yq</code> exports when I need the same env vars for several tools in one shell. Use <code>exec-env</code> when you want a tighter scope around a single command.</p>
+<h3 id="ansible">Ansible</h3>
+<p>Export first, then look up from the environment:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ export SSH_PUB_KEY<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>sops -d secrets.yaml | yq -r <span style="color:#e6db74">&#39;.ssh.public_key&#39;</span><span style="color:#66d9ef">)</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span>- <span style="color:#f92672">name</span>: <span style="color:#ae81ff">Print SSH Pub Key</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ansible.builtin.debug</span>:
+</span></span><span style="display:flex;"><span>    <span style="color:#f92672">msg</span>: <span style="color:#e6db74">&#34;&#39;{{ lookup(&#39;ansible.builtin.env&#39;, &#39;SSH_PUB_KEY&#39;) }}&#39;&#34;</span>
+</span></span></code></pre></div><h3 id="terraform-providers">Terraform providers</h3>
+<p>Same credential chain idea as in the Bitwarden post. After exporting, the AWS, Cloudflare, Vultr, and similar providers read from the usual environment variables. No secrets need to live in <code>.tf</code> files.</p>
+<h1 id="example">Example</h1>
+<p>Context: Terraform creates a VM on Vultr, DNS records on Cloudflare, and uses an S3-compatible backend for state. Terraform code itself is out of scope; the point is loading credentials the same way as the Bitwarden example, but from SOPS.</p>
+<p>Because those secrets live encrypted in git, the ideal scenario is to use credentials that are purpose-built for this automation and narrowly scoped to the function they serve. That limits blast radius if a key leaks and makes revocation easy later — you rotate or delete one automation-specific credential instead of a full personal or admin key.</p>
+<p>In this example that would mean:</p>
+<ul>
+<li>A Cloudflare API token scoped to the DNS zone you manage, with only the permissions needed for that purpose (for example DNS edit on that domain), and used only by this automation</li>
+<li>An S3-compatible access key tied to that state bucket, with constrained permissions (read/write on that bucket only, not account-wide)</li>
+<li>A Vultr API key limited to what the stack needs — for example create VMs or manage VIPs — rather than a full-account key</li>
+</ul>
+<p>How far you can go depends on each platform&rsquo;s IAM or token model. Not every provider exposes the same granularity, but aiming for least privilege per automation is still the right default when secrets are stored in the repo.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#75715e"># Private age key must already be available, e.g. ~/.config/sops/age/keys.txt</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Get the cloud provider api key</span>
+</span></span><span style="display:flex;"><span>$ export VULTR_API_KEY<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>sops -d secrets.yaml | yq -r <span style="color:#e6db74">&#39;.vultr.api_key&#39;</span><span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Get S3 storage backend keys</span>
+</span></span><span style="display:flex;"><span>$ export AWS_ACCESS_KEY_ID<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>sops -d secrets.yaml | yq -r <span style="color:#e6db74">&#39;.aws.access_key_id&#39;</span><span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>$ export AWS_SECRET_ACCESS_KEY<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>sops -d secrets.yaml | yq -r <span style="color:#e6db74">&#39;.aws.secret_access_key&#39;</span><span style="color:#66d9ef">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e"># Get cloudflare api token</span>
+</span></span><span style="display:flex;"><span>$ export CLOUDFLARE_API_TOKEN<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>sops -d secrets.yaml | yq -r <span style="color:#e6db74">&#39;.cloudflare.api_token&#39;</span><span style="color:#66d9ef">)</span>
+</span></span></code></pre></div><p>After those exports you can run the Terraform stack. No <code>bw login</code>, no session token, no vault sync — just decrypt with the local age key.</p>
+<h1 id="bitwarden-vs-sops">Bitwarden vs SOPS</h1>
+<p>Both solve “do not hardcode secrets in plaintext next to the code.” They differ in where secrets live and how much day-to-day friction you accept.</p>
+<p><strong>Where secrets live.</strong> Bitwarden keeps them in a vault (cloud or self-hosted). SOPS keeps encrypted files in git. With SOPS you are deliberately putting secrets in the repository; with Bitwarden the repo stays free of secret material.</p>
+<p><strong>Cost and operations.</strong> Bitwarden has a solid free tier, paid plans for more features, and optional self-hosting. SOPS is free and local: age keys on your machine, no subscription. For a home lab that wants to avoid another bill or another service to patch, that matters.</p>
+<p><strong>Multi-device UX.</strong> Bitwarden wins if you need phone apps, browser extensions, and easy sync across laptops. SOPS is CLI-first. Sharing an age private key across machines is manual and easy to do wrong; it is fine for one or two trusted lab hosts, awkward as a general password manager replacement.</p>
+<p><strong>Automation friction.</strong> Bitwarden needs login, unlock, <code>BW_SESSION</code>, and often <code>bw sync</code> before reads. SOPS needs the age private key present and a decrypt command. For repo-bound automation, SOPS is usually less ceremony once the key is installed.</p>
+<p><strong>History and audit.</strong> Bitwarden has vault history and a product UX around items. SOPS leans on git: every encrypted change is in history. That is useful for IaC review and painful if you ever need to rotate after a private-key leak, because old ciphertext may still decrypt.</p>
+<p><strong>Risk model.</strong> Bitwarden risks are vault account access, session material left on disk, and sync/trust of the service. SOPS risks are private-key compromise and the long life of secrets-in-git. Encrypted-in-git is not the same as “not in git.”</p>
+<p><strong>Best fit.</strong></p>
+<ul>
+<li>Choose Bitwarden (or another password manager CLI) when you already use it for personal secrets, need multi-device access, or want secrets out of the repository entirely.</li>
+<li>Choose SOPS when the secrets belong to an IaC/home-lab repo, you want zero subscription and minimal moving parts, and you accept encrypted secrets living in git next to the code.</li>
+</ul>
+<h1 id="conclusion">Conclusion</h1>
+<p>Using SOPS with age is a practical way to handle home lab automation secrets without a password manager or a self-hosted Vault. You encrypt a YAML file, commit the ciphertext, keep the age private key off the repo, and decrypt into environment variables when you run Terraform, Ansible, or cloud CLIs.</p>
+<p>Compared to the Bitwarden approach in my earlier post, SOPS is simpler for solo, repo-centric labs and costs nothing beyond caring for a private key. The tradeoff is real: secrets live in git forever as ciphertext, and key hygiene becomes your whole security story. For enterprise or team environments with shared access needs, purpose-built secret managers are still a better fit.</p>
+<p>For my own home lab automations that live in git, SOPS is often the path of least resistance. When I already need Bitwarden on every device for personal passwords, reusing it for automation remains a good option. Pick the model that matches where you want the secrets to live and how much operational surface you want to maintain.</p>
+
+    </div>
+</div><div id="social-media-share" class="has-text-centered">
+	<p><i>Sharing is caring!</i></p>
+	<br>
+	
+	<div class="share-buttons">
+	    <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fpancho.dev%2fposts%2fhome-lab-secrets-with-sops%2f"
+	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
+	        title="Share on Facebook. Opens in a new window.">
+	        <img src=/img/icons/45px/facebook.png>
+	    </a>
+
+	    <a  href="https://twitter.com/intent/tweet?text=Home%20Lab%20Secrets%20with%20SOPS&url=http%3a%2f%2fpancho.dev%2fposts%2fhome-lab-secrets-with-sops%2f"
+	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
+	        title="Share on Twitter. Opens in a new window." >
+	        <img src=/img/icons/45px/twitter.png>
+	    </a>
+
+		<a  href="http://www.reddit.com/submit?url=http%3a%2f%2fpancho.dev%2fposts%2fhome-lab-secrets-with-sops%2f"
+	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
+	        title="Share on Reddit. Opens in a new window." >
+	        <img src=/img/icons/45px/reddit.png>
+	    </a>
+
+	    <a  href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2fpancho.dev%2fposts%2fhome-lab-secrets-with-sops%2f"
+	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
+	        title="Share on Pinterest. Opens in a new window." >
+	        <img src=/img/icons/45px/pinterest.png>
+	    </a>
+
+	    <a  href="http://www.tumblr.com/share/link?url=http%3a%2f%2fpancho.dev%2fposts%2fhome-lab-secrets-with-sops%2f"
+	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
+	        title="Share on Tumblr. Opens in a new window." >
+	        <img src=/img/icons/45px/tumblr.png>
+	    </a>
+
+		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fpancho.dev%2fposts%2fhome-lab-secrets-with-sops%2f
+			&title=Home%20Lab%20Secrets%20with%20SOPS&summary=%3cp%3eIn%20a%20past%20blog%20post%20I%20covered%20using%20Bitwarden%20for%20home%20lab%20automation%20secrets%20%28%3ca%20href%3d%22%2fposts%2fhome-lab-automation-secrets%2f%22%3eSecrets%20Manager%20for%20Home%20Lab%20Automation%3c%2fa%3e%29.%20That%20approach%20works%20well%20if%20you%20already%20use%20a%20password%20manager%20and%20want%20a%20CLI%20to%20pull%20credentials%20into%20environment%20variables.%20This%20follow-up%20covers%20%3ca%20href%3d%22https%3a%2f%2fgithub.com%2fgetsops%2fsops%22%3eSOPS%3c%2fa%3e%20as%20an%20alternative%20when%20you%20want%20encrypted%20secrets%20in%20the%20repo%20without%20relying%20on%20a%20password%20manager%20or%20paying%20for%20a%20subscription.%3c%2fp%3e%0a%3cp%3eThe%20goal%20is%20the%20same%3a%20get%20secrets%20into%20environment%20variables%20for%20Terraform%2c%20Ansible%2c%20and%20cloud%20CLIs%20at%20runtime.%20The%20difference%20is%20where%20those%20secrets%20live.%20With%20SOPS%20you%20keep%20them%20versioned%20next%20to%20your%20infrastructure%20code%20as%20ciphertext.%20That%20means%20you%20are%20putting%20secrets%20in%20git%20%e2%80%94%20encrypted%2c%20but%20still%20in%20the%20repo%20%e2%80%94%20which%20is%20a%20tradeoff%20worth%20accepting%20for%20many%20solo%20home%20lab%20setups%20because%20it%20removes%20login%2fsession%2fsync%20choreography%20and%20avoids%20another%20hosted%20service.%3c%2fp%3e&source=rafed123.github.io"
+	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
+	        title="Share on LinkedIn. Opens in a new window." >
+	        <img src=/img/icons/45px/linkedin.png>
+	    </a>
+
+	    <a  href="mailto:?subject=Home%20Lab%20Secrets%20with%20SOPS&amp;body=Check out this site http%3a%2f%2fpancho.dev%2fposts%2fhome-lab-secrets-with-sops%2f"
+	        title="Share via Email. Opens in a new window." >
+	        <img src=/img/icons/45px/mail.png>
+	    </a>
+	</div>
+</div>
+
+
+<br>
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    (function () {
+        if (window.location.hostname == "localhost")
+            return;
+
+        var disqus_shortname = '';
+        if (!disqus_shortname)
+            return;
+
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+
+        </div>
+    </div>
+
+<footer class="footer has-background-dark">
+    <div class="content has-text-centered has-text-white">
+        <p>
+            © 2020 Ramium. Powered by
+            <a class="has-text-light" href="https://github.com/gohugoio/hugo" target="_blank">
+            Hugo</a>. Theme
+            <a class="has-text-light" href="https://github.com/rafed123/ramium/" target="_blank">
+                Ramium.
+            </a>
+        </p>
+    </div>
+</footer>
+</body>
+
+</html>

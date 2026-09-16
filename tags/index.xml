@@ -6,20 +6,41 @@
     <description>Recent content in Tags on pancho.dev</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 16 Sep 2026 10:42:00 -0300</lastBuildDate>
+    <lastBuildDate>Wed, 16 Sep 2026 11:00:00 -0300</lastBuildDate>
     <atom:link href="http://pancho.dev/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Cybersecurity</title>
-      <link>http://pancho.dev/tags/cybersecurity/</link>
-      <pubDate>Wed, 16 Sep 2026 10:42:00 -0300</pubDate>
-      <guid>http://pancho.dev/tags/cybersecurity/</guid>
+      <title>Automation</title>
+      <link>http://pancho.dev/tags/automation/</link>
+      <pubDate>Wed, 16 Sep 2026 11:00:00 -0300</pubDate>
+      <guid>http://pancho.dev/tags/automation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Secrets</title>
+      <link>http://pancho.dev/tags/secrets/</link>
+      <pubDate>Wed, 16 Sep 2026 11:00:00 -0300</pubDate>
+      <guid>http://pancho.dev/tags/secrets/</guid>
       <description></description>
     </item>
     <item>
       <title>Security</title>
       <link>http://pancho.dev/tags/security/</link>
-      <pubDate>Wed, 16 Sep 2026 10:42:00 -0300</pubDate>
+      <pubDate>Wed, 16 Sep 2026 11:00:00 -0300</pubDate>
       <guid>http://pancho.dev/tags/security/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Sops</title>
+      <link>http://pancho.dev/tags/sops/</link>
+      <pubDate>Wed, 16 Sep 2026 11:00:00 -0300</pubDate>
+      <guid>http://pancho.dev/tags/sops/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cybersecurity</title>
+      <link>http://pancho.dev/tags/cybersecurity/</link>
+      <pubDate>Wed, 16 Sep 2026 10:42:00 -0300</pubDate>
+      <guid>http://pancho.dev/tags/cybersecurity/</guid>
       <description></description>
     </item>
     <item>

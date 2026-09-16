@@ -6,8 +6,15 @@
     <description>Recent content in Posts on pancho.dev</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 16 Sep 2026 10:42:00 -0300</lastBuildDate>
+    <lastBuildDate>Wed, 16 Sep 2026 11:00:00 -0300</lastBuildDate>
     <atom:link href="http://pancho.dev/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Home Lab Secrets with SOPS</title>
+      <link>http://pancho.dev/posts/home-lab-secrets-with-sops/</link>
+      <pubDate>Wed, 16 Sep 2026 11:00:00 -0300</pubDate>
+      <guid>http://pancho.dev/posts/home-lab-secrets-with-sops/</guid>
+      <description>&lt;p&gt;In a past blog post I covered using Bitwarden for home lab automation secrets (&lt;a href=&#34;http://pancho.dev/posts/home-lab-automation-secrets/&#34;&gt;Secrets Manager for Home Lab Automation&lt;/a&gt;). That approach works well if you already use a password manager and want a CLI to pull credentials into environment variables. This follow-up covers &lt;a href=&#34;https://github.com/getsops/sops&#34;&gt;SOPS&lt;/a&gt; as an alternative when you want encrypted secrets in the repo without relying on a password manager or paying for a subscription.&lt;/p&gt;&#xA;&lt;p&gt;The goal is the same: get secrets into environment variables for Terraform, Ansible, and cloud CLIs at runtime. The difference is where those secrets live. With SOPS you keep them versioned next to your infrastructure code as ciphertext. That means you are putting secrets in git — encrypted, but still in the repo — which is a tradeoff worth accepting for many solo home lab setups because it removes login/session/sync choreography and avoids another hosted service.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Single Point of Failure: Why Your Phone is the Weakest Link in Your Security (And How to Fix It)</title>
       <link>http://pancho.dev/posts/single-point-of-failure-phone-security/</link>
