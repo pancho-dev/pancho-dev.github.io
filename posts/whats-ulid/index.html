@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><title>
+<head><title>
     What&#39;s a ULID | 
     
     pancho.dev</title>
@@ -13,7 +13,7 @@ So this time I will introduce the ulid. Spoiler alert, it&rsquo;s an ID or at le
     ">
 
 
-<meta property="og:url" content="http://127.0.0.1:1313/posts/whats-ulid/">
+<meta property="og:url" content="http://pancho.dev/posts/whats-ulid/">
   <meta property="og:site_name" content="pancho.dev">
   <meta property="og:title" content="What&#39;s a ULID">
   <meta property="og:description" content="This time I will talk about something I found out very recently, and I found interesting to share this information as it might be handy for developers to use when the use case fits.
@@ -40,13 +40,29 @@ So this time I will introduce the ulid. Spoiler alert, it’s an ID or at least 
   <meta itemprop="dateModified" content="2020-06-27T14:35:31-03:00">
   <meta itemprop="wordCount" content="2102">
   <meta itemprop="keywords" content="Development,Python">
-<link rel="canonical" href="http://127.0.0.1:1313/posts/whats-ulid/" />
+<link rel="canonical" href="http://pancho.dev/posts/whats-ulid/" />
 
-<link rel="icon" type="image/png" href="http://127.0.0.1:1313/image/favicon.ico">
+<link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
 
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/bulma.min.css">
 
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-WBLGT7MX26');
+        }
+      </script>
 
 
 <script src=/js/ramium.js></script>
@@ -302,44 +318,44 @@ And as I already mentioned I would definitely use it for use cases where we need
 	<br>
 	
 	<div class="share-buttons">
-	    <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwhats-ulid%2f"
+	    <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fpancho.dev%2fposts%2fwhats-ulid%2f"
 	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
 	        title="Share on Facebook. Opens in a new window.">
 	        <img src=/img/icons/45px/facebook.png>
 	    </a>
 
-	    <a  href="https://twitter.com/intent/tweet?text=What%27s%20a%20ULID&url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwhats-ulid%2f"
+	    <a  href="https://twitter.com/intent/tweet?text=What%27s%20a%20ULID&url=http%3a%2f%2fpancho.dev%2fposts%2fwhats-ulid%2f"
 	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
 	        title="Share on Twitter. Opens in a new window." >
 	        <img src=/img/icons/45px/twitter.png>
 	    </a>
 
-		<a  href="http://www.reddit.com/submit?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwhats-ulid%2f"
+		<a  href="http://www.reddit.com/submit?url=http%3a%2f%2fpancho.dev%2fposts%2fwhats-ulid%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Reddit. Opens in a new window." >
 	        <img src=/img/icons/45px/reddit.png>
 	    </a>
 
-	    <a  href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwhats-ulid%2f"
+	    <a  href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2fpancho.dev%2fposts%2fwhats-ulid%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Pinterest. Opens in a new window." >
 	        <img src=/img/icons/45px/pinterest.png>
 	    </a>
 
-	    <a  href="http://www.tumblr.com/share/link?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwhats-ulid%2f"
+	    <a  href="http://www.tumblr.com/share/link?url=http%3a%2f%2fpancho.dev%2fposts%2fwhats-ulid%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Tumblr. Opens in a new window." >
 	        <img src=/img/icons/45px/tumblr.png>
 	    </a>
 
-		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwhats-ulid%2f
+		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fpancho.dev%2fposts%2fwhats-ulid%2f
 			&title=What%27s%20a%20ULID&summary=%3cp%3eThis%20time%20I%20will%20talk%20about%20something%20I%20found%20out%20very%20recently%2c%20and%20I%20found%20interesting%20to%20share%20this%20information%20as%20it%20might%20be%20handy%20for%20developers%20to%20use%20when%20the%20use%20case%20fits.%3cbr%3e%0aSo%20this%20time%20I%20will%20introduce%20the%20%3ccode%3eulid%3c%2fcode%3e.%20Spoiler%20alert%2c%20it%26rsquo%3bs%20an%20ID%20or%20at%20least%20a%20data%20structure%20that%20can%20be%20used%20to%20represent%20an%20ID.%20So%20why%20do%20we%20have%20another%20way%20of%20expressing%20an%20ID%2c%20I%20won%26rsquo%3bt%20get%20into%20too%20much%20details%20into%20that%20but%20yes%20there%20are%20many%20ways%20of%20defining%20ids%2c%20it%20can%20be%20numerical%2c%20using%20UUIDs%2c%20etc.%20So%20my%20motivation%20is%20that%20I%20found%20useful%20the%20properties%20of%20ulid%20for%20some%20specific%20use%20cases.%3c%2fp%3e&source=rafed123.github.io"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on LinkedIn. Opens in a new window." >
 	        <img src=/img/icons/45px/linkedin.png>
 	    </a>
 
-	    <a  href="mailto:?subject=What%27s%20a%20ULID&amp;body=Check out this site http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwhats-ulid%2f"
+	    <a  href="mailto:?subject=What%27s%20a%20ULID&amp;body=Check out this site http%3a%2f%2fpancho.dev%2fposts%2fwhats-ulid%2f"
 	        title="Share via Email. Opens in a new window." >
 	        <img src=/img/icons/45px/mail.png>
 	    </a>

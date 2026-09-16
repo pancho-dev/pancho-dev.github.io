@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><title>
+<head><title>
     Lightning Post: Don&#39;t Have a Docker Registry? Save and Load to the Rescue | 
     
     pancho.dev</title>
@@ -15,7 +15,7 @@ To save a docker image:
     ">
 
 
-<meta property="og:url" content="http://127.0.0.1:1313/posts/docker-save-restore/">
+<meta property="og:url" content="http://pancho.dev/posts/docker-save-restore/">
   <meta property="og:site_name" content="pancho.dev">
   <meta property="og:title" content="Lightning Post: Don&#39;t have a Docker registry? save and load to the rescue">
   <meta property="og:description" content="Whenever someone is working with docker and need to move images between hosts without the need for rebuilding them or hosting a private registry. This lightning post will show us 2 commands that will help us to easy move container images between hosts.
@@ -45,13 +45,29 @@ To save a docker image:">
   <meta itemprop="dateModified" content="2020-08-06T20:30:48-03:00">
   <meta itemprop="wordCount" content="691">
   <meta itemprop="keywords" content="Docker,Containers">
-<link rel="canonical" href="http://127.0.0.1:1313/posts/docker-save-restore/" />
+<link rel="canonical" href="http://pancho.dev/posts/docker-save-restore/" />
 
-<link rel="icon" type="image/png" href="http://127.0.0.1:1313/image/favicon.ico">
+<link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
 
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/bulma.min.css">
 
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-WBLGT7MX26');
+        }
+      </script>
 
 
 <script src=/js/ramium.js></script>
@@ -187,44 +203,44 @@ I really care about being able to save and copy images as they are software arti
 	<br>
 	
 	<div class="share-buttons">
-	    <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fdocker-save-restore%2f"
+	    <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fpancho.dev%2fposts%2fdocker-save-restore%2f"
 	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
 	        title="Share on Facebook. Opens in a new window.">
 	        <img src=/img/icons/45px/facebook.png>
 	    </a>
 
-	    <a  href="https://twitter.com/intent/tweet?text=Lightning%20Post%3a%20Don%27t%20have%20a%20Docker%20registry%3f%20save%20and%20load%20to%20the%20rescue&url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fdocker-save-restore%2f"
+	    <a  href="https://twitter.com/intent/tweet?text=Lightning%20Post%3a%20Don%27t%20have%20a%20Docker%20registry%3f%20save%20and%20load%20to%20the%20rescue&url=http%3a%2f%2fpancho.dev%2fposts%2fdocker-save-restore%2f"
 	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
 	        title="Share on Twitter. Opens in a new window." >
 	        <img src=/img/icons/45px/twitter.png>
 	    </a>
 
-		<a  href="http://www.reddit.com/submit?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fdocker-save-restore%2f"
+		<a  href="http://www.reddit.com/submit?url=http%3a%2f%2fpancho.dev%2fposts%2fdocker-save-restore%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Reddit. Opens in a new window." >
 	        <img src=/img/icons/45px/reddit.png>
 	    </a>
 
-	    <a  href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fdocker-save-restore%2f"
+	    <a  href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2fpancho.dev%2fposts%2fdocker-save-restore%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Pinterest. Opens in a new window." >
 	        <img src=/img/icons/45px/pinterest.png>
 	    </a>
 
-	    <a  href="http://www.tumblr.com/share/link?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fdocker-save-restore%2f"
+	    <a  href="http://www.tumblr.com/share/link?url=http%3a%2f%2fpancho.dev%2fposts%2fdocker-save-restore%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Tumblr. Opens in a new window." >
 	        <img src=/img/icons/45px/tumblr.png>
 	    </a>
 
-		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fdocker-save-restore%2f
+		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fpancho.dev%2fposts%2fdocker-save-restore%2f
 			&title=Lightning%20Post%3a%20Don%27t%20have%20a%20Docker%20registry%3f%20save%20and%20load%20to%20the%20rescue&summary=%3cp%3eWhenever%20someone%20is%20working%20with%20docker%20and%20need%20to%20move%20images%20between%20hosts%20without%20the%20need%20for%20rebuilding%20them%20or%20hosting%20a%20private%20registry.%20This%20%3ca%20href%3d%22%2fposts%2flightning-post%2f%22%3elightning%20post%3c%2fa%3e%20will%20show%20us%202%20commands%20that%20will%20help%20us%20to%20easy%20move%20container%20images%20between%20hosts.%3c%2fp%3e%0a%3ch1%20id%3d%22how-to-save-a-docker-image-for-reuse-in-other-host%22%3eHow%20to%20save%20a%20docker%20image%20for%20reuse%20in%20other%20host%3f%3c%2fh1%3e%0a%3cp%3eThere%20is%20a%20handy%20command%20that%20helps%20save%20a%20docker%20image%20that%20is%20already%20in%20the%20system%20or%20already%20built%2c%20there%20are%20situations%20where%20builds%20take%20a%20long%20time%20and%20building%20the%20images%20in%20multiple%20hosts%20is%20time%20consuming%2c%20so%20we%20can%20save%20the%20image%20and%20copy%20it%20to%20other%20host%20and%20import%20it%20for%20reuse.%3cbr%3e%0aTo%20save%20a%20docker%20image%3a%3c%2fp%3e&source=rafed123.github.io"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on LinkedIn. Opens in a new window." >
 	        <img src=/img/icons/45px/linkedin.png>
 	    </a>
 
-	    <a  href="mailto:?subject=Lightning%20Post%3a%20Don%27t%20have%20a%20Docker%20registry%3f%20save%20and%20load%20to%20the%20rescue&amp;body=Check out this site http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fdocker-save-restore%2f"
+	    <a  href="mailto:?subject=Lightning%20Post%3a%20Don%27t%20have%20a%20Docker%20registry%3f%20save%20and%20load%20to%20the%20rescue&amp;body=Check out this site http%3a%2f%2fpancho.dev%2fposts%2fdocker-save-restore%2f"
 	        title="Share via Email. Opens in a new window." >
 	        <img src=/img/icons/45px/mail.png>
 	    </a>

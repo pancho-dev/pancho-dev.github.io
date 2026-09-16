@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><title>
+<head><title>
     Who Stole My Cpu? | 
     
     pancho.dev</title>
@@ -12,7 +12,7 @@
     ">
 
 
-<meta property="og:url" content="http://127.0.0.1:1313/posts/who-stole-my-cpu/">
+<meta property="og:url" content="http://pancho.dev/posts/who-stole-my-cpu/">
   <meta property="og:site_name" content="pancho.dev">
   <meta property="og:title" content="Who Stole My Cpu?">
   <meta property="og:description" content="In a previous post I talked about Taming the cpu metrics, while that post was an overview of cpu metrics I thought it was a good topic to emphasize on the cpu steal metric in linux hosts. This is something I recently found and didn’t know it even existed, but it can be very useful when running in virtualized environments and helping us tune either the vm, or the physical host that runs the vms. It is something engineers probably overlook and probably don’t even know, if I have known this a couple of months ago would have saved me some troubleshooting time.">
@@ -38,13 +38,29 @@
   <meta itemprop="dateModified" content="2020-07-16T15:51:59-03:00">
   <meta itemprop="wordCount" content="1074">
   <meta itemprop="keywords" content="Linux,Performance,Cloud,Virtualization">
-<link rel="canonical" href="http://127.0.0.1:1313/posts/who-stole-my-cpu/" />
+<link rel="canonical" href="http://pancho.dev/posts/who-stole-my-cpu/" />
 
-<link rel="icon" type="image/png" href="http://127.0.0.1:1313/image/favicon.ico">
+<link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
 
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/bulma.min.css">
 
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-WBLGT7MX26');
+        }
+      </script>
 
 
 <script src=/js/ramium.js></script>
@@ -179,44 +195,44 @@ Performance tuning servers/applications is an art of it&rsquo;s own, where varia
 	<br>
 	
 	<div class="share-buttons">
-	    <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwho-stole-my-cpu%2f"
+	    <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fpancho.dev%2fposts%2fwho-stole-my-cpu%2f"
 	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
 	        title="Share on Facebook. Opens in a new window.">
 	        <img src=/img/icons/45px/facebook.png>
 	    </a>
 
-	    <a  href="https://twitter.com/intent/tweet?text=Who%20Stole%20My%20Cpu%3f&url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwho-stole-my-cpu%2f"
+	    <a  href="https://twitter.com/intent/tweet?text=Who%20Stole%20My%20Cpu%3f&url=http%3a%2f%2fpancho.dev%2fposts%2fwho-stole-my-cpu%2f"
 	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
 	        title="Share on Twitter. Opens in a new window." >
 	        <img src=/img/icons/45px/twitter.png>
 	    </a>
 
-		<a  href="http://www.reddit.com/submit?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwho-stole-my-cpu%2f"
+		<a  href="http://www.reddit.com/submit?url=http%3a%2f%2fpancho.dev%2fposts%2fwho-stole-my-cpu%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Reddit. Opens in a new window." >
 	        <img src=/img/icons/45px/reddit.png>
 	    </a>
 
-	    <a  href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwho-stole-my-cpu%2f"
+	    <a  href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2fpancho.dev%2fposts%2fwho-stole-my-cpu%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Pinterest. Opens in a new window." >
 	        <img src=/img/icons/45px/pinterest.png>
 	    </a>
 
-	    <a  href="http://www.tumblr.com/share/link?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwho-stole-my-cpu%2f"
+	    <a  href="http://www.tumblr.com/share/link?url=http%3a%2f%2fpancho.dev%2fposts%2fwho-stole-my-cpu%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Tumblr. Opens in a new window." >
 	        <img src=/img/icons/45px/tumblr.png>
 	    </a>
 
-		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwho-stole-my-cpu%2f
+		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fpancho.dev%2fposts%2fwho-stole-my-cpu%2f
 			&title=Who%20Stole%20My%20Cpu%3f&summary=%3cp%3eIn%20a%20previous%20post%20I%20talked%20about%20%3ca%20href%3d%22%2fposts%2ftaming-the-cpu-metrics%2f%22%3eTaming%20the%20cpu%20metrics%3c%2fa%3e%2c%20while%20that%20post%20was%20an%20overview%20of%20cpu%20metrics%20I%20thought%20it%20was%20a%20good%20topic%20to%20emphasize%20on%20the%20cpu%20%3ccode%3esteal%3c%2fcode%3e%20metric%20in%20linux%20hosts.%20This%20is%20something%20I%20recently%20found%20and%20didn%26rsquo%3bt%20know%20it%20even%20existed%2c%20but%20it%20can%20be%20very%20useful%20when%20running%20in%20virtualized%20environments%20and%20helping%20us%20tune%20either%20the%20vm%2c%20or%20the%20physical%20host%20that%20runs%20the%20vms.%20It%20is%20something%20engineers%20probably%20overlook%20and%20probably%20don%26rsquo%3bt%20even%20know%2c%20if%20I%20have%20known%20this%20a%20couple%20of%20months%20ago%20would%20have%20saved%20me%20some%20troubleshooting%20time.%3c%2fp%3e&source=rafed123.github.io"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on LinkedIn. Opens in a new window." >
 	        <img src=/img/icons/45px/linkedin.png>
 	    </a>
 
-	    <a  href="mailto:?subject=Who%20Stole%20My%20Cpu%3f&amp;body=Check out this site http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwho-stole-my-cpu%2f"
+	    <a  href="mailto:?subject=Who%20Stole%20My%20Cpu%3f&amp;body=Check out this site http%3a%2f%2fpancho.dev%2fposts%2fwho-stole-my-cpu%2f"
 	        title="Share via Email. Opens in a new window." >
 	        <img src=/img/icons/45px/mail.png>
 	    </a>

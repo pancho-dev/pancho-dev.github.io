@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on pancho.dev</title>
-    <link>http://127.0.0.1:1313/tags/python/</link>
+    <link>http://pancho.dev/tags/python/</link>
     <description>Recent content in Python on pancho.dev</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 24 Oct 2020 11:30:35 -0300</lastBuildDate>
-    <atom:link href="http://127.0.0.1:1313/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://pancho.dev/tags/python/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Watch out with cloud storage API calls!!!</title>
-      <link>http://127.0.0.1:1313/posts/watch_out_cloud_storage/</link>
+      <link>http://pancho.dev/posts/watch_out_cloud_storage/</link>
       <pubDate>Sat, 24 Oct 2020 11:30:35 -0300</pubDate>
-      <guid>http://127.0.0.1:1313/posts/watch_out_cloud_storage/</guid>
+      <guid>http://pancho.dev/posts/watch_out_cloud_storage/</guid>
       <description>&lt;p&gt;One of the most popular services from cloud providers is cloud storage, to be more specific AWS S3, Google Cloud Storage, Azure Storage or any similar service from other cloud providers. This service is very convenient for developers and SREs or System Admins, it solves the problem of managing disks, storage devices , storage servers, etc at a very low cost for storing files, depending on the cloud provider, some of them even offer a staggering 99.999999999% durability. Given the benefits and low cost of such services, I have seen more and more reliance on the cloud storage services.&lt;br&gt;&#xA;But there is a catch on the cheap pricing, in order to make a good decision when architecting an application we need to look a all pricing items for the cloud storage service to optimize around costs.  Cloud storage services usually charge for the storage used for files stored, api calls to put, retrieve and list files and network traffic. So we need to have in mind these parameters to avoid surprises on our cloud storage bills. I will not go into too much details on each cloud provider on this post but I will show something I found out recently that made an application lower the costs about 10 times just by optimizing the way the data was being accessed. These optimizations might be a key to make a feature or an app profitable.&lt;br&gt;&#xA;In particular I will talk about AWS S3 api calls and the behavior of some of the official AWS SDKs that needed some tweaking. Of course all findings shown in this post were done with documentation found at the time of this writing. So I suggest double check the SDKs behavior as it might change in the future.&lt;/p&gt;</description>
     </item>
     <item>
       <title>What&#39;s a ULID</title>
-      <link>http://127.0.0.1:1313/posts/whats-ulid/</link>
+      <link>http://pancho.dev/posts/whats-ulid/</link>
       <pubDate>Sat, 27 Jun 2020 14:35:31 -0300</pubDate>
-      <guid>http://127.0.0.1:1313/posts/whats-ulid/</guid>
+      <guid>http://pancho.dev/posts/whats-ulid/</guid>
       <description>&lt;p&gt;This time I will talk about something I found out very recently, and I found interesting to share this information as it might be handy for developers to use when the use case fits.&lt;br&gt;&#xA;So this time I will introduce the &lt;code&gt;ulid&lt;/code&gt;. Spoiler alert, it&amp;rsquo;s an ID or at least a data structure that can be used to represent an ID. So why do we have another way of expressing an ID, I won&amp;rsquo;t get into too much details into that but yes there are many ways of defining ids, it can be numerical, using UUIDs, etc. So my motivation is that I found useful the properties of ulid for some specific use cases.&lt;/p&gt;</description>
     </item>
   </channel>

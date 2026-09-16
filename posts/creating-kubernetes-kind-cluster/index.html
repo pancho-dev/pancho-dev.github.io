@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><title>
+<head><title>
     Creating Kubernetes Kind Cluster | 
     
     pancho.dev</title>
@@ -13,7 +13,7 @@ Also this time I choose to work with kind because it allows to do a lot of stuff
     ">
 
 
-<meta property="og:url" content="http://127.0.0.1:1313/posts/creating-kubernetes-kind-cluster/">
+<meta property="og:url" content="http://pancho.dev/posts/creating-kubernetes-kind-cluster/">
   <meta property="og:site_name" content="pancho.dev">
   <meta property="og:title" content="Creating Kubernetes Kind Cluster">
   <meta property="og:description" content="In an earlier post I showed how to create Multi-node k8s cluster using ignite and k3s, while this was a good experience I needed to test some other tools, and this time I decided to go for kind (kubernetes in docker). Which looks like a good approach to work with clusters locally and it will still be lightweight as the kubernetes “nodes” will be actually running as docker containers. This at first glance looks like a easier approach and seems to work in a similar way in Mac, linux or Windows, which gives a great advantage.
@@ -40,13 +40,29 @@ Also this time I choose to work with kind because it allows to do a lot of stuff
   <meta itemprop="dateModified" content="2020-05-30T15:11:30-03:00">
   <meta itemprop="wordCount" content="2284">
   <meta itemprop="keywords" content="Linux,Kubernetes">
-<link rel="canonical" href="http://127.0.0.1:1313/posts/creating-kubernetes-kind-cluster/" />
+<link rel="canonical" href="http://pancho.dev/posts/creating-kubernetes-kind-cluster/" />
 
-<link rel="icon" type="image/png" href="http://127.0.0.1:1313/image/favicon.ico">
+<link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
 
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/bulma.min.css">
 
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-WBLGT7MX26');
+        }
+      </script>
 
 
 <script src=/js/ramium.js></script>
@@ -485,44 +501,44 @@ However, it is still a great tool to develop and work with and still have a good
 	<br>
 	
 	<div class="share-buttons">
-	    <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fcreating-kubernetes-kind-cluster%2f"
+	    <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fpancho.dev%2fposts%2fcreating-kubernetes-kind-cluster%2f"
 	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
 	        title="Share on Facebook. Opens in a new window.">
 	        <img src=/img/icons/45px/facebook.png>
 	    </a>
 
-	    <a  href="https://twitter.com/intent/tweet?text=Creating%20Kubernetes%20Kind%20Cluster&url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fcreating-kubernetes-kind-cluster%2f"
+	    <a  href="https://twitter.com/intent/tweet?text=Creating%20Kubernetes%20Kind%20Cluster&url=http%3a%2f%2fpancho.dev%2fposts%2fcreating-kubernetes-kind-cluster%2f"
 	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
 	        title="Share on Twitter. Opens in a new window." >
 	        <img src=/img/icons/45px/twitter.png>
 	    </a>
 
-		<a  href="http://www.reddit.com/submit?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fcreating-kubernetes-kind-cluster%2f"
+		<a  href="http://www.reddit.com/submit?url=http%3a%2f%2fpancho.dev%2fposts%2fcreating-kubernetes-kind-cluster%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Reddit. Opens in a new window." >
 	        <img src=/img/icons/45px/reddit.png>
 	    </a>
 
-	    <a  href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fcreating-kubernetes-kind-cluster%2f"
+	    <a  href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2fpancho.dev%2fposts%2fcreating-kubernetes-kind-cluster%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Pinterest. Opens in a new window." >
 	        <img src=/img/icons/45px/pinterest.png>
 	    </a>
 
-	    <a  href="http://www.tumblr.com/share/link?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fcreating-kubernetes-kind-cluster%2f"
+	    <a  href="http://www.tumblr.com/share/link?url=http%3a%2f%2fpancho.dev%2fposts%2fcreating-kubernetes-kind-cluster%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Tumblr. Opens in a new window." >
 	        <img src=/img/icons/45px/tumblr.png>
 	    </a>
 
-		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fcreating-kubernetes-kind-cluster%2f
+		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fpancho.dev%2fposts%2fcreating-kubernetes-kind-cluster%2f
 			&title=Creating%20Kubernetes%20Kind%20Cluster&summary=%3cp%3eIn%20an%20earlier%20post%20I%20showed%20how%20to%20create%20%3ca%20href%3d%22%2fposts%2fmultinode-k8s-ignite-k3s%2f%22%3eMulti-node%20k8s%20cluster%20using%20ignite%20and%20k3s%3c%2fa%3e%2c%20while%20this%20was%20a%20good%20experience%20I%20needed%20to%20test%20some%20other%20tools%2c%20and%20this%20time%20I%20decided%20to%20go%20for%20kind%20%28kubernetes%20in%20docker%29.%20Which%20looks%20like%20a%20good%20approach%20to%20work%20with%20clusters%20locally%20and%20it%20will%20still%20be%20lightweight%20as%20the%20kubernetes%20%26ldquo%3bnodes%26rdquo%3b%20will%20be%20actually%20running%20as%20docker%20containers.%20This%20at%20first%20glance%20looks%20like%20a%20easier%20approach%20and%20seems%20to%20work%20in%20a%20similar%20way%20in%20Mac%2c%20linux%20or%20Windows%2c%20which%20gives%20a%20great%20advantage.%3cbr%3e%0aAlso%20this%20time%20I%20choose%20to%20work%20with%20kind%20because%20it%20allows%20to%20do%20a%20lot%20of%20stuff%20like%20simulating%20multiple%20control%20plane%20nodes%20and%20multiple%20worker%20nodes.%20In%20my%20case%20I%20did%20wanted%20multiple%20nodes%20to%20try%20things%20like%20running%20Postgres%20clusters%20and%20use%20anti%20affinity%20to%20develop%20in%20my%20laptop%20some%20automation%20around%20Postgres%20clusters.%20It%20is%20very%20fast%20to%20start%20a%20cluster%20and%20play%20around%20with%20multiple%20clusters.%20Another%20cool%20feature%20is%20that%20is%20easy%20to%20start%20a%20cluster%20with%20multiple%20masters%20and%20the%20setup%20of%20the%20cluster%20seems%20a%20very%20%26ldquo%3bvanilla%26rdquo%3b%20k8s%20cluster%20which%20is%20and%20advantage%20to%20be%20running%20things%20similar%20to%20what%20you%20would%20run%20in%20production%20others%20like%20k3s%20or%20microk8s%20use%20a%20lot%20of%20lightweight%20components%20that%20might%20not%20actually%20look%20like%20%26ldquo%3bproduction%20clusters%26rdquo%3b%2c%20however%20this%20is%20still%20a%20very%20personal%20opinion%20and%20depends%20on%20the%20needs%20of%20the%20developer%20and%20all%20have%20pros%20and%20cons.%20We%20will%20see%20how%20it%20looks%20like%20after%20I%20actually%20finish%20the%20post%20and%20get%20some%20conclusions.%3c%2fp%3e&source=rafed123.github.io"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on LinkedIn. Opens in a new window." >
 	        <img src=/img/icons/45px/linkedin.png>
 	    </a>
 
-	    <a  href="mailto:?subject=Creating%20Kubernetes%20Kind%20Cluster&amp;body=Check out this site http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fcreating-kubernetes-kind-cluster%2f"
+	    <a  href="mailto:?subject=Creating%20Kubernetes%20Kind%20Cluster&amp;body=Check out this site http%3a%2f%2fpancho.dev%2fposts%2fcreating-kubernetes-kind-cluster%2f"
 	        title="Share via Email. Opens in a new window." >
 	        <img src=/img/icons/45px/mail.png>
 	    </a>

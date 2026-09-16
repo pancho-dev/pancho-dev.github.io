@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><title>
+<head><title>
     Teaching Alexa to Speak Infrared: The Engineering Behind a Dumb Range Hood | 
     
     pancho.dev</title>
@@ -13,7 +13,7 @@ My wife would be in the middle of cooking, hands covered in flour, oil, or whate
     ">
 
 
-<meta property="og:url" content="http://127.0.0.1:1313/posts/infrared-hood/">
+<meta property="og:url" content="http://pancho.dev/posts/infrared-hood/">
   <meta property="og:site_name" content="pancho.dev">
   <meta property="og:title" content="Teaching Alexa to Speak Infrared: The Engineering Behind a Dumb Range Hood">
   <meta property="og:description" content="It all started with a simple, everyday annoyance in the kitchen.
@@ -44,13 +44,29 @@ My wife would be in the middle of cooking, hands covered in flour, oil, or whate
   <meta itemprop="dateModified" content="2026-05-25T00:00:00+00:00">
   <meta itemprop="wordCount" content="813">
   <meta itemprop="keywords" content="Home-Assistant,Zigbee,Alexa,Home-Automation,Engineering,Mermaid">
-<link rel="canonical" href="http://127.0.0.1:1313/posts/infrared-hood/" />
+<link rel="canonical" href="http://pancho.dev/posts/infrared-hood/" />
 
-<link rel="icon" type="image/png" href="http://127.0.0.1:1313/image/favicon.ico">
+<link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
 
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/bulma.min.css">
 
+
+
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
+      <script>
+        var doNotTrack = false;
+        if ( false ) {
+          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
+          var doNotTrack = (dnt == "1" || dnt == "yes");
+        }
+        if (!doNotTrack) {
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'G-WBLGT7MX26');
+        }
+      </script>
 
 
 <script src=/js/ramium.js></script>
@@ -256,44 +272,44 @@ document.addEventListener('DOMContentLoaded', async function () {
 	<br>
 	
 	<div class="share-buttons">
-	    <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2finfrared-hood%2f"
+	    <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fpancho.dev%2fposts%2finfrared-hood%2f"
 	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
 	        title="Share on Facebook. Opens in a new window.">
 	        <img src=/img/icons/45px/facebook.png>
 	    </a>
 
-	    <a  href="https://twitter.com/intent/tweet?text=Teaching%20Alexa%20to%20Speak%20Infrared%3a%20The%20Engineering%20Behind%20a%20Dumb%20Range%20Hood&url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2finfrared-hood%2f"
+	    <a  href="https://twitter.com/intent/tweet?text=Teaching%20Alexa%20to%20Speak%20Infrared%3a%20The%20Engineering%20Behind%20a%20Dumb%20Range%20Hood&url=http%3a%2f%2fpancho.dev%2fposts%2finfrared-hood%2f"
 	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
 	        title="Share on Twitter. Opens in a new window." >
 	        <img src=/img/icons/45px/twitter.png>
 	    </a>
 
-		<a  href="http://www.reddit.com/submit?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2finfrared-hood%2f"
+		<a  href="http://www.reddit.com/submit?url=http%3a%2f%2fpancho.dev%2fposts%2finfrared-hood%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Reddit. Opens in a new window." >
 	        <img src=/img/icons/45px/reddit.png>
 	    </a>
 
-	    <a  href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2finfrared-hood%2f"
+	    <a  href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2fpancho.dev%2fposts%2finfrared-hood%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Pinterest. Opens in a new window." >
 	        <img src=/img/icons/45px/pinterest.png>
 	    </a>
 
-	    <a  href="http://www.tumblr.com/share/link?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2finfrared-hood%2f"
+	    <a  href="http://www.tumblr.com/share/link?url=http%3a%2f%2fpancho.dev%2fposts%2finfrared-hood%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Tumblr. Opens in a new window." >
 	        <img src=/img/icons/45px/tumblr.png>
 	    </a>
 
-		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2finfrared-hood%2f
+		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fpancho.dev%2fposts%2finfrared-hood%2f
 			&title=Teaching%20Alexa%20to%20Speak%20Infrared%3a%20The%20Engineering%20Behind%20a%20Dumb%20Range%20Hood&summary=%3cp%3eIt%20all%20started%20with%20a%20simple%2c%20everyday%20annoyance%20in%20the%20kitchen.%3c%2fp%3e%0a%3cp%3eMy%20wife%20would%20be%20in%20the%20middle%20of%20cooking%2c%20hands%20covered%20in%20flour%2c%20oil%2c%20or%20whatever%20was%20being%20prepped%20for%20dinner%2c%20and%20the%20kitchen%20would%20start%20filling%20with%20smoke.%20Our%20range%20hood%20works%20perfectly%20fine%2c%20but%20it%20is%20completely%20%26ldquo%3bdumb%26rdquo%3b%e2%80%94controlled%20exclusively%20by%20a%20small%2c%20analog%20infrared%20remote.%20Having%20to%20stop%2c%20wash%20her%20hands%2c%20find%20the%20little%20plastic%20remote%2c%20and%20press%20the%20right%20buttons%20just%20to%20clear%20the%20air%20was%20a%20daily%20friction%20point.%3c%2fp%3e&source=rafed123.github.io"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on LinkedIn. Opens in a new window." >
 	        <img src=/img/icons/45px/linkedin.png>
 	    </a>
 
-	    <a  href="mailto:?subject=Teaching%20Alexa%20to%20Speak%20Infrared%3a%20The%20Engineering%20Behind%20a%20Dumb%20Range%20Hood&amp;body=Check out this site http%3a%2f%2f127.0.0.1%3a1313%2fposts%2finfrared-hood%2f"
+	    <a  href="mailto:?subject=Teaching%20Alexa%20to%20Speak%20Infrared%3a%20The%20Engineering%20Behind%20a%20Dumb%20Range%20Hood&amp;body=Check out this site http%3a%2f%2fpancho.dev%2fposts%2finfrared-hood%2f"
 	        title="Share via Email. Opens in a new window." >
 	        <img src=/img/icons/45px/mail.png>
 	    </a>
