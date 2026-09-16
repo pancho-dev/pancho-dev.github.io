@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 
-<head><title>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><title>
     The Misunderstood Load Average in Linux Hosts | 
     
     pancho.dev</title>
@@ -12,7 +12,7 @@
     ">
 
 
-<meta property="og:url" content="http://pancho.dev/posts/linux-load-average/">
+<meta property="og:url" content="http://127.0.0.1:1313/posts/linux-load-average/">
   <meta property="og:site_name" content="pancho.dev">
   <meta property="og:title" content="The misunderstood load average in linux hosts">
   <meta property="og:description" content="Ever wondered when someone runs the command uptime in a linux host what the values in the load average: section mean? well I have wondered about it many times in my career. And this should be a simple question to ask a seasoned linux administrator or developer, right? well it’s not entirely true, as the load average value in a linux hosts probably is the most misunderstood term and often associated with the wrong concepts. In this post I will explain and tell a bit more about my experience about load average value in linux and how it helps me everyday to spot issues in infrastructure.">
@@ -36,29 +36,13 @@
   <meta itemprop="dateModified" content="2020-06-07T20:02:27-03:00">
   <meta itemprop="wordCount" content="2939">
   <meta itemprop="keywords" content="Linux,Performance">
-<link rel="canonical" href="http://pancho.dev/posts/linux-load-average/" />
+<link rel="canonical" href="http://127.0.0.1:1313/posts/linux-load-average/" />
 
-<link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
+<link rel="icon" type="image/png" href="http://127.0.0.1:1313/image/favicon.ico">
 
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/bulma.min.css">
 
-
-
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
-      <script>
-        var doNotTrack = false;
-        if ( false ) {
-          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
-          var doNotTrack = (dnt == "1" || dnt == "yes");
-        }
-        if (!doNotTrack) {
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-WBLGT7MX26');
-        }
-      </script>
 
 
 <script src=/js/ramium.js></script>
@@ -219,44 +203,44 @@ Bottom line, load average is useful but you will need to monitor other metrics a
 	<br>
 	
 	<div class="share-buttons">
-	    <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fpancho.dev%2fposts%2flinux-load-average%2f"
+	    <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2flinux-load-average%2f"
 	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
 	        title="Share on Facebook. Opens in a new window.">
 	        <img src=/img/icons/45px/facebook.png>
 	    </a>
 
-	    <a  href="https://twitter.com/intent/tweet?text=The%20misunderstood%20load%20average%20in%20linux%20hosts&url=http%3a%2f%2fpancho.dev%2fposts%2flinux-load-average%2f"
+	    <a  href="https://twitter.com/intent/tweet?text=The%20misunderstood%20load%20average%20in%20linux%20hosts&url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2flinux-load-average%2f"
 	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
 	        title="Share on Twitter. Opens in a new window." >
 	        <img src=/img/icons/45px/twitter.png>
 	    </a>
 
-		<a  href="http://www.reddit.com/submit?url=http%3a%2f%2fpancho.dev%2fposts%2flinux-load-average%2f"
+		<a  href="http://www.reddit.com/submit?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2flinux-load-average%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Reddit. Opens in a new window." >
 	        <img src=/img/icons/45px/reddit.png>
 	    </a>
 
-	    <a  href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2fpancho.dev%2fposts%2flinux-load-average%2f"
+	    <a  href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2flinux-load-average%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Pinterest. Opens in a new window." >
 	        <img src=/img/icons/45px/pinterest.png>
 	    </a>
 
-	    <a  href="http://www.tumblr.com/share/link?url=http%3a%2f%2fpancho.dev%2fposts%2flinux-load-average%2f"
+	    <a  href="http://www.tumblr.com/share/link?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2flinux-load-average%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Tumblr. Opens in a new window." >
 	        <img src=/img/icons/45px/tumblr.png>
 	    </a>
 
-		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fpancho.dev%2fposts%2flinux-load-average%2f
+		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2flinux-load-average%2f
 			&title=The%20misunderstood%20load%20average%20in%20linux%20hosts&summary=%3cp%3eEver%20wondered%20when%20someone%20runs%20the%20command%20%3ccode%3euptime%3c%2fcode%3e%20in%20a%20linux%20host%20what%20the%20values%20in%20the%20%3ccode%3eload%20average%3a%3c%2fcode%3e%20section%20mean%3f%20well%20I%20have%20wondered%20about%20it%20many%20times%20in%20my%20career.%20And%20this%20should%20be%20a%20simple%20question%20to%20ask%20a%20seasoned%20linux%20administrator%20or%20developer%2c%20right%3f%20well%20it%26rsquo%3bs%20not%20entirely%20true%2c%20as%20the%20load%20average%20value%20in%20a%20linux%20hosts%20probably%20is%20the%20most%20misunderstood%20term%20and%20often%20associated%20with%20the%20wrong%20concepts.%20In%20this%20post%20I%20will%20explain%20and%20tell%20a%20bit%20more%20about%20my%20experience%20about%20load%20average%20value%20in%20linux%20and%20how%20it%20helps%20me%20everyday%20to%20spot%20issues%20in%20infrastructure.%3c%2fp%3e&source=rafed123.github.io"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on LinkedIn. Opens in a new window." >
 	        <img src=/img/icons/45px/linkedin.png>
 	    </a>
 
-	    <a  href="mailto:?subject=The%20misunderstood%20load%20average%20in%20linux%20hosts&amp;body=Check out this site http%3a%2f%2fpancho.dev%2fposts%2flinux-load-average%2f"
+	    <a  href="mailto:?subject=The%20misunderstood%20load%20average%20in%20linux%20hosts&amp;body=Check out this site http%3a%2f%2f127.0.0.1%3a1313%2fposts%2flinux-load-average%2f"
 	        title="Share via Email. Opens in a new window." >
 	        <img src=/img/icons/45px/mail.png>
 	    </a>

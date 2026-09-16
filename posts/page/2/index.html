@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 
-<head><title>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><title>
     Posts | 
     
     pancho.dev</title>
@@ -12,7 +12,7 @@
 
 
 
-<meta property="og:url" content="http://pancho.dev/posts/">
+<meta property="og:url" content="http://127.0.0.1:1313/posts/">
   <meta property="og:site_name" content="pancho.dev">
   <meta property="og:title" content="Posts">
   <meta property="og:description" content="A description for the meta tag of the site">
@@ -27,31 +27,15 @@
 
   <meta itemprop="name" content="Posts">
   <meta itemprop="description" content="A description for the meta tag of the site">
-  <meta itemprop="datePublished" content="2026-05-25T00:00:00+00:00">
-  <meta itemprop="dateModified" content="2026-05-25T00:00:00+00:00">
-<link rel="canonical" href="http://pancho.dev/posts/" />
+  <meta itemprop="datePublished" content="2026-09-16T10:42:00-03:00">
+  <meta itemprop="dateModified" content="2026-09-16T10:42:00-03:00">
+<link rel="canonical" href="http://127.0.0.1:1313/posts/" />
 
-<link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
+<link rel="icon" type="image/png" href="http://127.0.0.1:1313/image/favicon.ico">
 
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/bulma.min.css">
 
-
-
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
-      <script>
-        var doNotTrack = false;
-        if ( false ) {
-          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
-          var doNotTrack = (dnt == "1" || dnt == "yes");
-        }
-        if (!doNotTrack) {
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-WBLGT7MX26');
-        }
-      </script>
 
 
 <script src=/js/ramium.js></script>
@@ -117,6 +101,76 @@
 
 
 <div class="blog-brief">
+    <a href="/posts/watch_out_cloud_storage/">
+        <h3 class="title is-4">
+            Watch Out With Cloud Storage API Calls!!!
+        </h3>
+    </a>
+
+    <div class="level is-mobile details">
+        <div class="level-left">
+
+            
+            <div class="level-item">
+                <a href="/posts/watch_out_cloud_storage/">
+                    <p class="subtitle info date">Oct 24, 2020
+                    </p>
+                </a>
+            </div>
+            
+
+
+            <div class="level-item">
+                <a href="/posts/watch_out_cloud_storage/">
+                    <p class="subtitle info">
+                        11 mins read
+                    </p>
+                </a>
+            </div>
+        </div>
+        <div class="level-right is-hidden-touch">
+            
+            <a class="tag is-rounded" href="/tags/aws">AWS</a>
+            
+            <a class="tag is-rounded" href="/tags/cloud">Cloud</a>
+            
+            <a class="tag is-rounded" href="/tags/storage">Storage</a>
+            
+            <a class="tag is-rounded" href="/tags/s3">S3</a>
+            
+            <a class="tag is-rounded" href="/tags/golang">Golang</a>
+            
+            <a class="tag is-rounded" href="/tags/python">Python</a>
+            
+        </div>
+    </div>
+
+    <div>
+        
+
+        <div>
+            <a href="/posts/watch_out_cloud_storage/">
+                <p class="summary">
+                    One of the most popular services from cloud providers is cloud storage, to be more specific AWS S3, Google Cloud Storage, Azure Storage or any similar service from other cloud providers. This service is very convenient for developers and SREs or System Admins, it solves the problem of managing disks, storage devices , storage servers, etc at a very low cost for storing files, depending on the cloud provider, some of them even offer a staggering 99.999999999% durability. Given the benefits and low cost of such services, I have seen more and more reliance on the cloud storage services.
+But there is a catch on the cheap pricing, in order to make a good decision when architecting an application we need to look a all pricing items for the cloud storage service to optimize around costs. Cloud storage services usually charge for the storage used for files stored, api calls to put, retrieve and list files and network traffic. So we need to have in mind these parameters to avoid surprises on our cloud storage bills. I will not go into too much details on each cloud provider on this post but I will show something I found out recently that made an application lower the costs about 10 times just by optimizing the way the data was being accessed. These optimizations might be a key to make a feature or an app profitable.
+In particular I will talk about AWS S3 api calls and the behavior of some of the official AWS SDKs that needed some tweaking. Of course all findings shown in this post were done with documentation found at the time of this writing. So I suggest double check the SDKs behavior as it might change in the future.
+
+                    
+                </p>
+            </a>
+        </div>
+    </div>
+
+    <div class="level is-mobile continue-reading">
+        <div class="level-left">
+        </div>
+        <div class="level-right">
+            <a href="/posts/watch_out_cloud_storage/">Continue reading <i class="fa fa-angle-double-right"
+                    aria-hidden="true"></i></a>
+        </div>
+    </div>
+    <hr>
+</div><div class="blog-brief">
     <a href="/posts/docker-save-restore/">
         <h3 class="title is-4">
             Lightning Post: Don&#39;t Have a Docker Registry? Save and Load to the Rescue
@@ -358,66 +412,6 @@ To save a docker image:
         </div>
     </div>
     <hr>
-</div><div class="blog-brief">
-    <a href="/posts/taming-the-cpu-metrics/">
-        <h3 class="title is-4">
-            Taming the Cpu Metrics
-        </h3>
-    </a>
-
-    <div class="level is-mobile details">
-        <div class="level-left">
-
-            
-            <div class="level-item">
-                <a href="/posts/taming-the-cpu-metrics/">
-                    <p class="subtitle info date">Jul 11, 2020
-                    </p>
-                </a>
-            </div>
-            
-
-
-            <div class="level-item">
-                <a href="/posts/taming-the-cpu-metrics/">
-                    <p class="subtitle info">
-                        18 mins read
-                    </p>
-                </a>
-            </div>
-        </div>
-        <div class="level-right is-hidden-touch">
-            
-            <a class="tag is-rounded" href="/tags/linux">Linux</a>
-            
-            <a class="tag is-rounded" href="/tags/performance">Performance</a>
-            
-        </div>
-    </div>
-
-    <div>
-        
-
-        <div>
-            <a href="/posts/taming-the-cpu-metrics/">
-                <p class="summary">
-                    In a past blog post I talked about The misunderstood load average in linux hosts, while load average is a good metric to watch in linux systems to catch generic performance problems, it does not reveal what the issue might be. This time I will dig more into cpu metrics collected from a linux system and explain them, for this purpose I will use multipass vms, and will be showing metrics from grafana screenshots which take the data from prometheus and prometheus node exporter (this is actually out of the scope of this post). To gather some metrics I will run a few vms in my home linux server and do some stress tests to catch some operations that will show in the cpu metrics and explain what each one of them is.
-
-                    
-                </p>
-            </a>
-        </div>
-    </div>
-
-    <div class="level is-mobile continue-reading">
-        <div class="level-left">
-        </div>
-        <div class="level-right">
-            <a href="/posts/taming-the-cpu-metrics/">Continue reading <i class="fa fa-angle-double-right"
-                    aria-hidden="true"></i></a>
-        </div>
-    </div>
-    <hr>
 </div>
 
 
@@ -480,6 +474,18 @@ To save a docker image:
             
 
                 <li><a href="/posts/page/3/" class="pagination-link">3</a></li>
+
+                
+                
+
+            
+
+        
+
+            
+            
+
+                <li><a href="/posts/page/4/" class="pagination-link">4</a></li>
 
                 
                 

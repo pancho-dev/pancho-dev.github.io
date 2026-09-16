@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 
-<head><title>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><title>
     Watch Out With Cloud Storage API Calls!!! | 
     
     pancho.dev</title>
@@ -14,7 +14,7 @@ In particular I will talk about AWS S3 api calls and the behavior of some of the
     ">
 
 
-<meta property="og:url" content="http://pancho.dev/posts/watch_out_cloud_storage/">
+<meta property="og:url" content="http://127.0.0.1:1313/posts/watch_out_cloud_storage/">
   <meta property="og:site_name" content="pancho.dev">
   <meta property="og:title" content="Watch out with cloud storage API calls!!!">
   <meta property="og:description" content="One of the most popular services from cloud providers is cloud storage, to be more specific AWS S3, Google Cloud Storage, Azure Storage or any similar service from other cloud providers. This service is very convenient for developers and SREs or System Admins, it solves the problem of managing disks, storage devices , storage servers, etc at a very low cost for storing files, depending on the cloud provider, some of them even offer a staggering 99.999999999% durability. Given the benefits and low cost of such services, I have seen more and more reliance on the cloud storage services.
@@ -48,29 +48,13 @@ In particular I will talk about AWS S3 api calls and the behavior of some of the
   <meta itemprop="dateModified" content="2020-10-24T11:30:35-03:00">
   <meta itemprop="wordCount" content="1921">
   <meta itemprop="keywords" content="AWS,Cloud,Storage,S3,Golang,Python">
-<link rel="canonical" href="http://pancho.dev/posts/watch_out_cloud_storage/" />
+<link rel="canonical" href="http://127.0.0.1:1313/posts/watch_out_cloud_storage/" />
 
-<link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
+<link rel="icon" type="image/png" href="http://127.0.0.1:1313/image/favicon.ico">
 
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/bulma.min.css">
 
-
-
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
-      <script>
-        var doNotTrack = false;
-        if ( false ) {
-          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
-          var doNotTrack = (dnt == "1" || dnt == "yes");
-        }
-        if (!doNotTrack) {
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-WBLGT7MX26');
-        }
-      </script>
 
 
 <script src=/js/ramium.js></script>
@@ -341,44 +325,44 @@ This post was mentioning AWS S3 but I know other providers have similar features
 	<br>
 	
 	<div class="share-buttons">
-	    <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fpancho.dev%2fposts%2fwatch_out_cloud_storage%2f"
+	    <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwatch_out_cloud_storage%2f"
 	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
 	        title="Share on Facebook. Opens in a new window.">
 	        <img src=/img/icons/45px/facebook.png>
 	    </a>
 
-	    <a  href="https://twitter.com/intent/tweet?text=Watch%20out%20with%20cloud%20storage%20API%20calls%21%21%21&url=http%3a%2f%2fpancho.dev%2fposts%2fwatch_out_cloud_storage%2f"
+	    <a  href="https://twitter.com/intent/tweet?text=Watch%20out%20with%20cloud%20storage%20API%20calls%21%21%21&url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwatch_out_cloud_storage%2f"
 	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
 	        title="Share on Twitter. Opens in a new window." >
 	        <img src=/img/icons/45px/twitter.png>
 	    </a>
 
-		<a  href="http://www.reddit.com/submit?url=http%3a%2f%2fpancho.dev%2fposts%2fwatch_out_cloud_storage%2f"
+		<a  href="http://www.reddit.com/submit?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwatch_out_cloud_storage%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Reddit. Opens in a new window." >
 	        <img src=/img/icons/45px/reddit.png>
 	    </a>
 
-	    <a  href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2fpancho.dev%2fposts%2fwatch_out_cloud_storage%2f"
+	    <a  href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwatch_out_cloud_storage%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Pinterest. Opens in a new window." >
 	        <img src=/img/icons/45px/pinterest.png>
 	    </a>
 
-	    <a  href="http://www.tumblr.com/share/link?url=http%3a%2f%2fpancho.dev%2fposts%2fwatch_out_cloud_storage%2f"
+	    <a  href="http://www.tumblr.com/share/link?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwatch_out_cloud_storage%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Tumblr. Opens in a new window." >
 	        <img src=/img/icons/45px/tumblr.png>
 	    </a>
 
-		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fpancho.dev%2fposts%2fwatch_out_cloud_storage%2f
+		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwatch_out_cloud_storage%2f
 			&title=Watch%20out%20with%20cloud%20storage%20API%20calls%21%21%21&summary=%3cp%3eOne%20of%20the%20most%20popular%20services%20from%20cloud%20providers%20is%20cloud%20storage%2c%20to%20be%20more%20specific%20AWS%20S3%2c%20Google%20Cloud%20Storage%2c%20Azure%20Storage%20or%20any%20similar%20service%20from%20other%20cloud%20providers.%20This%20service%20is%20very%20convenient%20for%20developers%20and%20SREs%20or%20System%20Admins%2c%20it%20solves%20the%20problem%20of%20managing%20disks%2c%20storage%20devices%20%2c%20storage%20servers%2c%20etc%20at%20a%20very%20low%20cost%20for%20storing%20files%2c%20depending%20on%20the%20cloud%20provider%2c%20some%20of%20them%20even%20offer%20a%20staggering%2099.999999999%25%20durability.%20Given%20the%20benefits%20and%20low%20cost%20of%20such%20services%2c%20I%20have%20seen%20more%20and%20more%20reliance%20on%20the%20cloud%20storage%20services.%3cbr%3e%0aBut%20there%20is%20a%20catch%20on%20the%20cheap%20pricing%2c%20in%20order%20to%20make%20a%20good%20decision%20when%20architecting%20an%20application%20we%20need%20to%20look%20a%20all%20pricing%20items%20for%20the%20cloud%20storage%20service%20to%20optimize%20around%20costs.%20%20Cloud%20storage%20services%20usually%20charge%20for%20the%20storage%20used%20for%20files%20stored%2c%20api%20calls%20to%20put%2c%20retrieve%20and%20list%20files%20and%20network%20traffic.%20So%20we%20need%20to%20have%20in%20mind%20these%20parameters%20to%20avoid%20surprises%20on%20our%20cloud%20storage%20bills.%20I%20will%20not%20go%20into%20too%20much%20details%20on%20each%20cloud%20provider%20on%20this%20post%20but%20I%20will%20show%20something%20I%20found%20out%20recently%20that%20made%20an%20application%20lower%20the%20costs%20about%2010%20times%20just%20by%20optimizing%20the%20way%20the%20data%20was%20being%20accessed.%20These%20optimizations%20might%20be%20a%20key%20to%20make%20a%20feature%20or%20an%20app%20profitable.%3cbr%3e%0aIn%20particular%20I%20will%20talk%20about%20AWS%20S3%20api%20calls%20and%20the%20behavior%20of%20some%20of%20the%20official%20AWS%20SDKs%20that%20needed%20some%20tweaking.%20Of%20course%20all%20findings%20shown%20in%20this%20post%20were%20done%20with%20documentation%20found%20at%20the%20time%20of%20this%20writing.%20So%20I%20suggest%20double%20check%20the%20SDKs%20behavior%20as%20it%20might%20change%20in%20the%20future.%3c%2fp%3e&source=rafed123.github.io"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on LinkedIn. Opens in a new window." >
 	        <img src=/img/icons/45px/linkedin.png>
 	    </a>
 
-	    <a  href="mailto:?subject=Watch%20out%20with%20cloud%20storage%20API%20calls%21%21%21&amp;body=Check out this site http%3a%2f%2fpancho.dev%2fposts%2fwatch_out_cloud_storage%2f"
+	    <a  href="mailto:?subject=Watch%20out%20with%20cloud%20storage%20API%20calls%21%21%21&amp;body=Check out this site http%3a%2f%2f127.0.0.1%3a1313%2fposts%2fwatch_out_cloud_storage%2f"
 	        title="Share via Email. Opens in a new window." >
 	        <img src=/img/icons/45px/mail.png>
 	    </a>

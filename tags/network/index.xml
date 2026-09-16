@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Network on pancho.dev</title>
-    <link>http://pancho.dev/tags/network/</link>
+    <link>http://127.0.0.1:1313/tags/network/</link>
     <description>Recent content in Network on pancho.dev</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 04 Sep 2021 19:52:08 -0300</lastBuildDate>
-    <atom:link href="http://pancho.dev/tags/network/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://127.0.0.1:1313/tags/network/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Linux Router With Containers</title>
-      <link>http://pancho.dev/posts/linux-router-with-containers/</link>
+      <link>http://127.0.0.1:1313/posts/linux-router-with-containers/</link>
       <pubDate>Sat, 04 Sep 2021 19:52:08 -0300</pubDate>
-      <guid>http://pancho.dev/posts/linux-router-with-containers/</guid>
+      <guid>http://127.0.0.1:1313/posts/linux-router-with-containers/</guid>
       <description>&lt;p&gt;One of my passions in technology is networking, another passion is open source and linux. So sometimes I come across networking software or just to play around with linux standard networking tools like iptables, tc or iproute2, or even play with open source implementations of routing protocols using Quagga/Bird/FRR/go-bgp.&lt;br&gt;&#xA;I always found hard when testing these tools to get a proper setup on my laptop. Of course there are some tools that already help us in this regard like GNS3. However, using GNS3 I need to provide virtual machine images and configure all of them to save specific topologies. I wanted something that I can use quick and simple without the overhead of managing virtual machines and their configurations.&lt;br&gt;&#xA;First thing I though of was set up vagrant linux vms with extra network interfaces and use ansible to configure the virtualized linux routers.&lt;br&gt;&#xA;Then I thought, why not do it in docker?&lt;/p&gt;</description>
     </item>
   </channel>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 
-<head><title>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><title>
     Testing a Reverse Http Proxy | 
     
     pancho.dev</title>
@@ -12,7 +12,7 @@
     ">
 
 
-<meta property="og:url" content="http://pancho.dev/posts/testing-a-proxy/">
+<meta property="og:url" content="http://127.0.0.1:1313/posts/testing-a-proxy/">
   <meta property="og:site_name" content="pancho.dev">
   <meta property="og:title" content="Testing a reverse http proxy">
   <meta property="og:description" content="Did you ever had trouble with a proxy config? Found that is not simple to test a proxy locally?. Why this? simple, I found many times deploying a proxy configuration to production, even a small change like adding a new path, a redirection or just updating ssl certs, can lead to a disruption or an outage because sometimes it’s hard to properly test it before pushing the configuration. So I found a couple of tricks that can help test locally in our laptops or machine before even pushing the code or config giving a safer path to deploy a proxy config.">
@@ -36,29 +36,13 @@
   <meta itemprop="dateModified" content="2020-08-03T14:05:25-03:00">
   <meta itemprop="wordCount" content="1710">
   <meta itemprop="keywords" content="Proxy,Development">
-<link rel="canonical" href="http://pancho.dev/posts/testing-a-proxy/" />
+<link rel="canonical" href="http://127.0.0.1:1313/posts/testing-a-proxy/" />
 
-<link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
+<link rel="icon" type="image/png" href="http://127.0.0.1:1313/image/favicon.ico">
 
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/bulma.min.css">
 
-
-
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
-      <script>
-        var doNotTrack = false;
-        if ( false ) {
-          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
-          var doNotTrack = (dnt == "1" || dnt == "yes");
-        }
-        if (!doNotTrack) {
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-WBLGT7MX26');
-        }
-      </script>
 
 
 <script src=/js/ramium.js></script>
@@ -256,44 +240,44 @@ There are other ways of faking the resolution to localhost like modifying the <c
 	<br>
 	
 	<div class="share-buttons">
-	    <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fpancho.dev%2fposts%2ftesting-a-proxy%2f"
+	    <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2ftesting-a-proxy%2f"
 	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
 	        title="Share on Facebook. Opens in a new window.">
 	        <img src=/img/icons/45px/facebook.png>
 	    </a>
 
-	    <a  href="https://twitter.com/intent/tweet?text=Testing%20a%20reverse%20http%20proxy&url=http%3a%2f%2fpancho.dev%2fposts%2ftesting-a-proxy%2f"
+	    <a  href="https://twitter.com/intent/tweet?text=Testing%20a%20reverse%20http%20proxy&url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2ftesting-a-proxy%2f"
 	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
 	        title="Share on Twitter. Opens in a new window." >
 	        <img src=/img/icons/45px/twitter.png>
 	    </a>
 
-		<a  href="http://www.reddit.com/submit?url=http%3a%2f%2fpancho.dev%2fposts%2ftesting-a-proxy%2f"
+		<a  href="http://www.reddit.com/submit?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2ftesting-a-proxy%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Reddit. Opens in a new window." >
 	        <img src=/img/icons/45px/reddit.png>
 	    </a>
 
-	    <a  href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2fpancho.dev%2fposts%2ftesting-a-proxy%2f"
+	    <a  href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2ftesting-a-proxy%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Pinterest. Opens in a new window." >
 	        <img src=/img/icons/45px/pinterest.png>
 	    </a>
 
-	    <a  href="http://www.tumblr.com/share/link?url=http%3a%2f%2fpancho.dev%2fposts%2ftesting-a-proxy%2f"
+	    <a  href="http://www.tumblr.com/share/link?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2ftesting-a-proxy%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Tumblr. Opens in a new window." >
 	        <img src=/img/icons/45px/tumblr.png>
 	    </a>
 
-		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fpancho.dev%2fposts%2ftesting-a-proxy%2f
+		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2ftesting-a-proxy%2f
 			&title=Testing%20a%20reverse%20http%20proxy&summary=%3cp%3eDid%20you%20ever%20had%20trouble%20with%20a%20proxy%20config%3f%20Found%20that%20is%20not%20simple%20to%20test%20a%20proxy%20locally%3f.%20Why%20this%3f%20simple%2c%20I%20found%20many%20times%20deploying%20a%20proxy%20configuration%20to%20production%2c%20even%20a%20small%20change%20like%20adding%20a%20new%20path%2c%20a%20redirection%20or%20just%20updating%20ssl%20certs%2c%20can%20lead%20to%20a%20disruption%20or%20an%20outage%20because%20sometimes%20it%26rsquo%3bs%20hard%20to%20properly%20test%20it%20before%20pushing%20the%20configuration.%20So%20I%20found%20a%20couple%20of%20tricks%20that%20can%20help%20test%20locally%20in%20our%20laptops%20or%20machine%20before%20even%20pushing%20the%20code%20or%20config%20giving%20a%20safer%20path%20to%20deploy%20a%20proxy%20config.%3c%2fp%3e&source=rafed123.github.io"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on LinkedIn. Opens in a new window." >
 	        <img src=/img/icons/45px/linkedin.png>
 	    </a>
 
-	    <a  href="mailto:?subject=Testing%20a%20reverse%20http%20proxy&amp;body=Check out this site http%3a%2f%2fpancho.dev%2fposts%2ftesting-a-proxy%2f"
+	    <a  href="mailto:?subject=Testing%20a%20reverse%20http%20proxy&amp;body=Check out this site http%3a%2f%2f127.0.0.1%3a1313%2fposts%2ftesting-a-proxy%2f"
 	        title="Share via Email. Opens in a new window." >
 	        <img src=/img/icons/45px/mail.png>
 	    </a>

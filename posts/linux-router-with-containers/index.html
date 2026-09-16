@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en-us">
 
-<head><title>
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><title>
     Linux Router With Containers | 
     
     pancho.dev</title>
@@ -15,7 +15,7 @@ Then I thought, why not do it in docker?
     ">
 
 
-<meta property="og:url" content="http://pancho.dev/posts/linux-router-with-containers/">
+<meta property="og:url" content="http://127.0.0.1:1313/posts/linux-router-with-containers/">
   <meta property="og:site_name" content="pancho.dev">
   <meta property="og:title" content="Linux Router With Containers">
   <meta property="og:description" content="One of my passions in technology is networking, another passion is open source and linux. So sometimes I come across networking software or just to play around with linux standard networking tools like iptables, tc or iproute2, or even play with open source implementations of routing protocols using Quagga/Bird/FRR/go-bgp.
@@ -49,29 +49,13 @@ Then I thought, why not do it in docker?">
   <meta itemprop="dateModified" content="2021-09-04T19:52:08-03:00">
   <meta itemprop="wordCount" content="2206">
   <meta itemprop="keywords" content="Docker,Network,Linux">
-<link rel="canonical" href="http://pancho.dev/posts/linux-router-with-containers/" />
+<link rel="canonical" href="http://127.0.0.1:1313/posts/linux-router-with-containers/" />
 
-<link rel="icon" type="image/png" href="http://pancho.dev/image/favicon.ico">
+<link rel="icon" type="image/png" href="http://127.0.0.1:1313/image/favicon.ico">
 
 <link rel="stylesheet" href="/css/font-awesome.min.css">
 <link rel="stylesheet" href="/css/bulma.min.css">
 
-
-
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-WBLGT7MX26"></script>
-      <script>
-        var doNotTrack = false;
-        if ( false ) {
-          var dnt = (navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack);
-          var doNotTrack = (dnt == "1" || dnt == "yes");
-        }
-        if (!doNotTrack) {
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', 'G-WBLGT7MX26');
-        }
-      </script>
 
 
 <script src=/js/ramium.js></script>
@@ -410,44 +394,44 @@ Best of all this is pretty lightweight and easy to clean up leaving my laptop (o
 	<br>
 	
 	<div class="share-buttons">
-	    <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2fpancho.dev%2fposts%2flinux-router-with-containers%2f"
+	    <a  href="https://www.facebook.com/sharer/sharer.php?u=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2flinux-router-with-containers%2f"
 	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
 	        title="Share on Facebook. Opens in a new window.">
 	        <img src=/img/icons/45px/facebook.png>
 	    </a>
 
-	    <a  href="https://twitter.com/intent/tweet?text=Linux%20Router%20With%20Containers&url=http%3a%2f%2fpancho.dev%2fposts%2flinux-router-with-containers%2f"
+	    <a  href="https://twitter.com/intent/tweet?text=Linux%20Router%20With%20Containers&url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2flinux-router-with-containers%2f"
 	        onclick="socialMediaPopUp(this.href, '', 500, 500); return false;"
 	        title="Share on Twitter. Opens in a new window." >
 	        <img src=/img/icons/45px/twitter.png>
 	    </a>
 
-		<a  href="http://www.reddit.com/submit?url=http%3a%2f%2fpancho.dev%2fposts%2flinux-router-with-containers%2f"
+		<a  href="http://www.reddit.com/submit?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2flinux-router-with-containers%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Reddit. Opens in a new window." >
 	        <img src=/img/icons/45px/reddit.png>
 	    </a>
 
-	    <a  href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2fpancho.dev%2fposts%2flinux-router-with-containers%2f"
+	    <a  href="http://pinterest.com/pin/create/button/?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2flinux-router-with-containers%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Pinterest. Opens in a new window." >
 	        <img src=/img/icons/45px/pinterest.png>
 	    </a>
 
-	    <a  href="http://www.tumblr.com/share/link?url=http%3a%2f%2fpancho.dev%2fposts%2flinux-router-with-containers%2f"
+	    <a  href="http://www.tumblr.com/share/link?url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2flinux-router-with-containers%2f"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on Tumblr. Opens in a new window." >
 	        <img src=/img/icons/45px/tumblr.png>
 	    </a>
 
-		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2fpancho.dev%2fposts%2flinux-router-with-containers%2f
+		<a  href="https://www.linkedin.com/shareArticle?mini=true&url=http%3a%2f%2f127.0.0.1%3a1313%2fposts%2flinux-router-with-containers%2f
 			&title=Linux%20Router%20With%20Containers&summary=%3cp%3eOne%20of%20my%20passions%20in%20technology%20is%20networking%2c%20another%20passion%20is%20open%20source%20and%20linux.%20So%20sometimes%20I%20come%20across%20networking%20software%20or%20just%20to%20play%20around%20with%20linux%20standard%20networking%20tools%20like%20iptables%2c%20tc%20or%20iproute2%2c%20or%20even%20play%20with%20open%20source%20implementations%20of%20routing%20protocols%20using%20Quagga%2fBird%2fFRR%2fgo-bgp.%3cbr%3e%0aI%20always%20found%20hard%20when%20testing%20these%20tools%20to%20get%20a%20proper%20setup%20on%20my%20laptop.%20Of%20course%20there%20are%20some%20tools%20that%20already%20help%20us%20in%20this%20regard%20like%20GNS3.%20However%2c%20using%20GNS3%20I%20need%20to%20provide%20virtual%20machine%20images%20and%20configure%20all%20of%20them%20to%20save%20specific%20topologies.%20I%20wanted%20something%20that%20I%20can%20use%20quick%20and%20simple%20without%20the%20overhead%20of%20managing%20virtual%20machines%20and%20their%20configurations.%3cbr%3e%0aFirst%20thing%20I%20though%20of%20was%20set%20up%20vagrant%20linux%20vms%20with%20extra%20network%20interfaces%20and%20use%20ansible%20to%20configure%20the%20virtualized%20linux%20routers.%3cbr%3e%0aThen%20I%20thought%2c%20why%20not%20do%20it%20in%20docker%3f%3c%2fp%3e&source=rafed123.github.io"
 	        onclick="socialMediaPopUp(this.href, '', 900, 500); return false;"
 	        title="Share on LinkedIn. Opens in a new window." >
 	        <img src=/img/icons/45px/linkedin.png>
 	    </a>
 
-	    <a  href="mailto:?subject=Linux%20Router%20With%20Containers&amp;body=Check out this site http%3a%2f%2fpancho.dev%2fposts%2flinux-router-with-containers%2f"
+	    <a  href="mailto:?subject=Linux%20Router%20With%20Containers&amp;body=Check out this site http%3a%2f%2f127.0.0.1%3a1313%2fposts%2flinux-router-with-containers%2f"
 	        title="Share via Email. Opens in a new window." >
 	        <img src=/img/icons/45px/mail.png>
 	    </a>

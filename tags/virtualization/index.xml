@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Virtualization on pancho.dev</title>
-    <link>http://pancho.dev/tags/virtualization/</link>
+    <link>http://127.0.0.1:1313/tags/virtualization/</link>
     <description>Recent content in Virtualization on pancho.dev</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 16 Jul 2020 15:51:59 -0300</lastBuildDate>
-    <atom:link href="http://pancho.dev/tags/virtualization/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="http://127.0.0.1:1313/tags/virtualization/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Who Stole My Cpu?</title>
-      <link>http://pancho.dev/posts/who-stole-my-cpu/</link>
+      <link>http://127.0.0.1:1313/posts/who-stole-my-cpu/</link>
       <pubDate>Thu, 16 Jul 2020 15:51:59 -0300</pubDate>
-      <guid>http://pancho.dev/posts/who-stole-my-cpu/</guid>
-      <description>&lt;p&gt;In a previous post I talked about &lt;a href=&#34;http://pancho.dev/posts/taming-the-cpu-metrics/&#34;&gt;Taming the cpu metrics&lt;/a&gt;, while that post was an overview of cpu metrics I thought it was a good topic to emphasize on the cpu &lt;code&gt;steal&lt;/code&gt; metric in linux hosts. This is something I recently found and didn&amp;rsquo;t know it even existed, but it can be very useful when running in virtualized environments and helping us tune either the vm, or the physical host that runs the vms. It is something engineers probably overlook and probably don&amp;rsquo;t even know, if I have known this a couple of months ago would have saved me some troubleshooting time.&lt;/p&gt;</description>
+      <guid>http://127.0.0.1:1313/posts/who-stole-my-cpu/</guid>
+      <description>&lt;p&gt;In a previous post I talked about &lt;a href=&#34;http://127.0.0.1:1313/posts/taming-the-cpu-metrics/&#34;&gt;Taming the cpu metrics&lt;/a&gt;, while that post was an overview of cpu metrics I thought it was a good topic to emphasize on the cpu &lt;code&gt;steal&lt;/code&gt; metric in linux hosts. This is something I recently found and didn&amp;rsquo;t know it even existed, but it can be very useful when running in virtualized environments and helping us tune either the vm, or the physical host that runs the vms. It is something engineers probably overlook and probably don&amp;rsquo;t even know, if I have known this a couple of months ago would have saved me some troubleshooting time.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

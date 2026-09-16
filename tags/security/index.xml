@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Security on pancho.dev</title>
+    <link>http://127.0.0.1:1313/tags/security/</link>
+    <description>Recent content in Security on pancho.dev</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 16 Sep 2026 10:42:00 -0300</lastBuildDate>
+    <atom:link href="http://127.0.0.1:1313/tags/security/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Single Point of Failure: Why Your Phone is the Weakest Link in Your Security (And How to Fix It)</title>
+      <link>http://127.0.0.1:1313/posts/single-point-of-failure-phone-security/</link>
+      <pubDate>Wed, 16 Sep 2026 10:42:00 -0300</pubDate>
+      <guid>http://127.0.0.1:1313/posts/single-point-of-failure-phone-security/</guid>
+      <description>&lt;p&gt;We&amp;rsquo;ve all lived through the messy evolution of digital security. A few years ago, the landscape was simple: a username, a password, and maybe basic HTTPS or SFTP protocols. Then came the era of brute-force attacks and weak passwords, forcing the industry to enforce strict policies—requiring uppercase letters, numbers, and symbols.&lt;/p&gt;&#xA;&lt;p&gt;But humans aren&amp;rsquo;t built to memorize 50 unique, complex alphanumeric strings. The predictable result? People started using one or two passwords for everything, or worse, writing them down on Post-it notes stuck to their monitors.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

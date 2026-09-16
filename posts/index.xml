@@ -2,115 +2,122 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on pancho.dev</title>
-    <link>http://pancho.dev/posts/</link>
+    <link>http://127.0.0.1:1313/posts/</link>
     <description>Recent content in Posts on pancho.dev</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 25 May 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="http://pancho.dev/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 16 Sep 2026 10:42:00 -0300</lastBuildDate>
+    <atom:link href="http://127.0.0.1:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Single Point of Failure: Why Your Phone is the Weakest Link in Your Security (And How to Fix It)</title>
+      <link>http://127.0.0.1:1313/posts/single-point-of-failure-phone-security/</link>
+      <pubDate>Wed, 16 Sep 2026 10:42:00 -0300</pubDate>
+      <guid>http://127.0.0.1:1313/posts/single-point-of-failure-phone-security/</guid>
+      <description>&lt;p&gt;We&amp;rsquo;ve all lived through the messy evolution of digital security. A few years ago, the landscape was simple: a username, a password, and maybe basic HTTPS or SFTP protocols. Then came the era of brute-force attacks and weak passwords, forcing the industry to enforce strict policies—requiring uppercase letters, numbers, and symbols.&lt;/p&gt;&#xA;&lt;p&gt;But humans aren&amp;rsquo;t built to memorize 50 unique, complex alphanumeric strings. The predictable result? People started using one or two passwords for everything, or worse, writing them down on Post-it notes stuck to their monitors.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Teaching Alexa to Speak Infrared: The Engineering Behind a Dumb Range Hood</title>
-      <link>http://pancho.dev/posts/infrared-hood/</link>
+      <link>http://127.0.0.1:1313/posts/infrared-hood/</link>
       <pubDate>Mon, 25 May 2026 00:00:00 +0000</pubDate>
-      <guid>http://pancho.dev/posts/infrared-hood/</guid>
+      <guid>http://127.0.0.1:1313/posts/infrared-hood/</guid>
       <description>&lt;p&gt;It all started with a simple, everyday annoyance in the kitchen.&lt;/p&gt;&#xA;&lt;p&gt;My wife would be in the middle of cooking, hands covered in flour, oil, or whatever was being prepped for dinner, and the kitchen would start filling with smoke. Our range hood works perfectly fine, but it is completely &amp;ldquo;dumb&amp;rdquo;—controlled exclusively by a small, analog infrared remote. Having to stop, wash her hands, find the little plastic remote, and press the right buttons just to clear the air was a daily friction point.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Secrets Manager for Home Lab Automation</title>
-      <link>http://pancho.dev/posts/home-lab-automation-secrets/</link>
+      <link>http://127.0.0.1:1313/posts/home-lab-automation-secrets/</link>
       <pubDate>Tue, 25 Jul 2023 15:19:00 -0300</pubDate>
-      <guid>http://pancho.dev/posts/home-lab-automation-secrets/</guid>
+      <guid>http://127.0.0.1:1313/posts/home-lab-automation-secrets/</guid>
       <description>&lt;p&gt;One of the problems I found when working with my home lab is that I was lacking a solution for storing secrets. Even though there are open source solutions like Hashicorp vault to manage secrets, and managing it something requires maintenance and I didn&amp;rsquo;t want to have the operational burden.&lt;br&gt;&#xA;I used to manage my password with a KeePass vault file. However that solution fell short when dealing with multiple devices like phones and multiple laptops. So I chose a password manager. I ended up choosing Bitwarden as a password manager, one of the reasons I chose this solution was that it is open source and if I ever want to host it myself I can migrate to the open source version and migration will bee seamless to a hosted solution. I still chose the cloud version of it. And at some point working on my labs I decided to use my password manager to store the secrets I need for my automations.&lt;br&gt;&#xA;Bitwarden offers a cli tool which is pretty handy for automations, it outputs secrets in json format which is pretty useful to be used in any language. I chose to keep things simple and use it on the shell and parse it with jq tool, one downside of the bitwarden CLI tool is that they don&amp;rsquo;t offer a build for linux arm64 arch, so if you are running on a raspberry pi you will have to build the tool from source.&lt;br&gt;&#xA;This post is opinionated to Bitwarden, but the same concepts should work for other password managers CLI tools, of course depending on outputs a few things should be adapted to other password managers outputs.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Working With Open Source Golang Projects</title>
-      <link>http://pancho.dev/posts/working-with-golang-projects/</link>
+      <link>http://127.0.0.1:1313/posts/working-with-golang-projects/</link>
       <pubDate>Fri, 19 Aug 2022 10:27:32 -0300</pubDate>
-      <guid>http://pancho.dev/posts/working-with-golang-projects/</guid>
+      <guid>http://127.0.0.1:1313/posts/working-with-golang-projects/</guid>
       <description>&lt;p&gt;I have been working with golang projects for quite some time and I found that the usual fork and pull request on github is a bit trickier when working with golang, as golang doesn&amp;rsquo;t have dependency management tools like python has PyPI or npm for NodeJS, etc. Golang dependency management relies on pretty much git tag or commit hashed to specific repos for using golang modules in your code, in my personal opinion I have mixed feelings about the approach, however I am not going to discuss that here, I might do that in another post. However when contributing to open source projects I found myself in trouble until I understood how things worked in managing dependencies in golang.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Linux Router With Containers</title>
-      <link>http://pancho.dev/posts/linux-router-with-containers/</link>
+      <link>http://127.0.0.1:1313/posts/linux-router-with-containers/</link>
       <pubDate>Sat, 04 Sep 2021 19:52:08 -0300</pubDate>
-      <guid>http://pancho.dev/posts/linux-router-with-containers/</guid>
+      <guid>http://127.0.0.1:1313/posts/linux-router-with-containers/</guid>
       <description>&lt;p&gt;One of my passions in technology is networking, another passion is open source and linux. So sometimes I come across networking software or just to play around with linux standard networking tools like iptables, tc or iproute2, or even play with open source implementations of routing protocols using Quagga/Bird/FRR/go-bgp.&lt;br&gt;&#xA;I always found hard when testing these tools to get a proper setup on my laptop. Of course there are some tools that already help us in this regard like GNS3. However, using GNS3 I need to provide virtual machine images and configure all of them to save specific topologies. I wanted something that I can use quick and simple without the overhead of managing virtual machines and their configurations.&lt;br&gt;&#xA;First thing I though of was set up vagrant linux vms with extra network interfaces and use ansible to configure the virtualized linux routers.&lt;br&gt;&#xA;Then I thought, why not do it in docker?&lt;/p&gt;</description>
     </item>
     <item>
       <title>Watch out with cloud storage API calls!!!</title>
-      <link>http://pancho.dev/posts/watch_out_cloud_storage/</link>
+      <link>http://127.0.0.1:1313/posts/watch_out_cloud_storage/</link>
       <pubDate>Sat, 24 Oct 2020 11:30:35 -0300</pubDate>
-      <guid>http://pancho.dev/posts/watch_out_cloud_storage/</guid>
+      <guid>http://127.0.0.1:1313/posts/watch_out_cloud_storage/</guid>
       <description>&lt;p&gt;One of the most popular services from cloud providers is cloud storage, to be more specific AWS S3, Google Cloud Storage, Azure Storage or any similar service from other cloud providers. This service is very convenient for developers and SREs or System Admins, it solves the problem of managing disks, storage devices , storage servers, etc at a very low cost for storing files, depending on the cloud provider, some of them even offer a staggering 99.999999999% durability. Given the benefits and low cost of such services, I have seen more and more reliance on the cloud storage services.&lt;br&gt;&#xA;But there is a catch on the cheap pricing, in order to make a good decision when architecting an application we need to look a all pricing items for the cloud storage service to optimize around costs.  Cloud storage services usually charge for the storage used for files stored, api calls to put, retrieve and list files and network traffic. So we need to have in mind these parameters to avoid surprises on our cloud storage bills. I will not go into too much details on each cloud provider on this post but I will show something I found out recently that made an application lower the costs about 10 times just by optimizing the way the data was being accessed. These optimizations might be a key to make a feature or an app profitable.&lt;br&gt;&#xA;In particular I will talk about AWS S3 api calls and the behavior of some of the official AWS SDKs that needed some tweaking. Of course all findings shown in this post were done with documentation found at the time of this writing. So I suggest double check the SDKs behavior as it might change in the future.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Lightning Post: Don&#39;t have a Docker registry? save and load to the rescue</title>
-      <link>http://pancho.dev/posts/docker-save-restore/</link>
+      <link>http://127.0.0.1:1313/posts/docker-save-restore/</link>
       <pubDate>Thu, 06 Aug 2020 20:30:48 -0300</pubDate>
-      <guid>http://pancho.dev/posts/docker-save-restore/</guid>
-      <description>&lt;p&gt;Whenever someone is working with docker and need to move images between hosts without the need for rebuilding them or hosting a private registry. This &lt;a href=&#34;http://pancho.dev/posts/lightning-post/&#34;&gt;lightning post&lt;/a&gt; will show us 2 commands that will help us to easy move container images between hosts.&lt;/p&gt;&#xA;&lt;h1 id=&#34;how-to-save-a-docker-image-for-reuse-in-other-host&#34;&gt;How to save a docker image for reuse in other host?&lt;/h1&gt;&#xA;&lt;p&gt;There is a handy command that helps save a docker image that is already in the system or already built, there are situations where builds take a long time and building the images in multiple hosts is time consuming, so we can save the image and copy it to other host and import it for reuse.&lt;br&gt;&#xA;To save a docker image:&lt;/p&gt;</description>
+      <guid>http://127.0.0.1:1313/posts/docker-save-restore/</guid>
+      <description>&lt;p&gt;Whenever someone is working with docker and need to move images between hosts without the need for rebuilding them or hosting a private registry. This &lt;a href=&#34;http://127.0.0.1:1313/posts/lightning-post/&#34;&gt;lightning post&lt;/a&gt; will show us 2 commands that will help us to easy move container images between hosts.&lt;/p&gt;&#xA;&lt;h1 id=&#34;how-to-save-a-docker-image-for-reuse-in-other-host&#34;&gt;How to save a docker image for reuse in other host?&lt;/h1&gt;&#xA;&lt;p&gt;There is a handy command that helps save a docker image that is already in the system or already built, there are situations where builds take a long time and building the images in multiple hosts is time consuming, so we can save the image and copy it to other host and import it for reuse.&lt;br&gt;&#xA;To save a docker image:&lt;/p&gt;</description>
     </item>
     <item>
       <title>Testing a reverse http proxy</title>
-      <link>http://pancho.dev/posts/testing-a-proxy/</link>
+      <link>http://127.0.0.1:1313/posts/testing-a-proxy/</link>
       <pubDate>Mon, 03 Aug 2020 14:05:25 -0300</pubDate>
-      <guid>http://pancho.dev/posts/testing-a-proxy/</guid>
+      <guid>http://127.0.0.1:1313/posts/testing-a-proxy/</guid>
       <description>&lt;p&gt;Did you ever had trouble with a proxy config? Found that is not simple to test a proxy locally?. Why this? simple, I found many times deploying a proxy configuration to production, even a small change like adding a new path, a redirection or just updating ssl certs, can lead to a disruption or an outage because sometimes it&amp;rsquo;s hard to properly test it before pushing the configuration. So I found a couple of tricks that can help test locally in our laptops or machine before even pushing the code or config giving a safer path to deploy a proxy config.&lt;/p&gt;</description>
     </item>
     <item>
       <title>What is a lightning post?</title>
-      <link>http://pancho.dev/posts/lightning-post/</link>
+      <link>http://127.0.0.1:1313/posts/lightning-post/</link>
       <pubDate>Sun, 02 Aug 2020 13:07:20 -0300</pubDate>
-      <guid>http://pancho.dev/posts/lightning-post/</guid>
+      <guid>http://127.0.0.1:1313/posts/lightning-post/</guid>
       <description>&lt;p&gt;After about 2 months of launching this blog I realized that creating blog content is a time consuming task. While the whole purpose of my blog is to share some of my experiences and it&amp;rsquo;s my own way to contribute to the open source community (most of what I talk about here is open source tech), I figured that I wanted to keep adding content every week, but some weeks it&amp;rsquo;s much harder than other weeks to create a full blown blog post, I write this in my free time so between work and personal life it&amp;rsquo;s hard to keep full blown projects every week. I really enjoy writing these posts and I want to keep contributing my experience even with smaller contributions, as a full blown blog post that might be about 20 min read takes me in average 6 to 8 hours to produce them and test the entire project, then I want to keep contributing but sometimes with less time consuming posts. That is what I will be publishing &amp;ldquo;lightning posts&amp;rdquo; alongside my regular full blown projects.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Who Stole My Cpu?</title>
-      <link>http://pancho.dev/posts/who-stole-my-cpu/</link>
+      <link>http://127.0.0.1:1313/posts/who-stole-my-cpu/</link>
       <pubDate>Thu, 16 Jul 2020 15:51:59 -0300</pubDate>
-      <guid>http://pancho.dev/posts/who-stole-my-cpu/</guid>
-      <description>&lt;p&gt;In a previous post I talked about &lt;a href=&#34;http://pancho.dev/posts/taming-the-cpu-metrics/&#34;&gt;Taming the cpu metrics&lt;/a&gt;, while that post was an overview of cpu metrics I thought it was a good topic to emphasize on the cpu &lt;code&gt;steal&lt;/code&gt; metric in linux hosts. This is something I recently found and didn&amp;rsquo;t know it even existed, but it can be very useful when running in virtualized environments and helping us tune either the vm, or the physical host that runs the vms. It is something engineers probably overlook and probably don&amp;rsquo;t even know, if I have known this a couple of months ago would have saved me some troubleshooting time.&lt;/p&gt;</description>
+      <guid>http://127.0.0.1:1313/posts/who-stole-my-cpu/</guid>
+      <description>&lt;p&gt;In a previous post I talked about &lt;a href=&#34;http://127.0.0.1:1313/posts/taming-the-cpu-metrics/&#34;&gt;Taming the cpu metrics&lt;/a&gt;, while that post was an overview of cpu metrics I thought it was a good topic to emphasize on the cpu &lt;code&gt;steal&lt;/code&gt; metric in linux hosts. This is something I recently found and didn&amp;rsquo;t know it even existed, but it can be very useful when running in virtualized environments and helping us tune either the vm, or the physical host that runs the vms. It is something engineers probably overlook and probably don&amp;rsquo;t even know, if I have known this a couple of months ago would have saved me some troubleshooting time.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Taming the Cpu Metrics</title>
-      <link>http://pancho.dev/posts/taming-the-cpu-metrics/</link>
+      <link>http://127.0.0.1:1313/posts/taming-the-cpu-metrics/</link>
       <pubDate>Sat, 11 Jul 2020 15:08:51 -0300</pubDate>
-      <guid>http://pancho.dev/posts/taming-the-cpu-metrics/</guid>
-      <description>&lt;p&gt;In a past blog post I talked about &lt;a href=&#34;http://pancho.dev/posts/linux-load-average/&#34;&gt;The misunderstood load average in linux hosts&lt;/a&gt;, while load average is a good metric to watch in linux systems to catch generic performance problems, it does not reveal what the issue might be. This time I will dig more into cpu metrics collected from a linux system and explain them, for this purpose I will use multipass vms, and will be showing metrics from &lt;a href=&#34;https://grafana.com/&#34;&gt;grafana&lt;/a&gt; screenshots which take the data from &lt;a href=&#34;https://prometheus.io/&#34;&gt;prometheus&lt;/a&gt; and &lt;a href=&#34;https://github.com/prometheus/node_exporter&#34;&gt;prometheus node exporter&lt;/a&gt; (this is actually out of the scope of this post). To gather some metrics I will run a few vms in my home linux server and do some stress tests to catch some operations that will show in the cpu metrics and explain what each one of them is.&lt;/p&gt;</description>
+      <guid>http://127.0.0.1:1313/posts/taming-the-cpu-metrics/</guid>
+      <description>&lt;p&gt;In a past blog post I talked about &lt;a href=&#34;http://127.0.0.1:1313/posts/linux-load-average/&#34;&gt;The misunderstood load average in linux hosts&lt;/a&gt;, while load average is a good metric to watch in linux systems to catch generic performance problems, it does not reveal what the issue might be. This time I will dig more into cpu metrics collected from a linux system and explain them, for this purpose I will use multipass vms, and will be showing metrics from &lt;a href=&#34;https://grafana.com/&#34;&gt;grafana&lt;/a&gt; screenshots which take the data from &lt;a href=&#34;https://prometheus.io/&#34;&gt;prometheus&lt;/a&gt; and &lt;a href=&#34;https://github.com/prometheus/node_exporter&#34;&gt;prometheus node exporter&lt;/a&gt; (this is actually out of the scope of this post). To gather some metrics I will run a few vms in my home linux server and do some stress tests to catch some operations that will show in the cpu metrics and explain what each one of them is.&lt;/p&gt;</description>
     </item>
     <item>
       <title>What&#39;s a ULID</title>
-      <link>http://pancho.dev/posts/whats-ulid/</link>
+      <link>http://127.0.0.1:1313/posts/whats-ulid/</link>
       <pubDate>Sat, 27 Jun 2020 14:35:31 -0300</pubDate>
-      <guid>http://pancho.dev/posts/whats-ulid/</guid>
+      <guid>http://127.0.0.1:1313/posts/whats-ulid/</guid>
       <description>&lt;p&gt;This time I will talk about something I found out very recently, and I found interesting to share this information as it might be handy for developers to use when the use case fits.&lt;br&gt;&#xA;So this time I will introduce the &lt;code&gt;ulid&lt;/code&gt;. Spoiler alert, it&amp;rsquo;s an ID or at least a data structure that can be used to represent an ID. So why do we have another way of expressing an ID, I won&amp;rsquo;t get into too much details into that but yes there are many ways of defining ids, it can be numerical, using UUIDs, etc. So my motivation is that I found useful the properties of ulid for some specific use cases.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Multipass Microk8s Cluster on multiple nodes</title>
-      <link>http://pancho.dev/posts/multipass-microk8s-cluster/</link>
+      <link>http://127.0.0.1:1313/posts/multipass-microk8s-cluster/</link>
       <pubDate>Sat, 13 Jun 2020 11:37:56 -0300</pubDate>
-      <guid>http://pancho.dev/posts/multipass-microk8s-cluster/</guid>
+      <guid>http://127.0.0.1:1313/posts/multipass-microk8s-cluster/</guid>
       <description>&lt;p&gt;A couple of posts ago I talked about multi-node kubernetes clusters and the benefits of them running them for developing automation, testing software and configurations. I still think is that most developers probably don&amp;rsquo;t need this setup or can live with a simpler setup. My motivation is because I work on cloud infrastructure and automation of deployments, databases, and lots of complex scenarios that running single node k8s cluster doesn&amp;rsquo;t fit my needs. This time I will try another option to create multi-node clusters. I have used &lt;a href=&#34;https://kind.sigs.k8s.io/docs/user/quick-start/&#34;&gt;kind&lt;/a&gt;, &lt;a href=&#34;https://github.com/weaveworks/ignite&#34;&gt;ignite&lt;/a&gt; micro vms and &lt;a href=&#34;https://rancher.com/docs/k3s/latest/en/quick-start/&#34;&gt;k3s&lt;/a&gt; in blog posts. This time is the turn of some tools from Canonical which seems o work together pretty well. I will create a multi-node cluster running vms created with &lt;a href=&#34;https://multipass.run/&#34;&gt;multipass&lt;/a&gt; and &lt;a href=&#34;https://microk8s.io/&#34;&gt;microk8s&lt;/a&gt;.&lt;/p&gt;</description>
     </item>
     <item>
       <title>The misunderstood load average in linux hosts</title>
-      <link>http://pancho.dev/posts/linux-load-average/</link>
+      <link>http://127.0.0.1:1313/posts/linux-load-average/</link>
       <pubDate>Sun, 07 Jun 2020 20:02:27 -0300</pubDate>
-      <guid>http://pancho.dev/posts/linux-load-average/</guid>
+      <guid>http://127.0.0.1:1313/posts/linux-load-average/</guid>
       <description>&lt;p&gt;Ever wondered when someone runs the command &lt;code&gt;uptime&lt;/code&gt; in a linux host what the values in the &lt;code&gt;load average:&lt;/code&gt; section mean? well I have wondered about it many times in my career. And this should be a simple question to ask a seasoned linux administrator or developer, right? well it&amp;rsquo;s not entirely true, as the load average value in a linux hosts probably is the most misunderstood term and often associated with the wrong concepts. In this post I will explain and tell a bit more about my experience about load average value in linux and how it helps me everyday to spot issues in infrastructure.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Creating Kubernetes Kind Cluster</title>
-      <link>http://pancho.dev/posts/creating-kubernetes-kind-cluster/</link>
+      <link>http://127.0.0.1:1313/posts/creating-kubernetes-kind-cluster/</link>
       <pubDate>Sat, 30 May 2020 15:11:30 -0300</pubDate>
-      <guid>http://pancho.dev/posts/creating-kubernetes-kind-cluster/</guid>
-      <description>&lt;p&gt;In an earlier post I showed how to create &lt;a href=&#34;http://pancho.dev/posts/multinode-k8s-ignite-k3s/&#34;&gt;Multi-node k8s cluster using ignite and k3s&lt;/a&gt;, while this was a good experience I needed to test some other tools, and this time I decided to go for kind (kubernetes in docker). Which looks like a good approach to work with clusters locally and it will still be lightweight as the kubernetes &amp;ldquo;nodes&amp;rdquo; will be actually running as docker containers. This at first glance looks like a easier approach and seems to work in a similar way in Mac, linux or Windows, which gives a great advantage.&lt;br&gt;&#xA;Also this time I choose to work with kind because it allows to do a lot of stuff like simulating multiple control plane nodes and multiple worker nodes. In my case I did wanted multiple nodes to try things like running Postgres clusters and use anti affinity to develop in my laptop some automation around Postgres clusters. It is very fast to start a cluster and play around with multiple clusters. Another cool feature is that is easy to start a cluster with multiple masters and the setup of the cluster seems a very &amp;ldquo;vanilla&amp;rdquo; k8s cluster which is and advantage to be running things similar to what you would run in production others like k3s or microk8s use a lot of lightweight components that might not actually look like &amp;ldquo;production clusters&amp;rdquo;, however this is still a very personal opinion and depends on the needs of the developer and all have pros and cons. We will see how it looks like after I actually finish the post and get some conclusions.&lt;/p&gt;</description>
+      <guid>http://127.0.0.1:1313/posts/creating-kubernetes-kind-cluster/</guid>
+      <description>&lt;p&gt;In an earlier post I showed how to create &lt;a href=&#34;http://127.0.0.1:1313/posts/multinode-k8s-ignite-k3s/&#34;&gt;Multi-node k8s cluster using ignite and k3s&lt;/a&gt;, while this was a good experience I needed to test some other tools, and this time I decided to go for kind (kubernetes in docker). Which looks like a good approach to work with clusters locally and it will still be lightweight as the kubernetes &amp;ldquo;nodes&amp;rdquo; will be actually running as docker containers. This at first glance looks like a easier approach and seems to work in a similar way in Mac, linux or Windows, which gives a great advantage.&lt;br&gt;&#xA;Also this time I choose to work with kind because it allows to do a lot of stuff like simulating multiple control plane nodes and multiple worker nodes. In my case I did wanted multiple nodes to try things like running Postgres clusters and use anti affinity to develop in my laptop some automation around Postgres clusters. It is very fast to start a cluster and play around with multiple clusters. Another cool feature is that is easy to start a cluster with multiple masters and the setup of the cluster seems a very &amp;ldquo;vanilla&amp;rdquo; k8s cluster which is and advantage to be running things similar to what you would run in production others like k3s or microk8s use a lot of lightweight components that might not actually look like &amp;ldquo;production clusters&amp;rdquo;, however this is still a very personal opinion and depends on the needs of the developer and all have pros and cons. We will see how it looks like after I actually finish the post and get some conclusions.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Multi-node k8s cluster using ignite and k3s</title>
-      <link>http://pancho.dev/posts/multinode-k8s-ignite-k3s/</link>
+      <link>http://127.0.0.1:1313/posts/multinode-k8s-ignite-k3s/</link>
       <pubDate>Sun, 17 May 2020 18:22:05 -0300</pubDate>
-      <guid>http://pancho.dev/posts/multinode-k8s-ignite-k3s/</guid>
+      <guid>http://127.0.0.1:1313/posts/multinode-k8s-ignite-k3s/</guid>
       <description>&lt;p&gt;Sometimes if you are working with kubernetes, or developing applications that require a multi-node setup to test some functionality running a multi-node cluster is a must, in some cases you could use &lt;a href=&#34;https://kind.sigs.k8s.io/docs/user/quick-start/&#34;&gt;kind&lt;/a&gt; which you can spin up multi-node/multi-master clusters on docker, however there might be scenarios were you still need to test or develop functions that need the real feel of a cluster with multiple nodes.&lt;br&gt;&#xA;In the past I have run this in my local environment running vms with vagrant and virtualbox, that worked very well, and I still use it for some special scenarios. But I needed something I could run more workers/masters on my local laptop. One clear example is that I wanted to test the &lt;a href=&#34;https://access.crunchydata.com/documentation/postgres-operator&#34;&gt;Postgres operator from crunchydata&lt;/a&gt; that allows to create a Postgres cluster with a standby cluster in a different k8s cluster. Or try &lt;a href=&#34;https://github.com/squat/kilo&#34;&gt;kilo&lt;/a&gt; to setup encrypted communications between pods and test the multi cluster setup. Another use case was that I wanted to play with CNI plugins or some use some other advanced features, and the setup I will explain in this post allows more flexibility to do so.&lt;br&gt;&#xA;My need could be solved by vagrant and virtualbox, and in fact is a great approach and very easy to setup everything as code in an automated fashion. But I wanted to take my laptop to the next level with something more efficient and I found a great project that allows to run &lt;a href=&#34;https://firecracker-microvm.github.io/&#34;&gt;firecracker&lt;/a&gt; micro-vms in a way that is very similar to running docker containers. The project is called &lt;a href=&#34;https://github.com/weaveworks/ignite&#34;&gt;ignite&lt;/a&gt; and you will have in no time vms running using very little resources which allows to run much more worker nodes and multiple clusters at the same time.&lt;br&gt;&#xA;We will install ignite in our ubuntu laptop/desktop/server and run a 3 node kubernetes cluster. The following have been tested in my ubuntu 18.04 server I run at home.&lt;/p&gt;</description>
     </item>
   </channel>
